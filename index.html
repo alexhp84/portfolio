@@ -3,84 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexander Henry Patnick | Solutions Engineer Portfolio</title>
+    <title>Alexander Henry Patnick | Systems & Support Engineering Portfolio</title>
     <style>
         :root {
-            --bg: #0d1117;
-            --text: #c9d1d9;
+            --bg: #0a0e14;
+            --card-bg: #111622;
+            --text-main: #b3b9c5;
             --text-heading: #f0f6fc;
-            --card-bg: #161b22;
-            --accent: #58a6ff;
-            --accent-success: #238636;
-            --accent-success-hover: #2ea043;
-            --border: #30363d;
-            --secondary-text: #8b949e;
-            --badge-bg: rgba(56, 139, 253, 0.15);
-            --badge-text: #58a6ff;
+            --cyan-accent: #00f2fe;
+            --purple-accent: #9d4edd;
+            --border-color: #1f293d;
+            --green-glow: #39ff14;
+            --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
-            color: var(--text);
+            background-image: linear-gradient(rgba(31, 41, 61, 0.2) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(31, 41, 61, 0.2) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-main);
             line-height: 1.6;
             margin: 0;
             padding: 40px 20px;
         }
+
         .container {
             max-width: 850px;
             margin: 0 auto;
         }
+
         header {
             background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            border-left: 4px solid var(--cyan-accent);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0 8px 8px 0;
             padding: 32px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
-        h1 { margin: 0 0 5px 0; font-size: 2.2rem; color: var(--text-heading); letter-spacing: -0.5px; }
+
+        header::after {
+            content: "STATUS: ACTIVE // DEPLOYED";
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--green-glow);
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.3rem;
+            color: var(--text-heading);
+            letter-spacing: -0.5px;
+            font-weight: 800;
+        }
+
         .title-subheading {
-            font-size: 1.25rem;
-            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 1.15rem;
+            color: var(--cyan-accent);
             margin: 0 0 20px 0;
-            font-weight: 600;
-        }
-        .about-text { font-size: 1.05rem; color: var(--text); margin-bottom: 24px; }
-
-        /* Tech Stack Grid Badges */
-        .skills-container {
-            margin: 24px 0;
-        }
-        .skills-label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            color: var(--secondary-text);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .badge-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .badge {
-            background-color: var(--badge-bg);
-            color: var(--badge-text);
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(56, 139, 253, 0.2);
+            letter-spacing: 1px;
         }
 
-        /* Responsive Action Grid */
-        .cta-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 28px;
-            flex-wrap: wrap;
+        .about-text { font-size: 1.05rem; color: #9aa2b1; margin-bottom: 24px; }
+
+        .skills-container { margin: 24px 0; }
+        .skills-label {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+            color: var(--purple-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
+        .badge-group { display: flex; flex-wrap: wrap; gap: 8px; }
+        .badge {
+            background-color: rgba(0, 242, 254, 0.05);
+            color: var(--cyan-accent);
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            padding: 6px 14px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            transition: all 0.2s ease;
+        }
+        .badge:hover {
+            background-color: rgba(0, 242, 254, 0.15);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+
+        .cta-group { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
         .btn {
             display: inline-flex;
             align-items: center;
@@ -90,81 +115,85 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            font-family: var(--font-mono);
         }
         .btn-primary {
-            background-color: var(--accent-success);
-            color: white;
-            border: 1px solid rgba(240,246,252,0.1);
+            background: linear-gradient(135deg, #00b4db, #00f2fe);
+            color: #050510;
         }
-        .btn-primary:hover { background-color: var(--accent-success-hover); }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
         .btn-secondary {
             background-color: transparent;
             color: var(--text-heading);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
         }
         .btn-secondary:hover {
-            background-color: #21262d;
-            border-color: #8b949e;
+            background-color: #171e2e;
+            border-color: var(--purple-accent);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.2);
         }
 
-        /* Repos Showcase Setup */
-        h2 { margin-top: 50px; border-bottom: 1px solid var(--border); padding-bottom: 12px; font-size: 1.6rem; color: var(--text-heading); }
-        .repo-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-top: 24px;
+        h2 {
+            margin-top: 50px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            font-size: 1.5rem;
+            color: var(--text-heading);
+            font-family: var(--font-mono);
+            letter-spacing: -0.5px;
         }
-        @media(min-width: 600px) {
-            .repo-grid { grid-template-columns: 1fr 1fr; }
-        }
+        .repo-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+        @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
+
         .repo-card {
             background: var(--card-bg);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .repo-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-            border-color: #58a6ff;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            border-color: var(--cyan-accent);
         }
         .repo-name {
-            font-weight: 600;
-            color: var(--accent);
+            font-weight: 700;
+            color: var(--text-heading);
             text-decoration: none;
             font-size: 1.15rem;
             word-break: break-all;
+            font-family: var(--font-mono);
         }
-        .repo-name:hover { text-decoration: underline; }
-        .repo-desc {
-            font-size: 0.92rem;
-            color: var(--secondary-text);
-            margin: 12px 0 24px 0;
-            flex-grow: 1;
-        }
+        .repo-card:hover .repo-name { color: var(--cyan-accent); }
+        .repo-desc { font-size: 0.92rem; color: #8a95a5; margin: 12px 0 24px 0; flex-grow: 1; }
+
         .repo-meta {
-            font-size: 0.82rem;
-            color: var(--secondary-text);
+            font-size: 0.8rem;
+            color: #727e91;
             display: flex;
             gap: 16px;
-            font-weight: 500;
-            border-top: 1px solid rgba(48,54,61,0.5);
+            font-weight: 600;
+            border-top: 1px solid rgba(31, 41, 61, 0.6);
             padding-top: 12px;
+            font-family: var(--font-mono);
         }
         .repo-lang-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background-color: var(--accent);
+            background-color: var(--purple-accent);
             display: inline-block;
-            margin-right: 4px;
+            margin-right: 6px;
+            box-shadow: 0 0 8px var(--purple-accent);
         }
         .meta-item { display: inline-flex; align-items: center; }
     </style>
@@ -172,41 +201,37 @@
 <body>
 
     <div class="container">
-        <!-- Developer Profile Card -->
         <header>
             <h1>Alexander Henry Patnick</h1>
-            <p class="title-subheading">Technical Support & Infrastructure Specialist</p>
+            <div class="title-subheading">// Systems & Technical Infrastructure Specialist</div>
 
             <p class="about-text">
-                Technical leader with 10+ years of experience engineering across enterprise IT, SaaS ecosystems, and infrastructure environments. Specialized in managing complex escalations, deep-dive root cause analyses, API troubleshooting, and process automation—proven to scale technical support operations and safely slash manual ticket volume by 33%.
+                Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology virtualization, and designing automated workflows that reduce manual ticketing overhead by 33%.
             </p>
 
-            <!-- Technical Toolset Tags -->
             <div class="skills-container">
-                <div class="skills-label">Expertise & Stack Matrix:</div>
+                <div class="skills-label">[core_capabilities_stack]:</div>
                 <div class="badge-group">
                     <span class="badge">Python & Automation</span>
                     <span class="badge">APIs, Webhooks & REST</span>
                     <span class="badge">Linux Engineering</span>
                     <span class="badge">Proxmox, VMware & Docker</span>
-                    <span class="badge">PostgreSQL & DB Diagnostics</span>
-                    <span class="badge">ITSM Ops (Intercom AI / Zendesk)</span>
+                    <span class="badge">PostgreSQL Diagnostics</span>
+                    <span class="badge">ITSM (Intercom AI / Zendesk)</span>
                     <span class="badge">AWS & Cloud Infra</span>
                 </div>
             </div>
 
-            <!-- Recruiter Actions -->
             <div class="cta-group">
-                <a href="mailto:alex.patnick@gmail.com" class="btn btn-primary">✉️ Connect via Email</a>
-                <a href="alex_patnick_cv.pdf" download class="btn btn-secondary">📄 Download Full CV (PDF)</a>
+                <a href="mailto:alex.patnick@gmail.com" class="btn btn-primary">✉ Initialize Contact</a>
+                <a href="alex_patnick_cv.pdf" download class="btn btn-secondary">📄 Fetch Resume File (PDF)</a>
             </div>
         </header>
 
-        <!-- Dynamic Registry Pull -->
         <section>
-            <h2>Public Engineering Repositories</h2>
+            <h2>[open_source_projects_stream]</h2>
             <div id="repos-container" class="repo-grid">
-                <p style="color: var(--secondary-text);">Connecting safely to GitHub API logs...</p>
+                <p style="color: #727e91; font-family: var(--font-mono);">Awaiting active server frame broadcast stream...</p>
             </div>
         </section>
     </div>
@@ -214,21 +239,21 @@
     <script>
         const GITHUB_USERNAME = 'alexhp84';
 
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
         async function fetchGitHubRepos() {
             const container = document.getElementById('repos-container');
             try {
-                // FIXED: Using the accurate endpoint to fetch public registry data smoothly
-                const response = await fetch(`https://github.com{GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-                if (!response.ok) throw new Error('API Request Failure');
+                const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+                if (!response.ok) throw new Error('API Frame Sync Dropped');
 
                 const repos = await response.json();
                 container.innerHTML = '';
 
-                // Exclude manual forks and the portfolio repository config itself
                 const myPublicRepos = repos.filter(repo => !repo.fork && repo.name !== window.location.pathname.replace(/\//g, ''));
 
                 if (myPublicRepos.length === 0) {
-                    container.innerHTML = '<p style="color: var(--secondary-text);">No other open-source public repos discovered.</p>';
+                    container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">No open-source public repos discovered.</p>';
                     return;
                 }
 
@@ -236,28 +261,25 @@
                     const card = document.createElement('div');
                     card.className = 'repo-card';
 
-                    const description = repo.description || 'System infrastructure project module. No description logged.';
-                    const language = repo.language || 'Shell/Script';
+                    const description = repo.description || 'System cluster code module. No structural description logged.';
+                    const language = repo.language || 'Shell/Bash';
 
                     card.innerHTML = `
                         <div>
-                            <a href="${repo.html_url}" target="_blank" class="repo-name">${repo.name}</a>
-                            <p class="repo-desc">${description}</p>
+                            <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener" style="text-decoration:none">${esc(repo.name)}</a>
+                            <p class="repo-desc">${esc(description)}</p>
                         </div>
                         <div class="repo-meta">
-                            <span class="meta-item"><span class="repo-lang-dot"></span> ${language}</span>
+                            <span class="meta-item"><span class="repo-lang-dot"></span>${esc(language)}</span>
                             <span class="meta-item">⭐ ${repo.stargazers_count}</span>
-                        </div>
-                    `;
+                        </div>`;
                     container.appendChild(card);
                 });
-
             } catch (error) {
                 console.error(error);
-                container.innerHTML = '<p style="color: #f85149;">Failed to establish communication with the GitHub API registry. Verify connectivity.</p>';
+                container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">[CRITICAL] Communication pipeline connection timed out. Check firewall status.</p>';
             }
         }
-
         fetchGitHubRepos();
     </script>
 </body>
