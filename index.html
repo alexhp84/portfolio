@@ -251,7 +251,7 @@
                 const repos = await response.json();
                 container.innerHTML = '';
 
-                const myPublicRepos = repos.filter(repo => !repo.fork && repo.name !== window.location.pathname.replace(/\//g, ''));
+                const myPublicRepos = repos.filter(repo => !repo.fork && repo.name !== 'portfolio');
 
                 if (myPublicRepos.length === 0) {
                     container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">No open-source public repos discovered.</p>';
