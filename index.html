@@ -60,10 +60,10 @@
             opacity: 0.8;
         }
 
-        h1 {
-            margin: 0 0 5px 0;
-            font-size: 2.3rem;
-            color: var(--text-heading);
+        h1 { 
+            margin: 0 0 5px 0; 
+            font-size: 2.3rem; 
+            color: var(--text-heading); 
             letter-spacing: -0.5px;
             font-weight: 800;
         }
@@ -78,7 +78,7 @@
         }
 
         .about-text { font-size: 1.05rem; color: #9aa2b1; margin-bottom: 24px; }
-
+        
         .skills-container { margin: 24px 0; }
         .skills-label {
             font-family: var(--font-mono);
@@ -123,7 +123,7 @@
             background: linear-gradient(135deg, #00b4db, #00f2fe);
             color: #050510;
         }
-        .btn-primary:hover {
+        .btn-primary:hover { 
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
         }
@@ -132,24 +132,24 @@
             color: var(--text-heading);
             border: 1px solid var(--border-color);
         }
-        .btn-secondary:hover {
+        .btn-secondary:hover { 
             background-color: #171e2e;
             border-color: var(--purple-accent);
             box-shadow: 0 0 15px rgba(157, 78, 221, 0.2);
         }
 
-        h2 {
-            margin-top: 50px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            font-size: 1.5rem;
+        h2 { 
+            margin-top: 50px; 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 12px; 
+            font-size: 1.5rem; 
             color: var(--text-heading);
             font-family: var(--font-mono);
             letter-spacing: -0.5px;
         }
         .repo-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
         @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
-
+        
         .repo-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -175,7 +175,7 @@
         }
         .repo-card:hover .repo-name { color: var(--cyan-accent); }
         .repo-desc { font-size: 0.92rem; color: #8a95a5; margin: 12px 0 24px 0; flex-grow: 1; }
-
+        
         .repo-meta {
             font-size: 0.8rem;
             color: #727e91;
@@ -204,7 +204,7 @@
         <header>
             <h1>Alexander Henry Patnick</h1>
             <div class="title-subheading">// Systems & Technical Infrastructure Specialist</div>
-
+            
             <p class="about-text">
                 Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology virtualization, and designing automated workflows that reduce manual ticketing overhead by 33%.
             </p>
@@ -225,6 +225,7 @@
             <div class="cta-group">
                 <a href="mailto:alex.patnick@gmail.com" class="btn btn-primary">✉ Initialize Contact</a>
                 <a href="alex_patnick_cv.pdf" download class="btn btn-secondary">📄 Fetch Resume File (PDF)</a>
+                <a href="certificates.html" class="btn btn-secondary">🏅 View Certificates</a>
             </div>
         </header>
 
@@ -266,7 +267,7 @@
 
                     card.innerHTML = `
                         <div>
-                            <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener" style="text-decoration:none">${esc(repo.name)}</a>
+                            <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(repo.name)}</a>
                             <p class="repo-desc">${esc(description)}</p>
                         </div>
                         <div class="repo-meta">

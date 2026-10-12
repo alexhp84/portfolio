@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates | Alexander Henry Patnick</title>
+    <style>
+        :root {
+            --bg: #0a0e14;
+            --card-bg: #111622;
+            --text-main: #b3b9c5;
+            --text-heading: #f0f6fc;
+            --cyan-accent: #00f2fe;
+            --purple-accent: #9d4edd;
+            --border-color: #1f293d;
+            --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            background-image: linear-gradient(rgba(31,41,61,.2) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(31,41,61,.2) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container { max-width: 850px; margin: 0 auto; }
+        a:focus-visible, button:focus-visible, input:focus-visible {
+            outline: 2px solid var(--cyan-accent); outline-offset: 2px;
+        }
+
+        header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--cyan-accent);
+            border-radius: 0 8px 8px 0;
+            padding: 28px 32px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.5);
+        }
+        .back {
+            font-family: var(--font-mono); font-size: .85rem;
+            color: var(--cyan-accent); text-decoration: none;
+        }
+        .back:hover { text-decoration: underline; }
+        h1 { margin: 12px 0 4px; font-size: 2rem; color: var(--text-heading); letter-spacing: -.5px; }
+        .sub { margin: 0; color: #9aa2b1; }
+
+        .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 28px 0 8px; }
+        .search {
+            flex: 1 1 220px;
+            background: var(--card-bg); color: var(--text-heading);
+            border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 10px 14px; font-family: var(--font-mono); font-size: .9rem;
+        }
+        .search::placeholder { color: #566074; }
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+        .chip {
+            background: transparent; color: var(--text-main);
+            border: 1px solid var(--border-color); border-radius: 4px;
+            padding: 8px 14px; font-family: var(--font-mono); font-size: .8rem; cursor: pointer;
+            transition: border-color .15s, color .15s;
+        }
+        .chip:hover { border-color: var(--purple-accent); }
+        .chip[aria-pressed="true"] {
+            color: var(--cyan-accent); border-color: rgba(0,242,254,.5);
+            background: rgba(0,242,254,.07);
+        }
+        .count { font-family: var(--font-mono); font-size: .8rem; color: #727e91; margin: 8px 0 0; }
+
+        .grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
+        @media (min-width: 600px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+        .cert {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: border-color .2s, transform .2s;
+        }
+        .cert:hover { border-color: var(--cyan-accent); transform: translateY(-3px); }
+        .thumb {
+            aspect-ratio: 16 / 10; background: #0d121c;
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .thumb .ext {
+            font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700;
+            color: var(--purple-accent); letter-spacing: 1px;
+        }
+        .body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .title { margin: 0; font-size: 1.05rem; color: var(--text-heading); font-family: var(--font-mono); word-break: break-word; }
+        .meta { margin: 6px 0 16px; font-size: .85rem; color: #8a95a5; flex-grow: 1; }
+        .actions { display: flex; gap: 10px; }
+        .btn {
+            flex: 1; text-align: center; text-decoration: none;
+            padding: 9px 12px; border-radius: 6px;
+            font-family: var(--font-mono); font-size: .85rem; font-weight: 600;
+        }
+        .btn-primary { background: linear-gradient(135deg, #00b4db, #00f2fe); color: #050510; }
+        .btn-primary:hover { box-shadow: 0 0 16px rgba(0,242,254,.4); }
+        .btn-secondary { color: var(--text-heading); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { border-color: var(--purple-accent); background: #171e2e; }
+
+        .msg { grid-column: 1 / -1; color: #727e91; font-family: var(--font-mono); padding: 24px 0; }
+
+        .lightbox {
+            position: fixed; inset: 0; background: rgba(5,8,14,.92);
+            display: none; align-items: center; justify-content: center; padding: 20px; z-index: 10;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 100%; max-height: 100%; border-radius: 6px; border: 1px solid var(--border-color); }
+        .lightbox button {
+            position: absolute; top: 16px; right: 16px;
+            background: var(--card-bg); color: var(--text-heading);
+            border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 8px 14px; font-family: var(--font-mono); cursor: pointer;
+        }
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <a class="back" href="index.html">&larr; Back to portfolio</a>
+        <h1>Certificates</h1>
+        <p class="sub">Training, courses, and credentials. Open one to view or download the original file.</p>
+    </header>
+
+    <div class="toolbar">
+        <input id="search" class="search" type="search" placeholder="Search certificates" aria-label="Search certificates">
+        <div id="filters" class="filters" role="group" aria-label="Filter by file type"></div>
+    </div>
+    <p id="count" class="count" aria-live="polite"></p>
+
+    <div id="grid" class="grid">
+        <p class="msg">Loading certificates...</p>
+    </div>
+</div>
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Certificate preview">
+    <button id="close" type="button">Close</button>
+    <img id="lightbox-img" alt="">
+</div>
+
+<script>
+    const OWNER  = 'alexhp84';
+    const REPO   = 'YOUR-REPO';      // repo name; auto-detected on GitHub Pages
+    const BRANCH = 'main';
+    const FOLDER = 'Certificates';   // exact, case-sensitive
+
+    // Optional: nicer titles/details. Key = exact file name.
+    const META = {
+        // 'aws-cloud-practitioner.pdf': { title: 'AWS Cloud Practitioner', issuer: 'Amazon Web Services', date: '2025' },
+    };
+
+    const IMG = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+    const OK  = ['pdf', ...IMG];
+
+    const repo = (location.hostname.endsWith('github.io') && location.pathname.split('/')[1]) || REPO;
+    const grid = document.getElementById('grid');
+    const search = document.getElementById('search');
+    const filtersEl = document.getElementById('filters');
+    const countEl = document.getElementById('count');
+    let certs = [];
+    let activeType = 'all';
+
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const extOf = n => (n.split('.').pop() || '').toLowerCase();
+    const prettify = n => n.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
+        .replace(/\b\w/g, c => c.toUpperCase());
+
+    async function load() {
+        try {
+            const res = await fetch(`https://api.github.com/repos/${OWNER}/${repo}/contents/${FOLDER}?ref=${BRANCH}`);
+            if (res.status === 404) throw new Error(`Folder "${FOLDER}" not found in ${OWNER}/${repo} (branch ${BRANCH}). Check the repo name, branch, and folder case.`);
+            if (!res.ok) throw new Error(`GitHub API error ${res.status}. Try again in a few minutes.`);
+            const files = await res.json();
+            certs = files
+                .filter(f => f.type === 'file' && OK.includes(extOf(f.name)))
+                .map(f => {
+                    const m = META[f.name] || {};
+                    return {
+                        name: f.name,
+                        ext: extOf(f.name),
+                        title: m.title || prettify(f.name),
+                        issuer: m.issuer || '',
+                        date: m.date || '',
+                        url: f.html_url,
+                        raw: f.download_url
+                    };
+                })
+                .sort((a, b) => (b.date || '').localeCompare(a.date || '') || a.title.localeCompare(b.title));
+            buildFilters();
+            render();
+        } catch (e) {
+            console.error(e);
+            grid.innerHTML = `<p class="msg">${esc(e.message)}</p>`;
+        }
+    }
+
+    function buildFilters() {
+        const types = ['all', ...new Set(certs.map(c => c.ext === 'jpeg' ? 'jpg' : c.ext))];
+        if (types.length <= 2) { filtersEl.hidden = true; return; }
+        filtersEl.innerHTML = types.map(t =>
+            `<button type="button" class="chip" data-type="${t}" aria-pressed="${t === activeType}">${t.toUpperCase()}</button>`
+        ).join('');
+    }
+
+    filtersEl.addEventListener('click', e => {
+        const b = e.target.closest('.chip');
+        if (!b) return;
+        activeType = b.dataset.type;
+        filtersEl.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === b));
+        render();
+    });
+    search.addEventListener('input', render);
+
+    function render() {
+        const q = search.value.trim().toLowerCase();
+        const list = certs.filter(c => {
+            const t = c.ext === 'jpeg' ? 'jpg' : c.ext;
+            return (activeType === 'all' || t === activeType) &&
+                   (!q || `${c.title} ${c.issuer} ${c.date}`.toLowerCase().includes(q));
+        });
+        countEl.textContent = `${list.length} of ${certs.length} certificates`;
+        if (!list.length) {
+            grid.innerHTML = `<p class="msg">${certs.length ? 'No certificates match your search.' : 'No certificates found in this folder yet.'}</p>`;
+            return;
+        }
+        grid.innerHTML = list.map(c => {
+            const isImg = IMG.includes(c.ext);
+            const thumb = isImg
+                ? `<img src="${esc(c.raw)}" alt="${esc(c.title)} certificate" loading="lazy">`
+                : `<span class="ext">${esc(c.ext.toUpperCase())}</span>`;
+            const meta = [c.issuer, c.date].filter(Boolean).join(' | ') || c.name;
+            const primary = isImg
+                ? `<a class="btn btn-primary" href="${esc(c.raw)}" data-preview="${esc(c.raw)}" data-alt="${esc(c.title)}">Preview</a>`
+                : `<a class="btn btn-primary" href="${esc(c.raw)}" target="_blank" rel="noopener">Open PDF</a>`;
+            return `
+                <article class="cert">
+                    <div class="thumb">${thumb}</div>
+                    <div class="body">
+                        <h3 class="title">${esc(c.title)}</h3>
+                        <p class="meta">${esc(meta)}</p>
+                        <div class="actions">
+                            ${primary}
+                            <a class="btn btn-secondary" href="${esc(c.url)}" target="_blank" rel="noopener">GitHub</a>
+                        </div>
+                    </div>
+                </article>`;
+        }).join('');
+    }
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    grid.addEventListener('click', e => {
+        const a = e.target.closest('[data-preview]');
+        if (!a) return;
+        e.preventDefault();
+        lbImg.src = a.dataset.preview;
+        lbImg.alt = a.dataset.alt;
+        lb.classList.add('open');
+        document.getElementById('close').focus();
+    });
+    const closeLb = () => lb.classList.remove('open');
+    document.getElementById('close').addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+    load();
+</script>
+</body>
+</html>
