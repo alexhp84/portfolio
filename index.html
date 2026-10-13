@@ -138,23 +138,6 @@
             box-shadow: 0 0 15px rgba(157, 78, 221, 0.2);
         }
 
-        .name-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 5px; }
-        .name-row h1 { margin: 0; }
-        .socials { display: flex; gap: 10px; }
-        .social {
-            width: 38px; height: 38px;
-            display: inline-flex; align-items: center; justify-content: center;
-            border: 1px solid var(--border-color); border-radius: 6px;
-            color: var(--text-heading);
-            transition: all 0.2s ease;
-        }
-        .social:hover {
-            color: var(--cyan-accent);
-            border-color: var(--cyan-accent);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-        }
-        .social svg { width: 22px; height: 22px; fill: currentColor; }
-
         h2 { 
             margin-top: 50px; 
             border-bottom: 1px solid var(--border-color); 
@@ -215,12 +198,28 @@
             box-shadow: 0 0 8px var(--purple-accent);
         }
         .meta-item { display: inline-flex; align-items: center; }
+
+        .socials { display: flex; gap: 12px; margin-top: 20px; }
+.social {
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-color); border-radius: 6px;
+    color: var(--text-heading);
+    transition: all 0.2s ease;
+}
+.social:hover {
+    color: var(--cyan-accent);
+    border-color: var(--cyan-accent);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+.social svg { width: 22px; height: 22px; fill: currentColor; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
+<<<<<<< HEAD
             <div class="name-row">
                 <h1>Alexander Henry Patnick</h1>
                 <div class="socials">
@@ -233,6 +232,10 @@
             </div>
             </div>
             <div class="title-subheading">// Support Engineer | Infrastructure | Python &amp; AI Automation</div>
+=======
+            <h1>Alexander Henry Patnick</h1>
+            <div class="title-subheading">// Systems & Technical Infrastructure Specialist</div>
+>>>>>>> 55df008 (Updated CV)
             
             <p class="about-text">
                 Technical support and infrastructure specialist with 10+ years across enterprise IT and SaaS. I own complex customer escalations end to end: reproducing issues, tracing root causes through APIs, webhooks and PostgreSQL logs, and working with R&amp;D to ship fixes. I migrated Zendesk to Intercom and cut manual ticket intervention by 33% with AI-assisted workflows. Alongside work, I build Python and AI projects and run a self-hosted Proxmox lab.
@@ -253,8 +256,7 @@
 
             <div class="cta-group">
                 <a href="mailto:alex.patnick@gmail.com" class="btn btn-primary">✉ Initialize Contact</a>
-                <a href="alex_patnick_cv.pdf" target="_blank" rel="noopener" class="btn btn-primary">📄 View CV</a>
-                <a href="alex_patnick_cv.pdf" download class="btn btn-secondary">⬇ Download CV</a>
+                <a href="alex_patnick_cv.pdf" download class="btn btn-secondary">📄 Fetch Resume File (PDF)</a>
                 <a href="certificates.html" class="btn btn-secondary">🏅 View Certificates</a>
             </div>
         </header>
