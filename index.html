@@ -213,6 +213,31 @@
             box-shadow: 0 0 8px var(--purple-accent);
         }
         .meta-item { display: inline-flex; align-items: center; }
+
+        .bio-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--purple-accent);
+            border-radius: 0 8px 8px 0;
+            padding: 28px 32px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        }
+        .bio-section h2 {
+            margin-top: 0;
+            font-size: 1.35rem;
+        }
+        .bio-section p {
+            margin: 0 0 16px;
+            color: var(--text-main);
+        }
+        .bio-section p:last-child { margin-bottom: 0; }
+        @media (max-width: 600px) {
+            .bio-section { padding: 22px; }
+            header { padding: 26px 22px; }
+            header::after { font-size: 0.62rem; }
+            h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -233,7 +258,7 @@
             <div class="title-subheading">// Systems & Technical Infrastructure Specialist</div>
             
             <p class="about-text">
-                Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology virtualization, and designing automated workflows that reduce manual ticketing overhead by 33%.
+                Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology visualisation, and designing automated workflows that reduce manual ticketing overhead by 33%.
             </p>
 
             <div class="skills-container">
@@ -256,6 +281,13 @@
                 <a href="certificates.html" class="btn btn-secondary">🏅 View Certificates</a>
             </div>
         </header>
+
+        <section class="bio-section" aria-labelledby="about-me-heading">
+            <h2 id="about-me-heading">A Little About Me</h2>
+            <p>Originally from Sheffield, England, I made Aliyah to Israel in 2014, and Israel is now home. Family is a big part of my life, and outside work I enjoy spending time with my family, reading, and continuing to learn new things.</p>
+            <p>I'm naturally curious about how things work and enjoy getting hands-on with technology. My homelab is where I can experiment, explore new ideas, and learn by building. From virtualisation and Proxmox to Docker, self-hosted services, monitoring, automation, and local AI models, I enjoy bringing different technologies together to build a connected, reliable environment. I tend to take a practical, logical approach to challenges: understand the problem, experiment with solutions, and keep refining until things work as they should.</p>
+            <p>Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.</p>
+        </section>
 
         <section>
             <h2>[open_source_projects_stream]</h2>
