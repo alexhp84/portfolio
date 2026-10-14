@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexander Henry Patnick | Systems & Support Engineering Portfolio</title>
+    <title>Alexander Henry Patnick | Systems and Technical Infrastructure Portfolio</title>
     <style>
         :root {
             --bg: #0a0e14;
@@ -48,17 +48,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
-        header::after {
-            content: "STATUS: ACTIVE // DEPLOYED";
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--green-glow);
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
 
         h1 { 
             margin: 0 0 5px 0; 
@@ -138,9 +127,24 @@
             box-shadow: 0 0 15px rgba(157, 78, 221, 0.2);
         }
 
-        .name-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 5px; }
+        .profile-row { display: flex; align-items: center; gap: 22px; margin-bottom: 20px; }
+        .profile-photo {
+            width: 112px; height: 112px; flex: 0 0 112px;
+            object-fit: cover; border-radius: 50%;
+            border: 2px solid var(--cyan-accent);
+            box-shadow: 0 0 18px rgba(0, 242, 254, 0.16);
+        }
+        .profile-details { min-width: 0; }
+        .name-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
         .name-row h1 { margin: 0; }
         .socials { display: flex; gap: 10px; }
+        .language-controls { display: flex; justify-content: flex-end; margin-bottom: 18px; }
+        .language-toggle {
+            background: transparent; color: var(--cyan-accent);
+            border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 8px 12px; font-family: var(--font-mono); cursor: pointer;
+        }
+        .language-toggle:hover { border-color: var(--cyan-accent); }
         .social {
             width: 38px; height: 38px;
             display: inline-flex; align-items: center; justify-content: center;
@@ -232,10 +236,30 @@
             color: var(--text-main);
         }
         .bio-section p:last-child { margin-bottom: 0; }
+        .focus-section {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-left: 4px solid var(--cyan-accent); border-radius: 0 8px 8px 0;
+            padding: 28px 32px; margin: 30px 0; box-shadow: 0 8px 32px rgba(0,0,0,.25);
+        }
+        .focus-section h2 { margin-top: 0; }
+        .focus-intro { margin-top: -2px; color: #9aa2b1; }
+        .focus-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin-top: 20px; }
+        .focus-card { background: rgba(0,242,254,.025); border: 1px solid var(--border-color); border-radius: 6px; padding: 18px; }
+        .focus-card h3 { color: var(--text-heading); font-family: var(--font-mono); font-size: 1rem; margin: 0 0 10px; }
+        .focus-card p { margin: 0; font-size: .92rem; }
+        .focus-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+        .focus-tags span { border: 1px solid rgba(157,78,221,.35); border-radius: 4px; padding: 4px 8px; color: #c8a2e8; font-family: var(--font-mono); font-size: .76rem; }
+        html[dir="rtl"] .focus-section { border-left: 1px solid var(--border-color); border-right: 4px solid var(--cyan-accent); border-radius: 8px 0 0 8px; }
+        @media (max-width: 600px) { .focus-section { padding: 22px; } .focus-grid { grid-template-columns: 1fr; } }
+        html[dir="rtl"] body { direction: rtl; }
+        html[dir="rtl"] header { border-left: 1px solid var(--border-color); border-right: 4px solid var(--cyan-accent); border-radius: 8px 0 0 8px; }
+        html[dir="rtl"] .bio-section { border-left: 1px solid var(--border-color); border-right: 4px solid var(--purple-accent); border-radius: 8px 0 0 8px; }
         @media (max-width: 600px) {
             .bio-section { padding: 22px; }
             header { padding: 26px 22px; }
-            header::after { font-size: 0.62rem; }
+            .profile-row { align-items: flex-start; gap: 14px; }
+            .profile-photo { width: 76px; height: 76px; flex-basis: 76px; }
+            .name-row { gap: 10px; }
             h1 { font-size: 1.8rem; }
         }
     </style>
@@ -243,10 +267,16 @@
 <body>
 
     <div class="container">
+        <div class="language-controls">
+            <button id="language-toggle" class="language-toggle" type="button" aria-label="Switch language">עברית</button>
+        </div>
         <header>
-            <div class="name-row">
-                <h1>Alexander Henry Patnick</h1>
-                <div class="socials">
+            <div class="profile-row">
+                <img class="profile-photo" src="linkedin-photo.jpg" alt="Professional profile photo" width="112" height="112">
+                <div class="profile-details">
+                    <div class="name-row">
+                        <h1 data-i18n="name">Alexander Henry Patnick</h1>
+                        <div class="socials">
                 <a class="social" href="https://github.com/alexhp84" target="_blank" rel="noopener" aria-label="GitHub profile">
                     <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                 </a>
@@ -255,44 +285,109 @@
                 </a>
             </div>
             </div>
-            <div class="title-subheading">// Systems & Technical Infrastructure Specialist</div>
+            <div class="title-subheading" data-i18n="role">Systems &amp; Technical Infrastructure Specialist</div>
             
-            <p class="about-text">
+            <p class="about-text" data-i18n="summary">
                 Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology visualisation, and designing automated workflows that reduce manual ticketing overhead by 33%.
             </p>
 
             <div class="skills-container">
-                <div class="skills-label">[core_capabilities_stack]:</div>
+                <div class="skills-label" data-i18n="skillsLabel">[core_capabilities_stack]:</div>
                 <div class="badge-group">
-                    <span class="badge">Python & Automation</span>
-                    <span class="badge">APIs, Webhooks & REST</span>
-                    <span class="badge">Linux Engineering</span>
-                    <span class="badge">Proxmox, VMware & Docker</span>
-                    <span class="badge">PostgreSQL Diagnostics</span>
-                    <span class="badge">ITSM (Intercom AI / Zendesk)</span>
-                    <span class="badge">AWS & Cloud Infra</span>
+                    <span class="badge" data-i18n="skill1">Python &amp; Scripting</span>
+                    <span class="badge" data-i18n="skill2">AI Agents &amp; LLM Integration</span>
+                    <span class="badge" data-i18n="skill3">Machine Learning Projects</span>
+                    <span class="badge" data-i18n="skill4">REST APIs, HTTP &amp; Webhooks</span>
+                    <span class="badge" data-i18n="skill5">Linux, Docker &amp; Proxmox</span>
+                    <span class="badge" data-i18n="skill6">Monitoring &amp; Observability</span>
+                    <span class="badge" data-i18n="skill7">Security Fundamentals &amp; Access Control</span>
+                    <span class="badge" data-i18n="skill8">Cloud &amp; PostgreSQL</span>
                 </div>
             </div>
 
             <div class="cta-group">
-                <a href="mailto:alex.patnick@gmail.com" class="btn btn-primary">✉ Initialize Contact</a>
-                <a href="alex_patnick_cv.pdf" target="_blank" rel="noopener" class="btn btn-primary">📄 View CV</a>
-                <a href="alex_patnick_cv.pdf" download class="btn btn-secondary">⬇ Download CV</a>
-                <a href="certificates.html" class="btn btn-secondary">🏅 View Certificates</a>
+                <a href="mailto:alex.patnick@gmail.com" class="btn btn-primary" data-i18n="contact">✉ Contact Me by Email</a>
+                <a href="alex_patnick_cv.pdf" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="viewCv">📄 View CV</a>
+                <a href="alex_patnick_cv.pdf" download class="btn btn-secondary" data-i18n="downloadCv">⬇ Download CV</a>
+                <a href="certificates.html" class="btn btn-secondary" data-i18n="certificates">🏅 View Certificates</a>
             </div>
         </header>
 
         <section class="bio-section" aria-labelledby="about-me-heading">
-            <h2 id="about-me-heading">A Little About Me</h2>
-            <p>Originally from Sheffield, England, I made Aliyah to Israel in 2014, and Israel is now home. Family is a big part of my life, and outside work I enjoy spending time with my family, reading, and continuing to learn new things.</p>
-            <p>I'm naturally curious about how things work and enjoy getting hands-on with technology. My homelab is where I can experiment, explore new ideas, and learn by building. From virtualisation and Proxmox to Docker, self-hosted services, monitoring, automation, and local AI models, I enjoy bringing different technologies together to build a connected, reliable environment. I tend to take a practical, logical approach to challenges: understand the problem, experiment with solutions, and keep refining until things work as they should.</p>
-            <p>Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.</p>
+            <h2 id="about-me-heading" data-i18n="bioTitle">A Little About Me</h2>
+            <p data-i18n="bio1">Originally from Sheffield, England, I made Aliyah to Israel in 2014, and Israel is now home. Family is a big part of my life, and outside work I enjoy spending time with my family, reading, and continuing to learn new things.</p>
+            <p data-i18n="bio2">I'm naturally curious about how things work and enjoy getting hands-on with technology. My homelab is where I can experiment, explore new ideas, and learn by building. From virtualisation and Proxmox to Docker, self-hosted services, monitoring, automation, and local AI models, I enjoy bringing different technologies together to build a connected, reliable environment. I tend to take a practical, logical approach to challenges: understand the problem, experiment with solutions, and keep refining until things work as they should.</p>
+            <p data-i18n="bio3">Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.</p>
+        </section>
+
+        <section class="focus-section" aria-labelledby="ai-focus-heading">
+            <h2 id="ai-focus-heading" data-i18n="aiFocusTitle">AI Development &amp; Security Focus</h2>
+            <p class="focus-intro" data-i18n="aiFocusIntro">I'm building on my infrastructure and troubleshooting background through practical AI development projects, with a particular interest in AI security and early-stage product teams.</p>
+            <div class="focus-grid">
+                <article class="focus-card">
+                    <h3 data-i18n="aiCardTitle">AI Development &amp; Automation</h3>
+                    <p data-i18n="aiCardText">Hands-on experimentation with Python, AI-assisted workflows, local language models, and agent-based automation.</p>
+                    <div class="focus-tags"><span>Python</span><span>LLMs</span><span>AI Agents</span><span>Automation</span><span>Bash</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="securityCardTitle">AI Security Foundations</h3>
+                    <p data-i18n="securityCardText">Developing security knowledge through SecAI courses and practical labs, supported by experience with access controls, secure remote access, and troubleshooting integrations.</p>
+                    <div class="focus-tags"><span>SecAI learning</span><span>Access Control</span><span>WireGuard</span><span>Security+ studies</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="engineeringCardTitle">Software &amp; Infrastructure</h3>
+                    <p data-i18n="engineeringCardText">A practical engineering foundation for investigating behaviour across applications, APIs, logs, networks, and Linux-based environments.</p>
+                    <div class="focus-tags"><span>REST APIs</span><span>HTTP &amp; Webhooks</span><span>Linux</span><span>Docker</span><span>PostgreSQL</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="projectCardTitle">Current Project Direction</h3>
+                    <p data-i18n="projectCardText">A home-network monitoring and AI-agent project exploring how an agent can help diagnose issues, recover from selected failures, and document incidents.</p>
+                    <div class="focus-tags"><span>Monitoring</span><span>Diagnostics</span><span>Self-healing</span><span>Documentation</span></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="focus-section" aria-labelledby="technical-skills-heading">
+            <h2 id="technical-skills-heading" data-i18n="technicalSkillsTitle">Technical Skills &amp; Applied Experience</h2>
+            <p class="focus-intro" data-i18n="technicalSkillsIntro">A mix of professional engineering experience and hands-on personal projects. Project-based AI and machine-learning skills are presented as practical development experience, not as years of commercial AI employment.</p>
+            <div class="focus-grid">
+                <article class="focus-card">
+                    <h3 data-i18n="pythonCardTitle">Python &amp; Application Development</h3>
+                    <p data-i18n="pythonCardText">Building and troubleshooting Python applications and small web apps, including Flask and Streamlit projects.</p>
+                    <div class="focus-tags"><span>Python</span><span>Flask</span><span>Streamlit</span><span>Pydantic</span><span>HTTPX</span><span>Bash</span><span>Git/GitHub</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="mlCardTitle">Machine Learning &amp; Data Analysis</h3>
+                    <p data-i18n="mlCardText">Project work includes a loan-approval prediction application and clustering experiments, including model retraining and cluster evaluation.</p>
+                    <div class="focus-tags"><span>scikit-learn</span><span>SVC</span><span>K-means</span><span>Silhouette score</span><span>Preprocessing</span><span>Model retraining</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="llmCardTitle">LLMs &amp; AI Agents</h3>
+                    <p data-i18n="llmCardText">Experimenting with local LLMs and API-based model access, and developing a modular agent with tool integrations, configuration, retrieval, memory, and documentation capabilities.</p>
+                    <div class="focus-tags"><span>Ollama</span><span>Local LLMs</span><span>Tool integrations</span><span>Agent architecture</span><span>AI workflows</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="apiCardTitle">APIs, Integrations &amp; Data</h3>
+                    <p data-i18n="apiCardText">Professional experience diagnosing integrations and project experience building and testing application components.</p>
+                    <div class="focus-tags"><span>REST</span><span>HTTP</span><span>Webhooks</span><span>Authentication</span><span>PostgreSQL</span><span>Server logs</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="infraCardTitle">Infrastructure &amp; Observability</h3>
+                    <p data-i18n="infraCardText">Hands-on homelab experience operating services and building monitoring and logging across virtualised and containerised environments.</p>
+                    <div class="focus-tags"><span>Linux</span><span>Docker/Compose</span><span>Proxmox</span><span>VMware/Hyper-V</span><span>Prometheus</span><span>Grafana</span><span>Loki</span><span>SNMP/NetFlow</span></div>
+                </article>
+                <article class="focus-card">
+                    <h3 data-i18n="securitySkillsTitle">Security &amp; Reliable Operations</h3>
+                    <p data-i18n="securitySkillsText">Experience with access controls, secure remote access, incident investigation and recovery documentation; developing AI security skills through study and practical labs.</p>
+                    <div class="focus-tags"><span>Access control</span><span>WireGuard</span><span>Incident analysis</span><span>Secrets/configuration hygiene</span><span>SecAI learning</span></div>
+                </article>
+            </div>
         </section>
 
         <section>
-            <h2>[open_source_projects_stream]</h2>
+            <h2 data-i18n="projectsTitle">Open Source Projects</h2>
             <div id="repos-container" class="repo-grid">
-                <p style="color: #727e91; font-family: var(--font-mono);">Awaiting active server frame broadcast stream...</p>
+                <p style="color: #727e91; font-family: var(--font-mono);">Loading public GitHub repositories...</p>
             </div>
         </section>
     </div>
@@ -300,13 +395,121 @@
     <script>
         const GITHUB_USERNAME = 'alexhp84';
 
+        const translations = {
+            en: {
+                name: "Alexander Henry Patnick",
+                role: "Systems & Technical Infrastructure Specialist",
+                summary: "Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology visualisation, and designing automated workflows that reduce manual ticketing overhead by 33%.",
+                skillsLabel: "[core_capabilities_stack]:",
+                skill1: "Python & Scripting", skill2: "AI Agents & LLM Integration",
+                skill3: "Machine Learning Projects", skill4: "REST APIs, HTTP & Webhooks",
+                skill5: "Linux, Docker & Proxmox", skill6: "Monitoring & Observability",
+                skill7: "Security Fundamentals & Access Control", skill8: "Cloud & PostgreSQL",
+                contact: "✉ Contact Me by Email", viewCv: "📄 View CV",
+                downloadCv: "⬇ Download CV", certificates: "🏅 View Certificates",
+                bioTitle: "A Little About Me",
+                bio1: "Originally from Sheffield, England, I made Aliyah to Israel in 2014, and Israel is now home. Family is a big part of my life, and outside work I enjoy spending time with my family, reading, and continuing to learn new things.",
+                bio2: "I'm naturally curious about how things work and enjoy getting hands-on with technology. My homelab is where I can experiment, explore new ideas, and learn by building. From virtualisation and Proxmox to Docker, self-hosted services, monitoring, automation, and local AI models, I enjoy bringing different technologies together to build a connected, reliable environment. I tend to take a practical, logical approach to challenges: understand the problem, experiment with solutions, and keep refining until things work as they should.",
+                bio3: "Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.",
+                projectsTitle: "Open Source Projects",
+                technicalSkillsTitle: "Technical Skills & Applied Experience",
+                technicalSkillsIntro: "A mix of professional engineering experience and hands-on personal projects. Project-based AI and machine-learning skills are presented as practical development experience, not as years of commercial AI employment.",
+                pythonCardTitle: "Python & Application Development",
+                pythonCardText: "Building and troubleshooting Python applications and small web apps, including Flask and Streamlit projects.",
+                mlCardTitle: "Machine Learning & Data Analysis",
+                mlCardText: "Project work includes a loan-approval prediction application and clustering experiments, including model retraining and cluster evaluation.",
+                llmCardTitle: "LLMs & AI Agents",
+                llmCardText: "Experimenting with local LLMs and API-based model access, and developing a modular agent with tool integrations, configuration, retrieval, memory, and documentation capabilities.",
+                apiCardTitle: "APIs, Integrations & Data",
+                apiCardText: "Professional experience diagnosing integrations and project experience building and testing application components.",
+                infraCardTitle: "Infrastructure & Observability",
+                infraCardText: "Hands-on homelab experience operating services and building monitoring and logging across virtualised and containerised environments.",
+                securitySkillsTitle: "Security & Reliable Operations",
+                securitySkillsText: "Experience with access controls, secure remote access, incident investigation and recovery documentation; developing AI security skills through study and practical labs.",
+                aiFocusTitle: "AI Development & Security Focus",
+                aiFocusIntro: "I'm building on my infrastructure and troubleshooting background through practical AI development projects, with a particular interest in AI security and early-stage product teams.",
+                aiCardTitle: "AI Development & Automation",
+                aiCardText: "Hands-on experimentation with Python, AI-assisted workflows, local language models, and agent-based automation.",
+                securityCardTitle: "AI Security Foundations",
+                securityCardText: "Developing security knowledge through SecAI courses and practical labs, supported by experience with access controls, secure remote access, and troubleshooting integrations.",
+                engineeringCardTitle: "Software & Infrastructure",
+                engineeringCardText: "A practical engineering foundation for investigating behaviour across applications, APIs, logs, networks, and Linux-based environments.",
+                projectCardTitle: "Current Project Direction",
+                projectCardText: "A home-network monitoring and AI-agent project exploring how an agent can help diagnose issues, recover from selected failures, and document incidents.",
+                languageButton: "עברית" 
+            },
+            he: {
+                name: "אלכסנדר הנרי פטניק",
+                role: "מומחה למערכות ולתשתיות טכנולוגיות",
+                summary: "מוביל טכנולוגי עם יותר מעשר שנות ניסיון בהנדסת תשתיות, בסביבות IT ארגוניות, במערכות SaaS ובניתוח מערכות מעמיק. מתמחה בחקירת גורמי שורש, בניפוי תקלות API, בהמחשת טופולוגיית תשתיות ובתכנון תהליכי עבודה אוטומטיים שהפחיתו את היקף הטיפול הידני בכרטיסי תמיכה ב־33%.",
+                skillsLabel: "[יכולות_מרכזיות]:",
+                skill1: "Python וסקריפטים", skill2: "סוכני AI ואינטגרציה עם מודלי שפה",
+                skill3: "פרויקטים בלמידת מכונה", skill4: "REST API, HTTP ו־Webhooks",
+                skill5: "Linux, Docker ו־Proxmox", skill6: "ניטור ותצפיתיות",
+                skill7: "יסודות אבטחה ובקרת גישה", skill8: "ענן ו־PostgreSQL",
+                contact: "✉ יצירת קשר בדוא״ל", viewCv: "📄 צפייה בקורות החיים",
+                downloadCv: "⬇ הורדת קורות החיים", certificates: "🏅 צפייה בתעודות",
+                bioTitle: "קצת עליי",
+                bio1: "במקור משפילד שבאנגליה, עליתי לישראל בשנת 2014, וישראל היא כיום הבית שלי. המשפחה היא חלק חשוב בחיי, ומחוץ לעבודה אני נהנה לבלות עם המשפחה, לקרוא ולהמשיך ללמוד דברים חדשים.",
+                bio2: "אני סקרן מטבעי לגבי אופן הפעולה של דברים ואוהב להתנסות בטכנולוגיה באופן מעשי. מעבדת הבית שלי מאפשרת לי להתנסות, לחקור רעיונות חדשים וללמוד תוך כדי בנייה. מווירטואליזציה ו־Proxmox ועד Docker, שירותים באירוח עצמי, ניטור, אוטומציה ומודלי AI מקומיים — אני נהנה לשלב טכנולוגיות שונות בסביבה מחוברת ואמינה. אני ניגש לאתגרים בצורה מעשית והגיונית: להבין את הבעיה, לבדוק פתרונות ולשפר אותם עד שהכול עובד כמצופה.",
+                bio3: "בהמשך, מעניין אותי במיוחד לחקור פרויקטים מתקדמים יותר בתחום האוטומציה וה־AI ולמצוא דרכים להפוך מערכות לחכמות יותר ולפשט משימות יומיומיות. כשאני לא מתעסק בטכנולוגיה, אפשר למצוא אותי עוקב אחרי שפילד ונסדיי ונבחרת אנגליה בכדורגל, או אחרי יורקשייר ואנגליה בקריקט.",
+                projectsTitle: "פרויקטים בקוד פתוח",
+                technicalSkillsTitle: "מיומנויות טכניות וניסיון מעשי",
+                technicalSkillsIntro: "שילוב של ניסיון הנדסי מקצועי ופרויקטים אישיים מעשיים. מיומנויות AI ולמידת מכונה מוצגות כניסיון פיתוח מעשי בפרויקטים, ולא כשנות ניסיון מסחרי בתחום.",
+                pythonCardTitle: "Python ופיתוח יישומים",
+                pythonCardText: "פיתוח ופתרון תקלות ביישומי Python וביישומי Web קטנים, כולל פרויקטים עם Flask ו־Streamlit.",
+                mlCardTitle: "למידת מכונה וניתוח נתונים",
+                mlCardText: "הפרויקטים כוללים יישום לחיזוי אישור הלוואות וניסויי קיבוץ נתונים, לרבות אימון מחדש של מודלים והערכת אשכולות.",
+                llmCardTitle: "מודלי שפה וסוכני AI",
+                llmCardText: "התנסות במודלי שפה מקומיים ובגישה למודלים דרך API, ופיתוח סוכן מודולרי עם אינטגרציות לכלים, הגדרות, אחזור מידע, זיכרון ותיעוד.",
+                apiCardTitle: "ממשקי API, אינטגרציות ונתונים",
+                apiCardText: "ניסיון מקצועי באבחון אינטגרציות וניסיון בפרויקטים בבנייה ובבדיקה של רכיבי יישומים.",
+                infraCardTitle: "תשתיות וניטור",
+                infraCardText: "ניסיון מעשי במעבדת בית בהפעלת שירותים ובבניית ניטור ואיסוף לוגים בסביבות וירטואליות ומבוססות קונטיינרים.",
+                securitySkillsTitle: "אבטחה ותפעול אמין",
+                securitySkillsText: "ניסיון בבקרת גישה, בגישה מרחוק מאובטחת, בחקירת תקלות ובתיעוד התאוששות; פיתוח מיומנויות באבטחת AI באמצעות לימוד ומעבדות מעשיות.",
+                aiFocusTitle: "התמקדות בפיתוח AI ואבטחה",
+                aiFocusIntro: "אני מרחיב את הניסיון שלי בתשתיות ובפתרון תקלות באמצעות פרויקטים מעשיים בפיתוח AI, ומתעניין במיוחד באבטחת AI ובעבודה בצוותי מוצר בשלבים מוקדמים.",
+                aiCardTitle: "פיתוח AI ואוטומציה",
+                aiCardText: "התנסות מעשית ב־Python, בתהליכי עבודה בסיוע AI, במודלי שפה מקומיים ובאוטומציה מבוססת סוכנים.",
+                securityCardTitle: "יסודות אבטחת AI",
+                securityCardText: "העמקת הידע באבטחה באמצעות קורסי SecAI ומעבדות מעשיות, לצד ניסיון בבקרת גישה, בגישה מרחוק מאובטחת ובפתרון תקלות אינטגרציה.",
+                engineeringCardTitle: "תוכנה ותשתיות",
+                engineeringCardText: "בסיס הנדסי מעשי לחקירת התנהגות של יישומים, ממשקי API, יומני מערכת, רשתות וסביבות מבוססות Linux.",
+                projectCardTitle: "כיוון הפרויקט הנוכחי",
+                projectCardText: "פרויקט לניטור רשת ביתית ולסוכן AI, הבוחן כיצד סוכן יכול לסייע באבחון תקלות, בהתאוששות מכשלים מסוימים ובתיעוד אירועים.",
+                languageButton: "English" 
+            }
+        };
+
+        function setLanguage(language) {
+            const copy = translations[language] || translations.en;
+            document.documentElement.lang = language;
+            document.documentElement.dir = language === "he" ? "rtl" : "ltr";
+            document.querySelectorAll("[data-i18n]").forEach(element => {
+                const key = element.dataset.i18n;
+                if (copy[key]) element.textContent = copy[key];
+            });
+            const toggle = document.getElementById("language-toggle");
+            toggle.textContent = copy.languageButton;
+            toggle.setAttribute("aria-label", language === "he" ? "Switch to English" : "Switch to Hebrew");
+            toggle.dataset.currentLanguage = language;
+        }
+
+        document.getElementById("language-toggle").addEventListener("click", () => {
+            const toggle = document.getElementById("language-toggle");
+            setLanguage((toggle.dataset.currentLanguage || "en") === "en" ? "he" : "en");
+        });
+        setLanguage("en");
+
+
         const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
         async function fetchGitHubRepos() {
             const container = document.getElementById('repos-container');
             try {
                 const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-                if (!response.ok) throw new Error('API Frame Sync Dropped');
+                if (!response.ok) throw new Error('GitHub API request failed');
 
                 const repos = await response.json();
                 container.innerHTML = '';
@@ -314,7 +517,7 @@
                 const myPublicRepos = repos.filter(repo => !repo.fork && repo.name !== 'portfolio');
 
                 if (myPublicRepos.length === 0) {
-                    container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">No open-source public repos discovered.</p>';
+                    container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">No public repositories found.</p>';
                     return;
                 }
 
@@ -322,8 +525,8 @@
                     const card = document.createElement('div');
                     card.className = 'repo-card';
 
-                    const description = repo.description || 'System cluster code module. No structural description logged.';
-                    const language = repo.language || 'Shell/Bash';
+                    const description = repo.description || 'No description provided.';
+                    const language = repo.language || 'Shell';
 
                     card.innerHTML = `
                         <div>
@@ -338,7 +541,7 @@
                 });
             } catch (error) {
                 console.error(error);
-                container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">[CRITICAL] Communication pipeline connection timed out. Check firewall status.</p>';
+                container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">Could not load GitHub repositories. Please try again later.</p>';
             }
         }
         fetchGitHubRepos();
