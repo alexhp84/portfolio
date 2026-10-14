@@ -249,11 +249,95 @@
         .focus-card p { margin: 0; font-size: .92rem; }
         .focus-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
         .focus-tags span { border: 1px solid rgba(157,78,221,.35); border-radius: 4px; padding: 4px 8px; color: #c8a2e8; font-family: var(--font-mono); font-size: .76rem; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 150px minmax(0, 850px);
+            gap: 20px;
+            width: 100%;
+            max-width: 1020px;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: start;
+        }
+        .container { width: 100%; min-width: 0; }
+        .side-nav {
+            position: sticky;
+            top: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 14px 10px;
+            background: rgba(17, 22, 34, 0.94);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+        }
+        .side-nav-label {
+            color: var(--purple-accent);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 5px 10px 9px;
+        }
+        .side-nav a {
+            display: block;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            padding: 9px 10px;
+            font-size: 0.88rem;
+            line-height: 1.35;
+            transition: color .2s ease, background .2s ease, border-color .2s ease;
+        }
+        .side-nav a:hover, .side-nav a:focus-visible {
+            color: var(--cyan-accent);
+            background: rgba(0, 242, 254, 0.06);
+            border-color: rgba(0, 242, 254, 0.25);
+            outline: none;
+        }
+        .side-nav a.active,
+        .side-nav a[aria-current="location"] {
+            color: var(--cyan-accent);
+            background: rgba(0, 242, 254, 0.12);
+            border-color: var(--cyan-accent);
+            box-shadow: inset 3px 0 0 var(--cyan-accent), 0 0 14px rgba(0, 242, 254, 0.08);
+            font-weight: 700;
+        }
+        html[dir="rtl"] .side-nav a.active,
+        html[dir="rtl"] .side-nav a[aria-current="location"] {
+            box-shadow: inset -3px 0 0 var(--cyan-accent), 0 0 14px rgba(0, 242, 254, 0.08);
+        }
+        html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+        section[id], header[id] { scroll-margin-top: 24px; }
         html[dir="rtl"] .focus-section { border-left: 1px solid var(--border-color); border-right: 4px solid var(--cyan-accent); border-radius: 8px 0 0 8px; }
         @media (max-width: 600px) { .focus-section { padding: 22px; } .focus-grid { grid-template-columns: 1fr; } }
         html[dir="rtl"] body { direction: rtl; }
         html[dir="rtl"] header { border-left: 1px solid var(--border-color); border-right: 4px solid var(--cyan-accent); border-radius: 8px 0 0 8px; }
         html[dir="rtl"] .bio-section { border-left: 1px solid var(--border-color); border-right: 4px solid var(--purple-accent); border-radius: 8px 0 0 8px; }
+        @media (max-width: 1050px) {
+            .page-layout { grid-template-columns: 150px minmax(0, 850px); gap: 18px; }
+            body { padding: 28px 16px; }
+        }
+        @media (max-width: 900px) {
+            .page-layout { grid-template-columns: minmax(0, 850px); gap: 14px; }
+            .side-nav {
+                position: sticky;
+                top: 8px;
+                z-index: 20;
+                flex-direction: row;
+                align-items: center;
+                gap: 4px;
+                overflow-x: auto;
+                padding: 8px;
+                white-space: nowrap;
+                scrollbar-width: thin;
+            }
+            .side-nav-label { display: none; }
+            .side-nav a { flex: 0 0 auto; padding: 8px 10px; font-size: 0.82rem; }
+        }
         @media (max-width: 600px) {
             .bio-section { padding: 22px; }
             header { padding: 26px 22px; }
@@ -266,11 +350,21 @@
 </head>
 <body>
 
+    <div class="page-layout">
+        <nav class="side-nav" aria-label="Portfolio navigation" data-i18n-aria="navLabel">
+            <div class="side-nav-label" data-i18n="navHeading">Navigate</div>
+            <a href="#top" data-i18n="navHome">Home</a>
+            <a href="#about-me" data-i18n="navAbout">About Me</a>
+            <a href="#ai-focus" data-i18n="navAi">AI &amp; Security</a>
+            <a href="#technical-skills" data-i18n="navSkills">Technical Skills</a>
+            <a href="#projects" data-i18n="navProjects">Projects</a>
+        </nav>
+
     <div class="container">
         <div class="language-controls">
             <button id="language-toggle" class="language-toggle" type="button" aria-label="Switch language">עברית</button>
         </div>
-        <header>
+        <header id="top">
             <div class="profile-row">
                 <img class="profile-photo" src="linkedin-photo.jpg" alt="Professional profile photo" width="112" height="112">
                 <div class="profile-details">
@@ -313,14 +407,14 @@
             </div>
         </header>
 
-        <section class="bio-section" aria-labelledby="about-me-heading">
+        <section class="bio-section" id="about-me" aria-labelledby="about-me-heading">
             <h2 id="about-me-heading" data-i18n="bioTitle">A Little About Me</h2>
             <p data-i18n="bio1">Originally from Sheffield, England, I made Aliyah to Israel in 2014, and Israel is now home. Family is a big part of my life, and outside work I enjoy spending time with my family, reading, and continuing to learn new things.</p>
             <p data-i18n="bio2">I'm naturally curious about how things work and enjoy getting hands-on with technology. My homelab is where I can experiment, explore new ideas, and learn by building. From virtualisation and Proxmox to Docker, self-hosted services, monitoring, automation, and local AI models, I enjoy bringing different technologies together to build a connected, reliable environment. I tend to take a practical, logical approach to challenges: understand the problem, experiment with solutions, and keep refining until things work as they should.</p>
             <p data-i18n="bio3">Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.</p>
         </section>
 
-        <section class="focus-section" aria-labelledby="ai-focus-heading">
+        <section class="focus-section" id="ai-focus" aria-labelledby="ai-focus-heading">
             <h2 id="ai-focus-heading" data-i18n="aiFocusTitle">AI Development &amp; Security Focus</h2>
             <p class="focus-intro" data-i18n="aiFocusIntro">I'm building on my infrastructure and troubleshooting background through practical AI development projects, with a particular interest in AI security and early-stage product teams.</p>
             <div class="focus-grid">
@@ -347,7 +441,7 @@
             </div>
         </section>
 
-        <section class="focus-section" aria-labelledby="technical-skills-heading">
+        <section class="focus-section" id="technical-skills" aria-labelledby="technical-skills-heading">
             <h2 id="technical-skills-heading" data-i18n="technicalSkillsTitle">Technical Skills &amp; Applied Experience</h2>
             <p class="focus-intro" data-i18n="technicalSkillsIntro">A mix of professional engineering experience and hands-on personal projects. Project-based AI and machine-learning skills are presented as practical development experience, not as years of commercial AI employment.</p>
             <div class="focus-grid">
@@ -384,12 +478,13 @@
             </div>
         </section>
 
-        <section>
+        <section id="projects">
             <h2 data-i18n="projectsTitle">Open Source Projects</h2>
             <div id="repos-container" class="repo-grid">
                 <p style="color: #727e91; font-family: var(--font-mono);">Loading public GitHub repositories...</p>
             </div>
         </section>
+    </div>
     </div>
 
     <script>
@@ -397,6 +492,9 @@
 
         const translations = {
             en: {
+                navLabel: "Portfolio navigation", navHeading: "Navigate",
+                navHome: "Home", navAbout: "About Me", navAi: "AI & Security",
+                navSkills: "Technical Skills", navProjects: "Projects",
                 name: "Alexander Henry Patnick",
                 role: "Systems & Technical Infrastructure Specialist",
                 summary: "Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology visualisation, and designing automated workflows that reduce manual ticketing overhead by 33%.",
@@ -439,6 +537,9 @@
                 languageButton: "עברית" 
             },
             he: {
+                navLabel: "ניווט באתר", navHeading: "ניווט",
+                navHome: "ראשי", navAbout: "קצת עליי", navAi: "בינה מלאכותית ואבטחה",
+                navSkills: "מיומנויות טכניות", navProjects: "פרויקטים",
                 name: "אלכסנדר הנרי פטניק",
                 role: "מומחה למערכות ולתשתיות טכנולוגיות",
                 summary: "מוביל טכנולוגי עם יותר מעשר שנות ניסיון בהנדסת תשתיות, בסביבות IT ארגוניות, במערכות SaaS ובניתוח מערכות מעמיק. מתמחה בחקירת גורמי שורש, בניפוי תקלות API, בהמחשת טופולוגיית תשתיות ובתכנון תהליכי עבודה אוטומטיים שהפחיתו את היקף הטיפול הידני בכרטיסי תמיכה ב־33%.",
@@ -494,6 +595,10 @@
             toggle.textContent = copy.languageButton;
             toggle.setAttribute("aria-label", language === "he" ? "Switch to English" : "Switch to Hebrew");
             toggle.dataset.currentLanguage = language;
+            document.querySelectorAll("[data-i18n-aria]").forEach(element => {
+                const key = element.dataset.i18nAria;
+                if (copy[key]) element.setAttribute("aria-label", copy[key]);
+            });
         }
 
         document.getElementById("language-toggle").addEventListener("click", () => {
@@ -502,6 +607,41 @@
         });
         setLanguage("en");
 
+        // Highlight the navigation item for the section currently in view.
+        const navLinks = Array.from(document.querySelectorAll(".side-nav a[href^='#']"));
+        const navTargets = navLinks
+            .map(link => ({ link, target: document.querySelector(link.getAttribute("href")) }))
+            .filter(item => item.target);
+
+        function setActiveNav(activeTarget) {
+            navTargets.forEach(({ link, target }) => {
+                const isActive = target === activeTarget;
+                link.classList.toggle("active", isActive);
+                if (isActive) link.setAttribute("aria-current", "location");
+                else link.removeAttribute("aria-current");
+            });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                const target = document.querySelector(link.getAttribute("href"));
+                if (target) setActiveNav(target);
+            });
+        });
+
+        if ("IntersectionObserver" in window) {
+            const sectionObserver = new IntersectionObserver(entries => {
+                const visibleSections = entries
+                    .filter(entry => entry.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                if (visibleSections.length) setActiveNav(visibleSections[0].target);
+            }, {
+                rootMargin: "-18% 0px -62% 0px",
+                threshold: [0, 0.1, 0.25, 0.5, 0.75]
+            });
+            navTargets.forEach(({ target }) => sectionObserver.observe(target));
+        }
+        setActiveNav(document.querySelector("#top"));
 
         const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
