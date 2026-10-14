@@ -34,7 +34,12 @@
   const input = widget.querySelector("#pc-question");
   const messages = widget.querySelector(".pc-messages");
   const sendButton = form.querySelector("button");
-
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
   function toggle(open) {
     panel.hidden = !open;
     launcher.setAttribute("aria-expanded", String(open));
@@ -72,10 +77,11 @@
       const response = await fetch(CHAT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question })
+        body: JSON.stringify({ question }),
       });
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
+      if (!response.ok)
+        throw new Error(data.error || `Request failed (${response.status})`);
       pending.textContent = data.answer || "I couldn't find an answer.";
       if (Array.isArray(data.sources) && data.sources.length) {
         const sourceLine = document.createElement("div");
