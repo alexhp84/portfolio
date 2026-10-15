@@ -346,6 +346,130 @@
             .name-row { gap: 10px; }
             h1 { font-size: 1.8rem; }
         }
+
+
+        /* Clean, recruiter-friendly visual system */
+        :root {
+            --bg: #0b1220;
+            --card-bg: #111b2d;
+            --text-main: #b8c4d6;
+            --text-heading: #f4f7fb;
+            --cyan-accent: #79c7ff;
+            --purple-accent: #9aaee8;
+            --border-color: #26364d;
+            --green-glow: #39ff14;
+            --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background: radial-gradient(ellipse at 50% -20%, rgba(58, 105, 163, .18), transparent 55%), var(--bg);
+            background-image: none;
+            color: var(--text-main);
+            line-height: 1.72;
+            padding: 32px 24px 64px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .page-layout { max-width: 1240px; grid-template-columns: 190px minmax(0, 920px); gap: 30px; }
+        .container { max-width: 920px; }
+        .side-nav {
+            top: 24px; gap: 4px; padding: 12px;
+            background: rgba(17, 27, 45, .88); border-color: #26364d;
+            border-radius: 14px; box-shadow: 0 14px 36px rgba(0,0,0,.16);
+            backdrop-filter: blur(14px);
+        }
+        .side-nav-label { color: #9aaee8; letter-spacing: .08em; }
+        .side-nav a { border-radius: 8px; padding: 10px 12px; }
+        .side-nav a:hover, .side-nav a:focus-visible { color: #d7edff; background: rgba(121,199,255,.08); border-color: rgba(121,199,255,.25); }
+        .side-nav a.active, .side-nav a[aria-current="location"] {
+            color: #d7edff; background: rgba(121,199,255,.11); border-color: rgba(121,199,255,.35);
+            box-shadow: inset 3px 0 0 var(--cyan-accent); font-weight: 650;
+        }
+        .language-controls { margin-bottom: 14px; }
+        .language-toggle { color: #d7edff; background: #111b2d; border-color: #31445f; border-radius: 999px; padding: 8px 15px; font-family: inherit; font-size: .9rem; }
+        .language-toggle:hover { border-color: var(--cyan-accent); background: #16243a; }
+        header {
+            padding: clamp(26px, 4vw, 44px); margin-bottom: 26px;
+            background: linear-gradient(145deg, rgba(20,33,54,.98), rgba(15,24,40,.98));
+            border: 1px solid #2b3c55; border-left: 4px solid var(--cyan-accent);
+            border-radius: 18px; box-shadow: 0 18px 48px rgba(0,0,0,.2);
+        }
+        .profile-row { align-items: center; gap: 24px; margin-bottom: 24px; }
+        .profile-photo { width: 104px; height: 104px; flex-basis: 104px; border: 2px solid #79c7ff; box-shadow: 0 0 0 6px rgba(121,199,255,.07); }
+        h1 { font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.15; letter-spacing: -.045em; }
+        .name-row { gap: 14px; margin-bottom: 8px; }
+        .title-subheading { color: #9bd8ff; font-family: inherit; font-size: clamp(.95rem, 1.6vw, 1.08rem); font-weight: 650; letter-spacing: .015em; text-transform: none; margin-bottom: 20px; }
+        .about-text { max-width: 72ch; color: #c0ccdc; font-size: 1.04rem; line-height: 1.8; margin-bottom: 22px; }
+        .skills-container { margin: 28px 0 0; }
+        .skills-label { color: #aebfe9; font-family: inherit; font-size: .76rem; letter-spacing: .12em; }
+        .badge-group { gap: 8px; }
+        .badge { background: rgba(121,199,255,.07); color: #c7e7ff; border-color: rgba(121,199,255,.2); border-radius: 999px; font-family: inherit; font-size: .82rem; padding: 6px 12px; }
+        .badge:hover { background: rgba(121,199,255,.12); box-shadow: none; }
+        .cta-group { gap: 10px; margin-top: 28px; }
+        .btn { border-radius: 9px; padding: 11px 17px; font-family: inherit; font-size: .91rem; }
+        .btn-primary { background: #9bd8ff; color: #0b1726; box-shadow: none; }
+        .btn-primary:hover { background: #c0e7ff; transform: translateY(-1px); box-shadow: 0 8px 22px rgba(121,199,255,.13); }
+        .btn-secondary { border-color: #354761; color: #e1eaf5; }
+        .btn-secondary:hover { background: #17253b; border-color: #79c7ff; box-shadow: none; }
+        h2 { margin-top: 0; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #2a3a52; font-family: inherit; font-size: clamp(1.35rem, 2.4vw, 1.65rem); letter-spacing: -.025em; }
+        section[id] { margin: 28px 0; }
+        .bio-section, .focus-section {
+            margin: 26px 0; padding: clamp(22px, 3vw, 32px);
+            background: rgba(17,27,45,.82); border: 1px solid #26364d;
+            border-left: 3px solid #9aaee8; border-radius: 14px; box-shadow: 0 12px 32px rgba(0,0,0,.12);
+        }
+        .focus-section { border-left-color: #79c7ff; }
+        .bio-section p { line-height: 1.8; }
+        .focus-intro { max-width: 76ch; line-height: 1.75; color: #b8c4d6; }
+        .focus-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+        .focus-card { background: rgba(8,16,29,.4); border: 1px solid #2a3a52; border-radius: 11px; padding: 20px; transition: border-color .2s ease, transform .2s ease, background .2s ease; }
+        .focus-card:hover { border-color: #47617f; background: rgba(19,34,54,.7); transform: translateY(-2px); }
+        .focus-card h3 { font-family: inherit; font-size: 1rem; letter-spacing: -.01em; margin-bottom: 9px; }
+        .focus-card p { font-size: .92rem; line-height: 1.7; }
+        .focus-tags { gap: 6px; }
+        .focus-tags span { color: #c7d6f5; border-color: #354660; background: rgba(154,174,232,.05); border-radius: 999px; font-family: inherit; font-size: .72rem; padding: 4px 9px; }
+        #projects h2 { margin-top: 0; }
+        .repo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+        .repo-card { min-width: 0; background: rgba(17,27,45,.82); border: 1px solid #26364d; border-radius: 12px; padding: 21px; transition: border-color .2s ease, transform .2s ease, background .2s ease; }
+        .repo-card:hover { transform: translateY(-3px); border-color: #79c7ff; background: #142139; box-shadow: 0 12px 28px rgba(0,0,0,.16); }
+        .repo-name { color: #e7f0fb; font-family: inherit; font-size: 1.02rem; line-height: 1.4; overflow-wrap: anywhere; word-break: normal; }
+        .repo-card:hover .repo-name { color: #9bd8ff; }
+        .repo-desc { color: #b1bfd1; line-height: 1.65; font-size: .9rem; margin: 12px 0 22px; }
+        .repo-meta { color: #98a9bf; border-top-color: #293b53; font-family: inherit; font-size: .78rem; padding-top: 13px; }
+        .repo-lang-dot { background: #9aaee8; box-shadow: none; }
+        a { text-underline-offset: 3px; }
+        a:focus-visible, button:focus-visible, textarea:focus-visible { outline: 2px solid #9bd8ff; outline-offset: 3px; }
+        html[dir="rtl"] body { direction: rtl; }
+        html[dir="rtl"] header { border-left: 1px solid #2b3c55; border-right: 4px solid var(--cyan-accent); border-radius: 18px; }
+        html[dir="rtl"] .bio-section { border-left: 1px solid #26364d; border-right: 3px solid #9aaee8; border-radius: 14px; }
+        html[dir="rtl"] .focus-section { border-left: 1px solid #26364d; border-right: 3px solid #79c7ff; border-radius: 14px; }
+        html[dir="rtl"] .side-nav a.active, html[dir="rtl"] .side-nav a[aria-current="location"] { box-shadow: inset -3px 0 0 var(--cyan-accent); }
+        @media (max-width: 1050px) { .page-layout { grid-template-columns: 170px minmax(0, 920px); gap: 18px; } }
+        @media (max-width: 900px) {
+            body { padding: 18px 16px 48px; }
+            .page-layout { grid-template-columns: minmax(0, 920px); gap: 16px; }
+            .side-nav { top: 8px; border-radius: 12px; }
+        }
+        @media (max-width: 600px) {
+            body { padding: 12px 12px 36px; }
+            .side-nav { margin-bottom: 2px; }
+            .side-nav a { padding: 8px 10px; }
+            header { padding: 24px 19px; border-radius: 14px; }
+            .profile-row { align-items: flex-start; gap: 14px; }
+            .profile-photo { width: 76px; height: 76px; flex-basis: 76px; }
+            .name-row { align-items: flex-start; }
+            h1 { font-size: 1.8rem; }
+            .socials { margin-top: 4px; }
+            .cta-group { display: grid; grid-template-columns: 1fr; }
+            .btn { width: 100%; }
+            .bio-section, .focus-section { padding: 21px 18px; border-radius: 12px; }
+            .focus-grid, .repo-grid { grid-template-columns: 1fr; }
+            .focus-card, .repo-card { padding: 18px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        }
+
     </style>
 <link rel="stylesheet" href="/chat.css">
 </head>
@@ -356,9 +480,9 @@
             <div class="side-nav-label" data-i18n="navHeading">Navigate</div>
             <a href="#top" data-i18n="navHome">Home</a>
             <a href="#about-me" data-i18n="navAbout">About Me</a>
-            <a href="#ai-focus" data-i18n="navAi">AI &amp; Security</a>
-            <a href="#technical-skills" data-i18n="navSkills">Technical Skills</a>
             <a href="#projects" data-i18n="navProjects">Projects</a>
+            <a href="#technical-skills" data-i18n="navSkills">Technical Skills</a>
+            <a href="#ai-focus" data-i18n="navAi">AI &amp; Security</a>
         </nav>
 
     <div class="container">
@@ -413,6 +537,13 @@
             <p data-i18n="bio1">Originally from Sheffield, England, I made Aliyah to Israel in 2014, and Israel is now home. Family is a big part of my life, and outside work I enjoy spending time with my family, reading, and continuing to learn new things.</p>
             <p data-i18n="bio2">I'm naturally curious about how things work and enjoy getting hands-on with technology. My homelab is where I can experiment, explore new ideas, and learn by building. From virtualisation and Proxmox to Docker, self-hosted services, monitoring, automation, and local AI models, I enjoy bringing different technologies together to build a connected, reliable environment. I tend to take a practical, logical approach to challenges: understand the problem, experiment with solutions, and keep refining until things work as they should.</p>
             <p data-i18n="bio3">Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.</p>
+        </section>
+
+        <section id="projects">
+            <h2 data-i18n="projectsTitle">Open Source Projects</h2>
+            <div id="repos-container" class="repo-grid">
+                <p style="color: #727e91; font-family: var(--font-mono);">Loading public GitHub repositories...</p>
+            </div>
         </section>
 
         <section class="focus-section" id="ai-focus" aria-labelledby="ai-focus-heading">
@@ -479,13 +610,7 @@
             </div>
         </section>
 
-        <section id="projects">
-            <h2 data-i18n="projectsTitle">Open Source Projects</h2>
-            <div id="repos-container" class="repo-grid">
-                <p style="color: #727e91; font-family: var(--font-mono);">Loading public GitHub repositories...</p>
-            </div>
-        </section>
-    </div>
+</div>
     </div>
 
     <script>
@@ -499,7 +624,7 @@
                 name: "Alexander Henry Patnick",
                 role: "Systems & Technical Infrastructure Specialist",
                 summary: "Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology visualisation, and designing automated workflows that reduce manual ticketing overhead by 33%.",
-                skillsLabel: "[core_capabilities_stack]:",
+                skillsLabel: "CORE CAPABILITIES",
                 skill1: "Python & Scripting", skill2: "AI Agents & LLM Integration",
                 skill3: "Machine Learning Projects", skill4: "REST APIs, HTTP & Webhooks",
                 skill5: "Linux, Docker & Proxmox", skill6: "Monitoring & Observability",
@@ -544,7 +669,7 @@
                 name: "אלכסנדר הנרי פטניק",
                 role: "מומחה למערכות ולתשתיות טכנולוגיות",
                 summary: "מוביל טכנולוגי עם יותר מעשר שנות ניסיון בהנדסת תשתיות, בסביבות IT ארגוניות, במערכות SaaS ובניתוח מערכות מעמיק. מתמחה בחקירת גורמי שורש, בניפוי תקלות API, בהמחשת טופולוגיית תשתיות ובתכנון תהליכי עבודה אוטומטיים שהפחיתו את היקף הטיפול הידני בכרטיסי תמיכה ב־33%.",
-                skillsLabel: "[יכולות_מרכזיות]:",
+                skillsLabel: "יכולות מרכזיות",
                 skill1: "Python וסקריפטים", skill2: "סוכני AI ואינטגרציה עם מודלי שפה",
                 skill3: "פרויקטים בלמידת מכונה", skill4: "REST API, HTTP ו־Webhooks",
                 skill5: "Linux, Docker ו־Proxmox", skill6: "ניטור ותצפיתיות",

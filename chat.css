@@ -34,3 +34,33 @@
   #portfolio-chatbot .pc-launcher { right: 12px; bottom: 12px; }
   #portfolio-chatbot .pc-panel { right: 8px; bottom: 70px; width: calc(100vw - 16px); height: min(560px, calc(100vh - 88px)); }
 }
+
+
+/* Portfolio refresh: aligned with the cleaner navy / sky-blue design */
+#portfolio-chatbot { color: #e7f0fb; }
+#portfolio-chatbot .pc-launcher {
+  border: 1px solid #79c7ff; background: #9bd8ff; color: #0b1726;
+  box-shadow: 0 8px 24px rgba(0,0,0,.24); font-size: .94rem;
+  transition: transform .18s ease, background .18s ease;
+}
+#portfolio-chatbot .pc-launcher:hover { background: #c0e7ff; transform: translateY(-2px); }
+#portfolio-chatbot .pc-panel {
+  border: 1px solid #31445f; border-radius: 16px; background: #0f192a;
+  box-shadow: 0 22px 64px rgba(0,0,0,.38);
+}
+#portfolio-chatbot .pc-header { background: #15233a; border-bottom-color: #2a3c55; }
+#portfolio-chatbot .pc-header strong { color: #f4f7fb; }
+#portfolio-chatbot .pc-header small { color: #b1bfd1; }
+#portfolio-chatbot .pc-close { border-radius: 7px; padding: 0 6px; }
+#portfolio-chatbot .pc-close:hover { background: #243650; }
+#portfolio-chatbot .pc-bot { background: #1b2a40; color: #edf4fc; }
+#portfolio-chatbot .pc-user { background: #d4edff; color: #102033; }
+#portfolio-chatbot .pc-sources { color: #a8b9cf; }
+#portfolio-chatbot .pc-form { border-top-color: #2a3c55; }
+#portfolio-chatbot .pc-form textarea { border-color: #3b506c; background: #0b1422; color: #f4f7fb; border-radius: 10px; }
+#portfolio-chatbot .pc-form textarea:focus-visible { outline: 2px solid #9bd8ff; outline-offset: 2px; }
+#portfolio-chatbot .pc-form button { background: #9bd8ff; color: #0b1726; border-radius: 10px; }
+#portfolio-chatbot .pc-form button:hover:not(:disabled) { background: #c0e7ff; }
+#portfolio-chatbot .pc-disclaimer { color: #aab9cb; line-height: 1.5; }
+#portfolio-chatbot button:focus-visible { outline: 2px solid #9bd8ff; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { #portfolio-chatbot *, #portfolio-chatbot *::before, #portfolio-chatbot *::after { transition-duration: .01ms !important; } }
