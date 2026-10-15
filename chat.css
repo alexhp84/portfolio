@@ -64,3 +64,24 @@
 #portfolio-chatbot .pc-disclaimer { color: #aab9cb; line-height: 1.5; }
 #portfolio-chatbot button:focus-visible { outline: 2px solid #9bd8ff; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { #portfolio-chatbot *, #portfolio-chatbot *::before, #portfolio-chatbot *::after { transition-duration: .01ms !important; } }
+
+
+/* Safe Markdown-rendered chatbot links and readable response formatting */
+#portfolio-chatbot .pc-message p { margin: 0 0 .75em; }
+#portfolio-chatbot .pc-message p:last-child { margin-bottom: 0; }
+#portfolio-chatbot .pc-message a {
+  color: #9bd8ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+#portfolio-chatbot .pc-message a:hover { color: #c0e7ff; }
+#portfolio-chatbot .pc-user a { color: #075985; }
+#portfolio-chatbot .pc-user a:hover { color: #0c4a6e; }
+#portfolio-chatbot .pc-message ul,
+#portfolio-chatbot .pc-message ol { margin: .35em 0 .75em; padding-left: 1.4em; }
+#portfolio-chatbot .pc-message code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: .92em;
+  overflow-wrap: anywhere;
+}

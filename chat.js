@@ -48,11 +48,55 @@
   launcher.addEventListener("click", () => toggle(panel.hidden));
   close.addEventListener("click", () => toggle(false));
 
+  // Render a small, safe subset of Markdown. Escape all text first, then add
+  // anchors only for HTTP(S) links. Do not allow model output to inject HTML.
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;",
+      '"': "&quot;", "'": "&#39;"
+    })[char]);
+  }
+
+  function safeUrl(value) {
+    try {
+      const url = new URL(value, window.location.href);
+      return (url.protocol === "https:" || url.protocol === "http:") ? url.href : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function renderMessage(text) {
+    let html = escapeHtml(text);
+
+    // Markdown links: [label](https://example.com)
+    html = html.replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g,
+      (_match, label, rawUrl) => {
+        const url = safeUrl(rawUrl);
+        return url
+          ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
+          : `${label} (${escapeHtml(rawUrl)})`;
+      });
+
+    // Auto-link plain HTTP(S) URLs, excluding trailing punctuation.
+    html = html.replace(/(^|[\s>])(https?:\/\/[^\s<]+)/g, (_match, prefix, rawUrl) => {
+      const trailing = rawUrl.match(/[.,!?;:]+$/)?.[0] || "";
+      const candidate = trailing ? rawUrl.slice(0, -trailing.length) : rawUrl;
+      const url = safeUrl(candidate);
+      return url
+        ? `${prefix}<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(candidate)}</a>${trailing}`
+        : `${prefix}${rawUrl}`;
+    });
+
+    return html.split(/\n{2,}/).map((paragraph) =>
+      `<p>${paragraph.replace(/\n/g, "<br>")}</p>`
+    ).join("");
+  }
+
   function addMessage(text, kind, sources = []) {
     const item = document.createElement("div");
     item.className = `pc-message ${kind}`;
-    // textContent avoids interpreting model output as HTML.
-    item.textContent = text;
+    item.innerHTML = renderMessage(text);
     messages.appendChild(item);
     if (sources.length) {
       const sourceLine = document.createElement("div");
@@ -82,7 +126,7 @@
       const data = await response.json().catch(() => ({}));
       if (!response.ok)
         throw new Error(data.error || `Request failed (${response.status})`);
-      pending.textContent = data.answer || "I couldn't find an answer.";
+      pending.innerHTML = renderMessage(data.answer || "I couldn't find an answer.");
       if (Array.isArray(data.sources) && data.sources.length) {
         const sourceLine = document.createElement("div");
         sourceLine.className = "pc-sources";
