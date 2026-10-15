@@ -705,6 +705,34 @@
             .focus-card:hover {
                 transform: translateY(-2px);
             }
+            /* Light-mode contrast fix for project cards and their hover state. */
+            #projects .repo-card,
+            #projects .repo-card:hover,
+            #projects .repo-card:focus-within {
+                background: #ffffff !important;
+                color: #292b35 !important;
+                border-color: #dedfe7 !important;
+                box-shadow: 0 10px 28px rgba(35, 42, 70, 0.07) !important;
+            }
+            #projects .repo-name,
+            #projects .repo-name:visited {
+                color: #222431 !important;
+            }
+            #projects .repo-card:hover .repo-name,
+            #projects .repo-name:hover,
+            #projects .repo-name:focus-visible {
+                color: #244fc5 !important;
+            }
+            #projects .repo-desc {
+                color: #555968 !important;
+            }
+            #projects .repo-meta {
+                color: #555968 !important;
+                border-top-color: #e2e4eb !important;
+            }
+            #projects .repo-lang-dot {
+                outline: 1px solid rgba(30, 35, 50, .15);
+            }
             .badge {
                 color: #35436e !important;
                 background: #f0f3ff !important;
