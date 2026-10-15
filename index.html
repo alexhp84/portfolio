@@ -638,6 +638,45 @@
             ::selection { background:#4566ad; color:#fff; }
         }
 
+
+        /* Layout correction: keep the hero content in normal flow and restore the portrait. */
+        header#top {
+            display: block;
+            min-height: 0;
+            overflow: hidden;
+            padding: clamp(30px, 5vw, 64px);
+        }
+        .hero-eyebrow { margin-bottom: 22px; }
+        .profile-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin: 0 0 18px;
+        }
+        .profile-photo {
+            display: block;
+            width: clamp(96px, 14vw, 150px);
+            height: clamp(96px, 14vw, 150px);
+            flex: 0 0 auto;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            border: 2px solid #8eb8ff;
+            box-shadow: 0 0 0 7px rgba(121, 158, 255, .10);
+        }
+        .profile-details { min-width: 0; width: auto; flex: 1; }
+        .name-row { display: block; }
+        h1 { max-width: 900px; overflow-wrap: anywhere; }
+        .about-text { max-width: 850px; }
+        .skills-container { max-width: 900px; }
+        .cta-group { display: flex; flex-wrap: wrap; }
+        @media (max-width: 600px) {
+            header#top { padding: 28px 22px; }
+            .profile-row { align-items: flex-start; gap: 16px; }
+            .profile-photo { width: 78px; height: 78px; }
+            h1 { font-size: clamp(2rem, 9vw, 3.4rem); }
+            .cta-group { display: flex; }
+        }
     </style>
 <link rel="stylesheet" href="/chat.css">
 </head>
