@@ -34,6 +34,8 @@
   const input = widget.querySelector("#pc-question");
   const messages = widget.querySelector(".pc-messages");
   const sendButton = form.querySelector("button");
+  // Recent turns let the backend resolve short follow-up questions.
+  const conversation = [];
   input.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -113,6 +115,8 @@
     const question = input.value.trim();
     if (!question || sendButton.disabled) return;
     addMessage(question, "pc-user");
+    conversation.push({ role: "user", content: question });
+    while (conversation.length > 12) conversation.shift();
     input.value = "";
     sendButton.disabled = true;
     input.disabled = true;
@@ -121,12 +125,15 @@
       const response = await fetch(CHAT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, history: conversation.slice(0, -1) }),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok)
         throw new Error(data.error || `Request failed (${response.status})`);
-      pending.innerHTML = renderMessage(data.answer || "I couldn't find an answer.");
+      const answer = data.answer || "I couldn't find an answer.";
+      pending.innerHTML = renderMessage(answer);
+      conversation.push({ role: "assistant", content: answer });
+      while (conversation.length > 12) conversation.shift();
       if (Array.isArray(data.sources) && data.sources.length) {
         const sourceLine = document.createElement("div");
         sourceLine.className = "pc-sources";
@@ -134,6 +141,8 @@
         pending.after(sourceLine);
       }
     } catch (error) {
+      // Discard the unanswered user turn after a failed request.
+      if (conversation.length && conversation[conversation.length - 1].role === "user") conversation.pop();
       pending.textContent = `Sorry, I couldn't reach the assistant. ${error.message}`;
     } finally {
       sendButton.disabled = false;
