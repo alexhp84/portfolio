@@ -123,3 +123,32 @@
   #portfolio-chatbot .pc-sources,
   #portfolio-chatbot .pc-suggestions { margin-left: 56px !important; }
 }
+
+
+/* The launcher itself is the 3D assistant. Hide it while the chat is open;
+   the same character then appears beside each assistant message. */
+#portfolio-chatbot .pc-launcher {
+  gap: 10px !important;
+  padding: 7px 16px 7px 8px !important;
+  min-height: 64px !important;
+}
+#portfolio-chatbot .pc-launcher[hidden] { display: none !important; }
+#portfolio-chatbot .pc-launcher .pc-avatar {
+  display: inline-flex !important;
+  flex: 0 0 48px !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  height: 54px !important;
+  margin: 0 !important;
+  position: relative !important;
+}
+#portfolio-chatbot .pc-launcher .pc-robot {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+#portfolio-chatbot .pc-launcher-label { white-space: nowrap; }
+@media (max-width: 480px) {
+  #portfolio-chatbot .pc-launcher { min-height: 58px !important; padding-right: 13px !important; }
+  #portfolio-chatbot .pc-launcher .pc-avatar { flex-basis: 42px !important; width: 42px !important; min-width: 42px !important; height: 48px !important; }
+}

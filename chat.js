@@ -20,7 +20,7 @@
       </svg>
     </span>`;
   widget.innerHTML = `
-    <button class="pc-launcher" type="button" aria-expanded="false" aria-controls="pc-panel"><span class="pc-launcher-bot" aria-hidden="true">🤖</span> Chat with Alex's assistant</button>
+    <button class="pc-launcher" type="button" aria-expanded="false" aria-controls="pc-panel">${robot("wave")}<span class="pc-launcher-label">Chat with Alex's assistant</span></button>
     <div class="pc-panel" id="pc-panel" hidden>
       <div class="pc-header"><div><strong>Portfolio Assistant</strong><small>Ask about skills, experience and projects</small></div><button class="pc-close" type="button" aria-label="Close chat">×</button></div>
       <div class="pc-messages" role="log" aria-live="polite">
@@ -53,6 +53,7 @@
   function toggle(open) {
     clearTimeout(closeTimer); closing = false;
     panel.hidden = !open;
+    launcher.hidden = open;
     launcher.setAttribute("aria-expanded", String(open));
     if (open) input.focus();
   }
