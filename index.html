@@ -744,6 +744,24 @@
             }
         }
 
+
+
+        /* Keep the English name on one line without changing the Hebrew heading. */
+        html[lang="en"] .name-row h1 {
+            font-size: clamp(2rem, 3.5vw, 3.5rem) !important;
+            line-height: 1.08;
+            white-space: nowrap;
+            overflow-wrap: normal;
+            word-break: keep-all;
+            max-width: 100%;
+        }
+        @media (max-width: 600px) {
+            html[lang="en"] .name-row h1 {
+                font-size: clamp(1.35rem, 5.6vw, 2.2rem) !important;
+                letter-spacing: -0.045em;
+            }
+        }
+
 </style>
 <link rel="stylesheet" href="/chat.css">
 </head>

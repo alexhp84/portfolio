@@ -218,3 +218,49 @@
     height: 100px !important;
   }
 }
+/* Fix assistant replies collapsing beside the robot */
+#portfolio-chatbot .pc-welcome,
+#portfolio-chatbot .pc-bot-row {
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#portfolio-chatbot .pc-welcome .pc-message,
+#portfolio-chatbot .pc-bot-row .pc-message {
+    grid-column: 2 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow-wrap: anywhere;
+    box-sizing: border-box !important;
+}
+
+#portfolio-chatbot .pc-welcome .pc-avatar,
+#portfolio-chatbot .pc-bot-row .pc-avatar {
+    grid-column: 1 !important;
+    width: 58px !important;
+    min-width: 58px !important;
+}
+
+#portfolio-chatbot .pc-messages {
+    min-width: 0 !important;
+}
+
+@media (max-width: 480px) {
+    #portfolio-chatbot .pc-welcome,
+    #portfolio-chatbot .pc-bot-row {
+        grid-template-columns: 44px minmax(0, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    #portfolio-chatbot .pc-welcome .pc-avatar,
+    #portfolio-chatbot .pc-bot-row .pc-avatar {
+        width: 44px !important;
+        min-width: 44px !important;
+    }
+}
