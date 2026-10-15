@@ -72,7 +72,18 @@
   function safeUrl(value) {
     try { const url = new URL(value, window.location.href); return (url.protocol === "https:" || url.protocol === "http:") ? url.href : null; } catch { return null; }
   }
+  function normalizeAnswer(text) {
+    let answer = String(text ?? "");
+    const linkedin = "https://www.linkedin.com/in/alex-patnick-14334b96/";
+    // Replace the unwanted portfolio-site recommendation while preserving CV links.
+    answer = answer.replace(/(?:or\s+)?visit his portfolio website at\s*(?:\[[^\]]*\]\()?https?:\/\/patnick\.click\/?\)?/gi,
+      `connect with Alex on LinkedIn: ${linkedin}`);
+    answer = answer.replace(/(?:or\s+)?visit (?:his|Alex's) portfolio website(?: at)?\s*(?:\[[^\]]*\]\()?https?:\/\/patnick\.click\/?\)?/gi,
+      `connect with Alex on LinkedIn: ${linkedin}`);
+    return answer;
+  }
   function renderMessage(text) {
+    text = normalizeAnswer(text);
     let html = escapeHtml(text);
     html = html.replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g, (_m, label, rawUrl) => {
       const url = safeUrl(rawUrl); return url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${label}</a>` : `${label} (${escapeHtml(rawUrl)})`;
@@ -114,7 +125,7 @@
       const response = await fetch(CHAT_API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question, history: conversation.slice(0, -1) }) });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
-      const answer = data.answer || "I couldn't find an answer.";
+      const answer = normalizeAnswer(data.answer || "I couldn't find an answer.");
       pending.innerHTML = renderMessage(answer); pending.classList.remove("pc-thinking");
       const row = pending.closest(".pc-bot-row"); const avatar = row && row.querySelector(".pc-avatar");
       if (avatar) { avatar.classList.remove("pc-mood-thinking"); avatar.classList.add(`pc-mood-${moodFor(answer)}`); }

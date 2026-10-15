@@ -77,3 +77,49 @@
 @keyframes pc-dots { 0% { content:""; } 25% { content:"."; } 50% { content:".."; } 75%,100% { content:"..."; } }
 @media (max-width:480px) { #portfolio-chatbot .pc-launcher { right:12px; bottom:12px; } #portfolio-chatbot .pc-panel { right:8px; bottom:70px; width:calc(100vw - 16px); height:min(620px,calc(100vh - 88px)); } #portfolio-chatbot .pc-avatar { width:38px; height:47px; } #portfolio-chatbot .pc-suggestions { margin-left:43px; } }
 @media (prefers-reduced-motion:reduce) { #portfolio-chatbot *, #portfolio-chatbot *::before, #portfolio-chatbot *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+
+
+/* Keep the robot in its own non-overlapping column beside every assistant reply. */
+#portfolio-chatbot .pc-welcome,
+#portfolio-chatbot .pc-bot-row {
+  display: grid !important;
+  grid-template-columns: 58px minmax(0, 1fr) !important;
+  align-items: end !important;
+  column-gap: 10px !important;
+  width: 100% !important;
+  margin: 0 0 14px !important;
+}
+#portfolio-chatbot .pc-welcome .pc-avatar,
+#portfolio-chatbot .pc-bot-row .pc-avatar {
+  display: flex !important;
+  position: relative !important;
+  z-index: 1 !important;
+  grid-column: 1 !important;
+  width: 58px !important;
+  min-width: 58px !important;
+  height: 68px !important;
+  margin: 0 !important;
+  align-self: end !important;
+  overflow: visible !important;
+}
+#portfolio-chatbot .pc-welcome .pc-message,
+#portfolio-chatbot .pc-bot-row .pc-message {
+  grid-column: 2 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+#portfolio-chatbot .pc-robot { display: block !important; width: 100% !important; height: 100% !important; }
+#portfolio-chatbot .pc-sources { margin-left: 68px !important; }
+#portfolio-chatbot .pc-suggestions { margin-left: 68px !important; }
+@media (max-width: 480px) {
+  #portfolio-chatbot .pc-welcome,
+  #portfolio-chatbot .pc-bot-row { grid-template-columns: 48px minmax(0, 1fr) !important; column-gap: 8px !important; }
+  #portfolio-chatbot .pc-welcome .pc-avatar,
+  #portfolio-chatbot .pc-bot-row .pc-avatar { width: 48px !important; min-width: 48px !important; height: 58px !important; }
+  #portfolio-chatbot .pc-sources,
+  #portfolio-chatbot .pc-suggestions { margin-left: 56px !important; }
+}
