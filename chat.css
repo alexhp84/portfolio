@@ -85,3 +85,127 @@
   font-size: .92em;
   overflow-wrap: anywhere;
 }
+
+
+/* Animated 3D-style robot greeting */
+#portfolio-chatbot .pc-greeting {
+  position: fixed; z-index: 9997; right: 138px; bottom: 42px;
+  display: flex; align-items: center; gap: 10px; max-width: min(290px, calc(100vw - 112px));
+  padding: 13px 14px; border: 1px solid #b7e3ff; border-radius: 16px 16px 4px 16px;
+  background: #f5fbff; color: #102033; box-shadow: 0 12px 32px rgba(0,0,0,.24);
+  font-size: .92rem; font-weight: 700; line-height: 1.35;
+  animation: pc-greeting-pop .55s cubic-bezier(.2,.8,.2,1) both;
+}
+#portfolio-chatbot .pc-greeting[hidden] { display: none; }
+#portfolio-chatbot .pc-greeting-close {
+  flex: 0 0 auto; padding: 0 2px; border: 0; background: transparent;
+  color: #516174; font: inherit; font-size: 19px; line-height: 1; cursor: pointer;
+}
+#portfolio-chatbot .pc-launcher {
+  position: fixed; z-index: 9998; right: 22px; bottom: 18px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 102px; min-height: 116px; padding: 0 4px 8px; overflow: visible;
+  border: 0; background: transparent; box-shadow: none; color: #eaf6ff;
+}
+#portfolio-chatbot .pc-launcher:hover { background: transparent; transform: translateY(-3px); }
+#portfolio-chatbot .pc-launcher:focus-visible { outline: 2px solid #9bd8ff; outline-offset: 2px; border-radius: 18px; }
+#portfolio-chatbot .pc-launcher-label {
+  display: block; max-width: 104px; padding: 4px 7px; border: 1px solid #344d6a;
+  border-radius: 999px; background: #122139; color: #eaf6ff; font-size: 10px;
+  line-height: 1.2; text-align: center; box-shadow: 0 5px 15px #0004;
+}
+#portfolio-chatbot .pc-robot { position: relative; display: block; width: 94px; height: 94px; perspective: 350px; }
+#portfolio-chatbot .pc-robot-shadow {
+  position: absolute; left: 20px; right: 16px; bottom: 3px; height: 13px;
+  border-radius: 50%; background: #0004; filter: blur(5px);
+  animation: pc-robot-shadow 2.5s ease-in-out infinite;
+}
+#portfolio-chatbot .pc-robot-body {
+  position: absolute; inset: 0; display: block; transform-origin: 50% 100%;
+  animation: pc-robot-float 2.5s ease-in-out infinite;
+}
+#portfolio-chatbot .pc-robot-head {
+  position: absolute; z-index: 3; left: 22px; top: 7px; width: 53px; height: 43px;
+  border: 1px solid #b6d8f1; border-radius: 17px 17px 15px 15px;
+  background: linear-gradient(145deg, #ffffff 0%, #e5f3ff 46%, #a8c8e5 100%);
+  box-shadow: inset -5px -5px 8px #7296b755, inset 4px 4px 8px #fff, 0 5px 8px #0003;
+}
+#portfolio-chatbot .pc-robot-antenna {
+  position: absolute; left: 24px; top: -10px; width: 5px; height: 11px;
+  border-radius: 4px; background: linear-gradient(90deg,#7897b4,#effaff,#7294b6);
+}
+#portfolio-chatbot .pc-robot-antenna::before {
+  content: ""; position: absolute; width: 10px; height: 10px; left: -2px; top: -6px;
+  border-radius: 50%; background: #5de5ff; box-shadow: 0 0 9px #5de5ff;
+}
+#portfolio-chatbot .pc-robot-face {
+  position: absolute; inset: 8px 6px 7px; border-radius: 10px;
+  background: linear-gradient(145deg,#10263f,#203c5b); box-shadow: inset 0 2px 5px #0008;
+}
+#portfolio-chatbot .pc-robot-eye {
+  position: absolute; top: 8px; width: 6px; height: 7px; border-radius: 50%;
+  background: #71eaff; box-shadow: 0 0 6px #71eaff;
+}
+#portfolio-chatbot .pc-robot-eye-left { left: 9px; }
+#portfolio-chatbot .pc-robot-eye-right { right: 9px; }
+#portfolio-chatbot .pc-robot-smile {
+  position: absolute; left: 17px; top: 20px; width: 10px; height: 5px;
+  border-bottom: 2px solid #71eaff; border-radius: 0 0 10px 10px;
+}
+#portfolio-chatbot .pc-robot-ear {
+  position: absolute; z-index: 2; top: 21px; width: 8px; height: 15px;
+  border: 1px solid #9ebed8; border-radius: 5px; background: linear-gradient(90deg,#8aa9c5,#f5fbff);
+}
+#portfolio-chatbot .pc-robot-ear-left { left: 16px; }
+#portfolio-chatbot .pc-robot-ear-right { right: 16px; }
+#portfolio-chatbot .pc-robot-neck {
+  position: absolute; z-index: 2; left: 43px; top: 47px; width: 12px; height: 8px;
+  background: linear-gradient(90deg,#7e9cb8,#f4fbff,#91b2ce);
+}
+#portfolio-chatbot .pc-robot-torso {
+  position: absolute; z-index: 2; left: 26px; top: 52px; width: 45px; height: 31px;
+  border: 1px solid #a7c9e5; border-radius: 12px 12px 10px 10px;
+  background: linear-gradient(135deg,#ffffff 0%,#dceeff 42%,#91b5d5 100%);
+  box-shadow: inset -5px -3px 6px #7599ba66, inset 3px 3px 5px #fff;
+}
+#portfolio-chatbot .pc-robot-badge {
+  position: absolute; left: 15px; top: 7px; width: 14px; height: 14px;
+  display: grid; place-items: center; border-radius: 5px;
+  background: linear-gradient(135deg,#9beaff,#42b9ed); color: #0b2843;
+  font-size: 9px; font-weight: 900; box-shadow: 0 2px 4px #47769a66;
+}
+#portfolio-chatbot .pc-robot-arm {
+  position: absolute; z-index: 4; top: 54px; width: 10px; height: 28px;
+  border: 1px solid #a7c9e5; border-radius: 8px;
+  background: linear-gradient(90deg,#87a9c8,#f7fcff,#8eafcd);
+}
+#portfolio-chatbot .pc-robot-arm-left { left: 18px; height: 23px; transform: rotate(23deg); }
+#portfolio-chatbot .pc-robot-arm-right {
+  right: 7px; top: 35px; height: 28px; transform-origin: 50% 90%;
+  transform: rotate(-35deg); animation: pc-robot-wave .8s ease-in-out infinite alternate;
+}
+#portfolio-chatbot .pc-robot-hand {
+  position: absolute; top: -7px; left: -2px; width: 13px; height: 13px;
+  border: 1px solid #a7c9e5; border-radius: 50%;
+  background: linear-gradient(135deg,#fff,#9cc2e4);
+}
+#portfolio-chatbot .pc-robot-leg {
+  position: absolute; z-index: 1; top: 78px; width: 11px; height: 10px;
+  border-radius: 0 0 5px 5px; background: linear-gradient(90deg,#8ba9c6,#eff8ff,#91b2cf);
+}
+#portfolio-chatbot .pc-robot-leg-left { left: 34px; }
+#portfolio-chatbot .pc-robot-leg-right { right: 27px; }
+@keyframes pc-robot-wave { from { transform: rotate(-48deg); } to { transform: rotate(8deg); } }
+@keyframes pc-robot-float { 0%,100% { transform: translateY(0) rotateY(-4deg); } 50% { transform: translateY(-5px) rotateY(4deg); } }
+@keyframes pc-robot-shadow { 0%,100% { transform: scaleX(1); opacity: .7; } 50% { transform: scaleX(.78); opacity: .4; } }
+@keyframes pc-greeting-pop { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (max-width: 480px) {
+  #portfolio-chatbot .pc-launcher { right: 8px; bottom: 8px; }
+  #portfolio-chatbot .pc-greeting { right: 108px; bottom: 26px; max-width: calc(100vw - 130px); padding: 10px 11px; font-size: .82rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #portfolio-chatbot .pc-robot-body,
+  #portfolio-chatbot .pc-robot-arm-right,
+  #portfolio-chatbot .pc-robot-shadow,
+  #portfolio-chatbot .pc-greeting { animation: none !important; }
+}

@@ -7,8 +7,35 @@
   const widget = document.createElement("section");
   widget.id = "portfolio-chatbot";
   widget.innerHTML = `
-    <button class="pc-launcher" type="button" aria-expanded="false" aria-controls="pc-panel">
-      <span aria-hidden="true">✦</span> Ask about my experience
+    <div class="pc-greeting" role="status">
+      <span>Hello, ask me about Alex's career!</span>
+      <button class="pc-greeting-close" type="button" aria-label="Dismiss greeting">×</button>
+    </div>
+    <button class="pc-launcher" type="button" aria-label="Open Alex's portfolio chatbot" aria-expanded="false" aria-controls="pc-panel">
+      <span class="pc-robot" aria-hidden="true">
+        <span class="pc-robot-shadow"></span>
+        <span class="pc-robot-body">
+          <span class="pc-robot-ear pc-robot-ear-left"></span>
+          <span class="pc-robot-ear pc-robot-ear-right"></span>
+          <span class="pc-robot-head">
+            <span class="pc-robot-antenna"></span>
+            <span class="pc-robot-face">
+              <span class="pc-robot-eye pc-robot-eye-left"></span>
+              <span class="pc-robot-eye pc-robot-eye-right"></span>
+              <span class="pc-robot-smile"></span>
+            </span>
+          </span>
+          <span class="pc-robot-neck"></span>
+          <span class="pc-robot-torso">
+            <span class="pc-robot-badge">A</span>
+          </span>
+          <span class="pc-robot-arm pc-robot-arm-left"></span>
+          <span class="pc-robot-arm pc-robot-arm-right"><span class="pc-robot-hand"></span></span>
+          <span class="pc-robot-leg pc-robot-leg-left"></span>
+          <span class="pc-robot-leg pc-robot-leg-right"></span>
+        </span>
+      </span>
+      <span class="pc-launcher-label">Chat with Alex's assistant</span>
     </button>
     <div class="pc-panel" id="pc-panel" hidden>
       <div class="pc-header">
@@ -28,6 +55,8 @@
   document.body.appendChild(widget);
 
   const launcher = widget.querySelector(".pc-launcher");
+  const greeting = widget.querySelector(".pc-greeting");
+  const greetingClose = widget.querySelector(".pc-greeting-close");
   const panel = widget.querySelector(".pc-panel");
   const close = widget.querySelector(".pc-close");
   const form = widget.querySelector(".pc-form");
@@ -42,13 +71,23 @@
       form.requestSubmit();
     }
   });
+  let greetingDismissed = false;
   function toggle(open) {
     panel.hidden = !open;
     launcher.setAttribute("aria-expanded", String(open));
-    if (open) input.focus();
+    if (open) {
+      greeting.hidden = true;
+      input.focus();
+    } else if (!greetingDismissed) {
+      greeting.hidden = false;
+    }
   }
   launcher.addEventListener("click", () => toggle(panel.hidden));
   close.addEventListener("click", () => toggle(false));
+  greetingClose.addEventListener("click", () => {
+    greetingDismissed = true;
+    greeting.hidden = true;
+  });
 
   // Render a small, safe subset of Markdown. Escape all text first, then add
   // anchors only for HTTP(S) links. Do not allow model output to inject HTML.
