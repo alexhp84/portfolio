@@ -73,16 +73,7 @@
   function safeUrl(value) {
     try { const url = new URL(value, window.location.href); return (url.protocol === "https:" || url.protocol === "http:") ? url.href : null; } catch { return null; }
   }
-  function normalizeAnswer(text) {
-    let answer = String(text ?? "");
-    const linkedin = "https://www.linkedin.com/in/alex-patnick-14334b96/";
-    // Replace the unwanted portfolio-site recommendation while preserving CV links.
-    answer = answer.replace(/(?:or\s+)?visit his portfolio website at\s*(?:\[[^\]]*\]\()?https?:\/\/patnick\.click\/?\)?/gi,
-      `connect with Alex on LinkedIn: ${linkedin}`);
-    answer = answer.replace(/(?:or\s+)?visit (?:his|Alex's) portfolio website(?: at)?\s*(?:\[[^\]]*\]\()?https?:\/\/patnick\.click\/?\)?/gi,
-      `connect with Alex on LinkedIn: ${linkedin}`);
-    return answer;
-  }
+  function normalizeAnswer(text) { return String(text ?? ""); }
   function renderMessage(text) {
     text = normalizeAnswer(text);
     let html = escapeHtml(text);
@@ -131,7 +122,7 @@
       const row = pending.closest(".pc-bot-row"); const avatar = row && row.querySelector(".pc-avatar");
       if (avatar) { avatar.classList.remove("pc-mood-thinking"); avatar.classList.add(`pc-mood-${moodFor(answer)}`); }
       conversation.push({ role: "assistant", content: answer }); while (conversation.length > 12) conversation.shift();
-      addSources(pending, data.sources);
+      addSources(pending, (data.sources || []).filter(name => !/\.md$/i.test(name)));
     } catch (error) {
       if (conversation.length && conversation[conversation.length - 1].role === "user") conversation.pop();
       pending.textContent = `Sorry, I couldn't reach the assistant. ${error.message}`; pending.classList.remove("pc-thinking");
