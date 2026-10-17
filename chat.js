@@ -22,9 +22,9 @@
   widget.innerHTML = `
     <button class="pc-launcher" type="button" aria-expanded="false" aria-controls="pc-panel">${robot("wave")}<span class="pc-launcher-label">Chat with Alex's assistant</span></button>
     <div class="pc-panel" id="pc-panel" hidden>
-      <div class="pc-header"><div><strong>Portfolio Assistant</strong><small>Ask about skills, experience and projects</small></div><button class="pc-close" type="button" aria-label="Close chat">×</button></div>
+      <div class="pc-header"><div><strong>Patch, Alex's Assistant</strong><small>Ask about skills, experience and projects</small></div><button class="pc-close" type="button" aria-label="Close chat">×</button></div>
       <div class="pc-messages" role="log" aria-live="polite">
-        <div class="pc-welcome">${robot("wave")}<div class="pc-message pc-bot">Hello, ask me about Alex's career!</div></div>
+        <div class="pc-welcome">${robot("wave")}<div class="pc-message pc-bot">Hi, I'm Pat, Alex's personal assistant. Welcome to his portfolio site, ask me anything about him!</div></div>
         <div class="pc-suggestions" aria-label="Suggested questions">
           <button type="button" data-question="Tell me about Alex's AI projects">AI projects</button>
           <button type="button" data-question="What is Alex's technical background?">Technical background</button>
@@ -44,6 +44,14 @@
   const messages = widget.querySelector(".pc-messages");
   const sendButton = form.querySelector("button");
   const conversation = [];
+  const greeting = document.createElement("div");
+  greeting.className = "pc-greeting"; greeting.hidden = true;
+  greeting.innerHTML = `Hi, I'm Patch, Alex's personal assistant. Welcome to his portfolio site, ask me anything about him!<button class="pc-greeting-x" type="button" aria-label="Dismiss">×</button>`;
+  widget.appendChild(greeting);
+  const hideGreeting = () => { greeting.hidden = true; try { sessionStorage.setItem("pcGreeted", "1"); } catch {} };
+  try { if (!sessionStorage.getItem("pcGreeted")) setTimeout(() => { if (panel.hidden) greeting.hidden = false; }, 1500); } catch {}
+  greeting.addEventListener("click", () => toggle(true));
+  greeting.querySelector(".pc-greeting-x").addEventListener("click", (e) => { e.stopPropagation(); hideGreeting(); });
   let closing = false;
   let closeTimer;
 
@@ -54,6 +62,7 @@
     clearTimeout(closeTimer); closing = false;
     panel.hidden = !open;
     launcher.hidden = open;
+    if (open) hideGreeting();
     launcher.setAttribute("aria-expanded", String(open));
     if (open) input.focus();
   }

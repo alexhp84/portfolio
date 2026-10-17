@@ -113,3 +113,8 @@
 @media (prefers-reduced-motion: reduce) {
   #portfolio-chatbot *, #portfolio-chatbot *::before, #portfolio-chatbot *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+/* Greeting bubble above the launcher */
+#portfolio-chatbot .pc-greeting { position: fixed; z-index: 9997; right: 22px; bottom: 138px; max-width: 230px; padding: 11px 30px 11px 13px; border: 1px solid #31445f; border-radius: 14px 14px 4px 14px; background: #15233a; color: #edf4fc; font-size: .9rem; line-height: 1.4; box-shadow: 0 10px 30px rgba(0,0,0,.35); cursor: pointer; animation: pc-open .25s ease-out; }
+#portfolio-chatbot .pc-greeting[hidden] { display: none; }
+#portfolio-chatbot .pc-greeting-x { position: absolute; top: 2px; right: 6px; border: 0; background: transparent; color: #b1bfd1; font-size: 18px; line-height: 1; cursor: pointer; }
+@media (max-width: 480px) { #portfolio-chatbot .pc-greeting { right: 12px; bottom: 118px; max-width: calc(100vw - 40px); } }
