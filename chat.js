@@ -106,7 +106,7 @@
   }
   function addSources(after, sources) {
     if (!Array.isArray(sources) || !sources.length) return;
-    const line = document.createElement("div"); line.className = "pc-sources"; line.textContent = "Sources: " + sources.join(", "); after.after(line);
+    const line = document.createElement("div"); line.className = "pc-sources"; line.textContent = "Sources: " + sources.join(", "); (after.closest(".pc-bot-row") || after).after(line);
   }
   async function ask(question) {
     if (!question || sendButton.disabled || closing) return;
