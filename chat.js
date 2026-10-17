@@ -24,7 +24,7 @@
     <div class="pc-panel" id="pc-panel" hidden>
       <div class="pc-header"><div><strong>Patch, Alex's Assistant</strong><small>Ask about skills, experience and projects</small></div><button class="pc-close" type="button" aria-label="Close chat">×</button></div>
       <div class="pc-messages" role="log" aria-live="polite">
-        <div class="pc-welcome">${robot("wave")}<div class="pc-message pc-bot">Hi, I'm Pat, Alex's personal assistant. Welcome to his portfolio site, ask me anything about him!</div></div>
+        <div class="pc-welcome">${robot("wave")}<div class="pc-message pc-bot">Hi, I'm Patch, Alex's personal assistant. Welcome to his portfolio site, ask me anything about him!</div></div>
         <div class="pc-suggestions" aria-label="Suggested questions">
           <button type="button" data-question="Tell me about Alex's AI projects">AI projects</button>
           <button type="button" data-question="What is Alex's technical background?">Technical background</button>
