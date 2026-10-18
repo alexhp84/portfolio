@@ -1,34 +1,58 @@
-# Monitoring portfolio page — embedded Grafana and Alerta
+# Monitoring page: Grafana dashboards + Alerta
 
-This update is based on the latest monitoring-page files available in the conversation. It replaces only:
-
-- `monitoring.html`
-- `site.css`
-- `site.js`
-
-Keep `index.html`, `projects.html`, `chat.css`, `chat.js`, CV/assets and other existing files unchanged.
+This bundle updates the portfolio's `monitoring.html`, `site.css`, and `site.js`.
 
 ## What changed
 
-- Adds three Grafana public dashboard embeds: homelab overview, network & VLANs, and logs & incidents.
-- Embeds Alerta.
-- Does **not** embed Alertmanager.
-- Keeps the live synthetic-summary section already in `monitoring.html` and the current bilingual navigation/translations.
-- Includes a Grafana guest demo credential panel as requested.
+- Removed the “Live demo snapshot” summary card and its `monitoring-data.patnick.click/api/summary` polling script. The page no longer depends on that API.
+- Kept the three existing Grafana public dashboard links and added them as iframe sources using the same direct URLs that open in a new tab.
+- Kept Alerta embedded and retained an “Open Alerta” link as a fallback.
+- Alertmanager is not embedded.
+- Retained the public Grafana demo credentials as requested: `guest` / `Aa123456`.
+- Kept the existing shared navigation, bilingual `site.js`, and chat integration references.
 
-## Credential exposure warning
+## Important: Grafana iframe configuration
 
-The guest username and password are rendered in the page, so both will be visible to anyone who visits the site and in the public HTML source after deployment. Use this only if the account is deliberately a restricted demo account with no sensitive data or administrative permissions. Do not reuse this password anywhere else; rotate it if you later decide not to publish it.
+The HTML change alone cannot override Grafana's anti-framing response headers. Grafana's default `allow_embedding` setting is false and results in `X-Frame-Options: deny`; that causes a browser iframe to appear blank even when the public dashboard URL opens normally in a tab. See Grafana's [configuration documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/) and [public dashboard documentation](https://grafana.com/docs/grafana/latest/visualizations/dashboards/share-dashboards-panels/shared-dashboards/).
 
-## Grafana embedding
+On the VM, edit your existing Compose file:
 
-If the dashboards show an empty frame or a browser refusal, use the “Open dashboard in new tab” link shown above each frame. Grafana's security configuration may need iframe embedding enabled (`allow_embedding = true` / `GF_SECURITY_ALLOW_EMBEDDING=true`) for the browser to permit embedding. Review the security implications before enabling it. See the official Grafana docs: https://grafana.com/blog/how-to-embed-grafana-dashboards-into-web-applications/
+```bash
+cd /opt/live-demos/projects/monitoring-portfolio-demo/monitoring-portfolio-demo
+sudo docker compose config --services
+sudo nano docker-compose.yml
+```
 
-The Alerta frame can likewise be blocked by its response headers. Its external open link remains as a fallback.
+Under the existing Grafana service's `environment:` section, add this entry (use the same YAML style as the neighbouring environment variables, and do not create a second `environment:` section):
 
-## Verify before pushing
+```yaml
+GF_SECURITY_ALLOW_EMBEDDING: "true"
+```
 
-Run in the repository root:
+Then recreate only the Grafana service. If `docker compose config --services` lists the service as `grafana`, run:
+
+```bash
+sudo docker compose up -d --force-recreate grafana
+```
+
+If its service name is different, use the name shown by `docker compose config --services`.
+
+Check the response headers afterwards:
+
+```bash
+curl -sSI 'https://monitoring.patnick.click/public-dashboards/47dccdff74224f0dab2f1c242b1e0649' \
+  | grep -iE '^(HTTP/|x-frame-options:|content-security-policy:)'
+```
+
+If `X-Frame-Options: DENY` is still present after enabling Grafana embedding, inspect Nginx Proxy Manager's Advanced configuration for a manually-added `X-Frame-Options` deny header. Do not remove unrelated security headers. Then hard-refresh the GitHub Pages monitoring page.
+
+Alerta may have its own frame restrictions. If only its iframe remains blank, check the Alerta response headers separately; the Open Alerta link remains available regardless.
+
+## Deploy
+
+Copy the three website files into the root of the portfolio repository, replacing only files with the same names. Keep `index.html`, `projects.html`, `chat.css`, and `chat.js`.
+
+Before committing:
 
 ```bash
 git diff --check
@@ -36,4 +60,4 @@ node --check site.js
 git diff --stat
 ```
 
-Then review the diff and commit/push the three files. Remember to keep `chat.css` and `chat.js` in the same root because `monitoring.html` references them.
+The `monitoring-summary-api` container is not required by this version of the page. This change only removes the website's dependency on it; it does not stop or delete the container.
