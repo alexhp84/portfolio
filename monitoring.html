@@ -67,13 +67,87 @@
 <p class="monitoring-live-updated" id="monitoring-live-updated"></p>
 <p class="monitoring-live-disclosure" data-i18n="monitoringSyntheticDisclosure">This public summary is intentionally limited to synthetic demo metrics and Demo-prefixed alerts. It is not a live view of real home devices.</p>
 </section>
+<section aria-labelledby="grafana-dashboards-title" class="monitoring-embedded-section" id="grafana-dashboards">
+  <div class="monitoring-embedded-heading">
+    <div>
+      <h3 id="grafana-dashboards-title" data-i18n="monitoringGrafanaDashboardsTitle">Grafana dashboards</h3>
+      <p data-i18n="monitoringGrafanaDashboardsIntro">Interactive, read-only public dashboards using the portfolio's synthetic monitoring data.</p>
+    </div>
+    <a class="monitoring-open-link" href="https://monitoring.patnick.click" target="_blank" rel="noopener noreferrer" data-i18n="monitoringOpenGrafanaFull">Open Grafana ↗</a>
+  </div>
+
+  <article class="monitoring-embed-card">
+    <div class="monitoring-embed-card-heading">
+      <h4 data-i18n="monitoringDashboardHomelabTitle">Homelab overview</h4>
+      <a href="https://monitoring.patnick.click/public-dashboards/47dccdff74224f0dab2f1c242b1e0649" target="_blank" rel="noopener noreferrer" data-i18n="monitoringOpenDashboard">Open dashboard in new tab ↗</a>
+    </div>
+    <iframe
+      src="https://monitoring.patnick.click/public-dashboards/47dccdff74224f0dab2f1c242b1e0649?from=now-6h&amp;to=now&amp;timezone=browser&amp;kiosk=1"
+      title="Grafana public dashboard: homelab overview"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </article>
+
+  <article class="monitoring-embed-card">
+    <div class="monitoring-embed-card-heading">
+      <h4 data-i18n="monitoringDashboardNetworkTitle">Network &amp; VLANs</h4>
+      <a href="https://monitoring.patnick.click/public-dashboards/b04e0c737cca48b7a4856c9e148f0bed" target="_blank" rel="noopener noreferrer" data-i18n="monitoringOpenDashboard">Open dashboard in new tab ↗</a>
+    </div>
+    <iframe
+      src="https://monitoring.patnick.click/public-dashboards/b04e0c737cca48b7a4856c9e148f0bed?from=now-6h&amp;to=now&amp;timezone=browser&amp;kiosk=1"
+      title="Grafana public dashboard: network and VLANs"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </article>
+
+  <article class="monitoring-embed-card">
+    <div class="monitoring-embed-card-heading">
+      <h4 data-i18n="monitoringDashboardLogsTitle">Logs &amp; incidents</h4>
+      <a href="https://monitoring.patnick.click/public-dashboards/fad24e5b770848f99fec2cff95d36ab7" target="_blank" rel="noopener noreferrer" data-i18n="monitoringOpenDashboard">Open dashboard in new tab ↗</a>
+    </div>
+    <iframe
+      src="https://monitoring.patnick.click/public-dashboards/fad24e5b770848f99fec2cff95d36ab7?from=now-6h&amp;to=now&amp;timezone=browser&amp;kiosk=1"
+      title="Grafana public dashboard: logs and incidents"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </article>
+  <p class="monitoring-embed-note" data-i18n="monitoringGrafanaEmbedNote">If an embedded dashboard is blocked by browser security headers, use its “Open dashboard in new tab” link. Grafana may need iframe embedding enabled in its server configuration.</p>
+</section>
+
+<section aria-labelledby="alerta-embed-title" class="monitoring-embedded-section" id="alerta-live">
+  <div class="monitoring-embedded-heading">
+    <div>
+      <h3 id="alerta-embed-title" data-i18n="monitoringAlertaEmbedTitle">Alerta incidents</h3>
+      <p data-i18n="monitoringAlertaEmbedIntro">Live alert and incident interface. Alertmanager is not embedded on this page.</p>
+    </div>
+    <a class="monitoring-open-link" href="https://alerta.patnick.click/" target="_blank" rel="noopener noreferrer" data-i18n="monitoringOpenAlertaFull">Open Alerta ↗</a>
+  </div>
+  <div class="monitoring-embed-card">
+    <iframe
+      src="https://alerta.patnick.click/"
+      title="Alerta live incidents interface"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+  <p class="monitoring-embed-note" data-i18n="monitoringAlertaEmbedNote">If Alerta refuses to load inside the frame, open it in a new tab. The service must permit framing from this portfolio site.</p>
+</section>
+
+<section aria-labelledby="grafana-login-title" class="grafana-demo-access" id="grafana-demo-access">
+  <h3 id="grafana-login-title" data-i18n="monitoringGrafanaAccessTitle">Grafana demo login</h3>
+  <p data-i18n="monitoringGrafanaAccessIntro">Use only for the portfolio demonstration. The public dashboard embeds above should not require these credentials.</p>
+  <dl class="grafana-demo-credentials">
+    <div><dt data-i18n="monitoringGrafanaUsername">Username</dt><dd><code>guest</code></dd></div>
+    <div><dt data-i18n="monitoringGrafanaPassword">Password</dt><dd><code>Aa123456</code></dd></div>
+  </dl>
+  <p class="grafana-demo-security-note" data-i18n="monitoringGrafanaCredentialWarning">These credentials are public on this page and in its source code. Use them only for a restricted demo account and never reuse this password elsewhere.</p>
+</section>
+
 <div aria-labelledby="monitoring-demo-access-title" class="monitoring-demo-access">
 <h3 data-i18n="monitoringLinksTitle" id="monitoring-demo-access-title">Home-hosted monitoring interfaces</h3>
 <p data-i18n="monitoringLinksIntro">These links point to services in my home environment. Availability depends on my home lab, Cloudflare Tunnel and access policy; authorised access may be required.</p>
 <div class="monitoring-demo-link-list">
 <a data-i18n="monitoringLinkGrafana" href="https://monitoring.patnick.click" rel="noopener noreferrer" target="_blank">Open Grafana ↗</a>
 <a data-i18n="monitoringLinkPrometheus" href="https://prometheus.patnick.click" rel="noopener noreferrer" target="_blank">Open Prometheus ↗</a>
-<a data-i18n="monitoringLinkAlertmanager" href="https://alertmanager.patnick.click" rel="noopener noreferrer" target="_blank">Open Alertmanager ↗</a>
 <a data-i18n="monitoringLinkAlerta" href="https://alerta.patnick.click" rel="noopener noreferrer" target="_blank">Open Alerta ↗</a>
 </div>
 <p class="monitoring-demo-notifications" data-i18n="monitoringNotificationsNote">WhatsApp notifications via WAHA and email/SMTP notifications via Postfix are configured in my home environment. Those notification integrations are not replicated in this portfolio demo.</p>

@@ -1094,73 +1094,142 @@ html[dir="rtl"] .side-nav .language-toggle { align-self: flex-end; }
     .side-nav .nav-links a { font-size: .76rem; }
 }
 
-/* Public live summary panel: displays only sanitised synthetic demo data. */
-.monitoring-live-panel {
-    margin: 24px 0 0; padding: clamp(20px, 3vw, 30px);
-    border: 1px solid #e2e0dc; border-radius: 16px;
-    background: rgba(255,255,255,.72);
-}
-.monitoring-live-heading { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:18px; }
-.monitoring-live-heading h3 { margin:0 0 7px; color:#20212b; font-size:1.1rem; }
-.monitoring-live-heading p { margin:0; max-width:75ch; color:#5e5d68; font-size:.88rem; }
-.monitoring-live-status { display:inline-flex; align-items:center; border:1px solid #b8ddc7; background:#effaf3; color:#21613a; border-radius:999px; padding:6px 10px; font-size:.75rem; font-weight:700; }
-.monitoring-live-status.is-partial { border-color:#edc98b; background:#fff7e6; color:#80520a; }
-.monitoring-live-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:18px 0 14px; }
-.monitoring-live-stat { min-width:0; padding:15px; background:#fff; border:1px solid #e5e4e0; border-radius:12px; display:flex; flex-direction:column; gap:6px; }
-.monitoring-live-stat span { color:#636373; font-size:.8rem; }
-.monitoring-live-stat strong { font-size:1.8rem; line-height:1.1; color:#20212b; font-weight:800; }
-.monitoring-live-stat.sev-critical strong { color:#bd3434; }
-.monitoring-live-stat.sev-warning strong { color:#9a6400; }
-.monitoring-live-service-status { display:flex; flex-wrap:wrap; gap:8px 18px; color:#5e5d68; font-size:.82rem; margin:0 0 18px; }
-.monitoring-live-service-status strong { color:#267448; }
-.monitoring-live-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.monitoring-live-detail { min-width:0; padding:16px; border:1px solid #e5e4e0; border-radius:12px; background:rgba(255,255,255,.75); }
-.monitoring-live-detail h4 { margin:0 0 12px; color:#20212b; font-size:.92rem; }
-.monitoring-live-detail ul { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
-.monitoring-live-detail li { min-width:0; }
-.monitoring-live-detail li:not(.monitoring-empty-row) { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding-bottom:7px; border-bottom:1px solid #efeeeb; }
-.monitoring-reading-device { min-width:0; overflow-wrap:anywhere; color:#525666; font-size:.83rem; }
-.monitoring-live-detail li strong { flex-shrink:0; color:#20212b; font-size:.82rem; }
-.monitoring-live-alert-item { display:block !important; padding:9px 0 !important; }
-.monitoring-live-alert-top { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:7px; }
-.monitoring-live-alert-top strong { overflow-wrap:anywhere; }
-.monitoring-live-alert-item p { margin:6px 0 4px; color:#5e5d68; font-size:.8rem; line-height:1.5; overflow-wrap:anywhere; }
-.monitoring-live-alert-item small { color:#7a7985; font-size:.72rem; }
-.monitoring-severity-badge { flex:none; padding:3px 7px; border-radius:999px; font-size:.68rem; font-weight:750; text-transform:uppercase; letter-spacing:.03em; }
-.monitoring-severity-badge.severity-critical { background:#fde8e8; color:#a52424; }
-.monitoring-severity-badge.severity-warning { background:#fff0d4; color:#835300; }
-.monitoring-severity-badge.severity-normal { background:#e7f7ec; color:#21613a; }
-.monitoring-severity-badge.severity-other { background:#e9edf5; color:#49546a; }
-.monitoring-empty-row { color:#7a7985; font-size:.82rem; line-height:1.5; }
-.monitoring-live-updated { margin:14px 0 0; color:#777583; font-size:.75rem; }
-.monitoring-live-disclosure { margin:8px 0 0; color:#777583; font-size:.76rem; line-height:1.5; }
-@media (max-width: 600px) {
-    .monitoring-live-panel { padding:18px 14px; }
-    .monitoring-live-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    .monitoring-live-stat { padding:12px; }
-    .monitoring-live-stat strong { font-size:1.55rem; }
-    .monitoring-live-detail-grid { grid-template-columns:1fr; }
-}
-@media (prefers-color-scheme: dark) {
-    .monitoring-live-panel { background:rgba(34,40,56,.78); border-color:#3a4358; }
-    .monitoring-live-heading h3, .monitoring-live-stat strong, .monitoring-live-detail h4 { color:#f4f5fa; }
-    .monitoring-live-heading p, .monitoring-live-stat span, .monitoring-live-service-status, .monitoring-reading-device,
-    .monitoring-live-alert-item p, .monitoring-live-alert-item small, .monitoring-empty-row, .monitoring-live-updated, .monitoring-live-disclosure { color:#c1c7d5; }
-    .monitoring-live-stat, .monitoring-live-detail { background:rgba(27,32,45,.85); border-color:#3a4358; }
-    .monitoring-live-detail li:not(.monitoring-empty-row) { border-bottom-color:#3a4358; }
-    .monitoring-live-status { background:#183927; border-color:#316e4a; color:#a8efbf; }
-    .monitoring-live-status.is-partial { background:#493719; border-color:#775a28; color:#ffe0a0; }
-    .monitoring-live-stat.sev-critical strong { color:#ff9d9d; }
-    .monitoring-live-stat.sev-warning strong { color:#ffd27a; }
-    .monitoring-live-service-status strong { color:#a8efbf; }
-    .monitoring-severity-badge.severity-critical { background:#572b35; color:#ffd7dd; }
-    .monitoring-severity-badge.severity-warning { background:#4a3a20; color:#ffe0a0; }
-    .monitoring-severity-badge.severity-normal { background:#1e4632; color:#b9f3cb; }
-    .monitoring-severity-badge.severity-other { background:#30394e; color:#d4ddf0; }
-}
 
-/* Preserve the existing active-menu animation and sticky-anchor adjustments. */
+/* Menu transition fixes: animate the active bar, stop bold-on-active reflow, keep anchors clear of the sticky mobile nav */
 .side-nav .nav-links a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
 .side-nav .nav-links a.active,
 .side-nav .nav-links a[aria-current="location"] { font-weight: inherit; }
 @media (max-width: 900px) { html { scroll-padding-top: 112px; } }
+
+/* Embedded live monitoring interfaces: Grafana public dashboards and Alerta (no Alertmanager iframe). */
+.monitoring-embedded-section,
+.grafana-demo-access {
+    margin-top: 26px;
+    padding: clamp(18px, 2.5vw, 28px);
+    border: 1px solid #e2e0dc;
+    border-radius: 16px;
+    background: rgba(255,255,255,.76);
+}
+.monitoring-embedded-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-bottom: 18px;
+}
+.monitoring-embedded-heading h3,
+.grafana-demo-access h3 {
+    margin: 0 0 7px;
+    color: #20212b;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
+.monitoring-embedded-heading p,
+.monitoring-embed-note,
+.grafana-demo-access > p {
+    margin: 0;
+    color: #5e5d68;
+    font-size: .9rem;
+    line-height: 1.65;
+}
+.monitoring-open-link,
+.monitoring-embed-card-heading a {
+    color: #263b89;
+    font-size: .84rem;
+    font-weight: 650;
+    text-decoration: none;
+}
+.monitoring-open-link:hover,
+.monitoring-embed-card-heading a:hover {
+    text-decoration: underline;
+}
+.monitoring-embed-card {
+    overflow: hidden;
+    margin-top: 16px;
+    border: 1px solid #dedde8;
+    border-radius: 12px;
+    background: #fff;
+}
+.monitoring-embed-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 15px;
+    padding: 13px 16px;
+    border-bottom: 1px solid #e8e7ed;
+}
+.monitoring-embed-card-heading h4 {
+    margin: 0;
+    color: #20212b;
+    font-size: .98rem;
+}
+.monitoring-embed-card iframe {
+    display: block;
+    width: 100%;
+    height: 620px;
+    border: 0;
+    background: #fff;
+}
+#alerta-live .monitoring-embed-card iframe {
+    height: 690px;
+}
+.monitoring-embed-note {
+    margin-top: 12px;
+    font-size: .82rem;
+}
+.grafana-demo-access > p { margin: 0 0 12px; }
+.grafana-demo-credentials {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 16px 0 12px;
+}
+.grafana-demo-credentials > div {
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #e2e0dc;
+    border-radius: 10px;
+    background: rgba(250,250,252,.85);
+}
+.grafana-demo-credentials dt {
+    margin-bottom: 6px;
+    color: #5e5d68;
+    font-size: .8rem;
+}
+.grafana-demo-credentials dd { margin: 0; color: #20212b; }
+.grafana-demo-credentials code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .95rem;
+    overflow-wrap: anywhere;
+}
+.grafana-demo-access .grafana-demo-security-note {
+    padding-top: 12px;
+    border-top: 1px solid #e2e0dc;
+    font-size: .82rem;
+}
+html[dir="rtl"] .monitoring-embed-card-heading,
+html[dir="rtl"] .monitoring-embedded-heading { direction: rtl; }
+@media (max-width: 700px) {
+    .monitoring-embedded-section,
+    .grafana-demo-access { padding: 18px 14px; border-radius: 12px; }
+    .monitoring-embed-card iframe { height: 520px; }
+    #alerta-live .monitoring-embed-card iframe { height: 560px; }
+    .grafana-demo-credentials { grid-template-columns: 1fr; }
+}
+@media (prefers-color-scheme: dark) {
+    .monitoring-embedded-section,
+    .grafana-demo-access { background: rgba(22,26,37,.78); border-color: #30384a; }
+    .monitoring-embedded-heading h3,
+    .grafana-demo-access h3,
+    .monitoring-embed-card-heading h4,
+    .grafana-demo-credentials dd { color: #eef1f8; }
+    .monitoring-embedded-heading p,
+    .monitoring-embed-note,
+    .grafana-demo-access > p,
+    .grafana-demo-credentials dt { color: #b9c0d0; }
+    .monitoring-embed-card { background: #fff; border-color: #30384a; }
+    .monitoring-embed-card-heading { background: #fbfbfd; border-bottom-color: #e8e7ed; }
+    .grafana-demo-credentials > div { background: rgba(12,15,22,.55); border-color: #30384a; }
+}
+
