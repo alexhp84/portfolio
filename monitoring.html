@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="A self-built home-lab monitoring and alerting portfolio demo using synthetic metrics and alerts for security." name="description"/><meta content="light dark" name="color-scheme"/><title>Monitoring &amp; Alerting Demo | Alexander Henry Patnick</title><link href="site.css" rel="stylesheet"/><link href="chat.css" rel="stylesheet"/></head><body><div class="page-layout"><nav aria-label="Portfolio navigation" class="side-nav top-nav" data-i18n-aria="navLabel">
+<a aria-label="Alexander Patnick home" class="nav-brand" href="index.html#top">AP<span>.</span></a>
+<div class="nav-heading" data-i18n="navHeading">Menu</div>
+<div class="nav-links">
+<a data-i18n="navHome" href="index.html#top">Home</a>
+<a data-i18n="navAbout" href="index.html#about-me">About Me</a>
+<a data-i18n="navAi" href="index.html#ai-focus">AI &amp; Security</a>
+<a data-i18n="navSkills" href="index.html#technical-skills">Technical Skills</a>
+<a data-i18n="navProjects" href="projects.html#projects">Projects</a>
+<a data-i18n="navMonitoring" href="monitoring.html#monitoring-demo">Monitoring</a>
+</div>
+<button aria-label="Switch language" class="language-toggle" id="language-toggle" type="button">עברית</button>
+</nav><div class="container"><header class="subpage-hero">
+<div class="hero-eyebrow"><span class="availability-dot"></span><span data-i18n="monitoringPageEyebrow">OBSERVABILITY · ALERTING · HOMELAB</span></div>
+<h1 data-i18n="monitoringPageTitle">Monitoring &amp; Alerting Demo</h1>
+<p data-i18n="monitoringPageIntro">A self-built observability stack with synthetic data for safe portfolio demonstrations.</p>
+</header><section aria-labelledby="monitoring-demo-heading" class="project-showcase" id="monitoring-demo">
+<h2 data-i18n="monitoringDetailTitle" id="monitoring-demo-heading">What the demo covers</h2>
+<p class="project-showcase-intro" data-i18n="monitoringDemoIntro">A self-built monitoring and alerting stack running in my home environment, assembled with Docker Compose. Prometheus evaluates metrics and alert rules, Alertmanager routes notifications to Alerta, PostgreSQL stores Alerta data, Grafana provides dashboards, and Loki/Promtail collect logs. The portfolio view uses dummy metrics and synthetic alerts so real home infrastructure details are not exposed.</p>
+<div class="project-demo-grid">
+<article class="project-demo-card">
+<h3 data-i18n="monitoringMetricsTitle">Metrics &amp; dashboards</h3>
+<p data-i18n="monitoringMetricsText">Prometheus scrapes a synthetic exporter; Grafana is used to explore and visualise the resulting metrics.</p>
+<div class="project-demo-tags"><span>Prometheus</span><span>Grafana</span></div>
+</article>
+<article class="project-demo-card">
+<h3 data-i18n="monitoringAlertsTitle">Alert lifecycle</h3>
+<p data-i18n="monitoringAlertsText">Alertmanager sends firing and resolved events to Alerta. Both open alerts and a resolved alert have been verified end to end.</p>
+<div class="project-demo-tags"><span>Alertmanager</span><span>Alerta</span><span>PostgreSQL</span></div>
+</article>
+<article class="project-demo-card">
+<h3 data-i18n="monitoringLogsTitle">Logs &amp; containers</h3>
+<p data-i18n="monitoringLogsText">Loki and Promtail are part of the stack for centralised logs, with services managed using Docker Compose.</p>
+<div class="project-demo-tags"><span>Loki</span><span>Promtail</span><span>Docker Compose</span></div>
+</article>
+<article class="project-demo-card">
+<h3 data-i18n="monitoringTestingTitle">Testable scenarios</h3>
+<p data-i18n="monitoringTestingText">Synthetic rules demonstrate disk, CPU, network, database and backup alert scenarios for a portfolio walkthrough.</p>
+<div class="project-demo-tags"><span>Alert rules</span><span>Webhooks</span><span>Operations</span></div>
+</article>
+</div>
+<div aria-labelledby="monitoring-demo-access-title" class="monitoring-demo-access">
+<h3 data-i18n="monitoringLinksTitle" id="monitoring-demo-access-title">Home-hosted monitoring interfaces</h3>
+<p data-i18n="monitoringLinksIntro">These links point to services in my home environment. Availability depends on my home lab, Cloudflare Tunnel and access policy; authorised access may be required.</p>
+<div class="monitoring-demo-link-list">
+<a data-i18n="monitoringLinkGrafana" href="https://monitoring.patnick.click" rel="noopener noreferrer" target="_blank">Open Grafana ↗</a>
+<a data-i18n="monitoringLinkPrometheus" href="https://prometheus.patnick.click" rel="noopener noreferrer" target="_blank">Open Prometheus ↗</a>
+<a data-i18n="monitoringLinkAlertmanager" href="https://alertmanager.patnick.click" rel="noopener noreferrer" target="_blank">Open Alertmanager ↗</a>
+<a data-i18n="monitoringLinkAlerta" href="https://alerta.patnick.click" rel="noopener noreferrer" target="_blank">Open Alerta ↗</a>
+</div>
+<p class="monitoring-demo-notifications" data-i18n="monitoringNotificationsNote">WhatsApp notifications via WAHA and email/SMTP notifications via Postfix are configured in my home environment. Those notification integrations are not replicated in this portfolio demo.</p>
+</div>
+<p class="project-showcase-note" data-i18n="monitoringDemoNote">This is a self-built home-lab project. The demo intentionally uses dummy metrics and synthetic alerts for security; it does not expose real device telemetry or claim real infrastructure faults. WhatsApp via WAHA and email/SMTP via Postfix are configured at home but are not replicated here.</p>
+</section><footer class="page-footer"><p>Built and maintained by Alex Patnick · <a href="index.html#top">Back to profile</a></p></footer></div></div><script defer="True" src="site.js"></script><script defer="True" src="chat.js"></script></body></html>
