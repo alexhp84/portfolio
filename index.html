@@ -767,7 +767,79 @@
             }
         }
 
-</style>
+
+        /* Featured monitoring and alerting project */
+        .project-showcase {
+            margin: 0 0 64px;
+            padding: clamp(24px, 4vw, 44px);
+            background: rgba(255,255,255,.68);
+            border: 1px solid rgba(226,224,220,.95);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(54,49,78,.035);
+        }
+        .project-showcase h2 {
+            color: #1b1c25; font-family: inherit;
+            font-size: clamp(1.6rem,3vw,2.3rem); line-height: 1.2;
+            letter-spacing: -.045em; border: 0; margin: 0 0 18px; padding: 0;
+        }
+        .project-showcase-intro, .project-showcase-note {
+            max-width: 82ch; color: #5e5d68; font-size: .98rem;
+        }
+        .project-showcase-intro { margin: 0 0 24px; }
+        .project-demo-grid {
+            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+        }
+        .project-demo-card {
+            background: rgba(255,255,255,.78); border: 1px solid #e7e5e1;
+            border-radius: 14px; padding: 20px; min-width: 0;
+        }
+        .project-demo-card h3 {
+            color: #20212b; font-size: 1rem; line-height: 1.4;
+            letter-spacing: -.015em; margin: 0 0 9px;
+        }
+        .project-demo-card p {
+            color: #5e5d68; font-size: .9rem; line-height: 1.7; margin: 0;
+        }
+        .project-demo-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+        .project-demo-tags span {
+            padding: 4px 9px; border: 1px solid #dedde8; border-radius: 999px;
+            background: rgba(53,94,232,.045); color: #42465a; font-size: .73rem;
+        }
+        .project-showcase-note {
+            margin: 20px 0 0; padding-top: 16px;
+            border-top: 1px solid #e7e5e1; font-size: .84rem;
+        }
+        .monitoring-demo-access {
+            margin-top: 22px; padding: 18px 20px;
+            border: 1px solid #e2e0dc; border-radius: 14px;
+            background: rgba(255,255,255,.74);
+        }
+        .monitoring-demo-access h3 {
+            color: #20212b; font-size: .98rem; margin: 0 0 7px;
+        }
+        .monitoring-demo-access p {
+            margin: 0 0 13px; color: #5e5d68; font-size: .86rem;
+        }
+        .monitoring-demo-link-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .monitoring-demo-link-list a {
+            display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #d7dbe7; border-radius: 999px; padding: 8px 12px;
+            background: #fff; color: #263b89; font-size: .83rem; font-weight: 650;
+            text-decoration: none;
+        }
+        .monitoring-demo-link-list a:hover,
+        .monitoring-demo-link-list a:focus-visible {
+            border-color: #355ee8; background: #f5f7ff; color: #1d3280;
+        }
+        .monitoring-demo-notifications { margin-top: 12px !important; }
+        html[dir="rtl"] .project-showcase { direction: rtl; }
+        @media (max-width: 600px) {
+            .project-showcase { padding: 21px 18px; border-radius: 12px; }
+            .project-demo-grid { grid-template-columns: 1fr; }
+            .project-demo-card { padding: 18px; }
+        }
+
+    </style>
 <link rel="stylesheet" href="/chat.css">
 </head>
 <body>
@@ -779,6 +851,7 @@
                 <a href="#top" data-i18n="navHome">Home</a>
                 <a href="#about-me" data-i18n="navAbout">About Me</a>
                 <a href="#projects" data-i18n="navProjects">Projects</a>
+                <a href="#monitoring-demo" data-i18n="navMonitoring">Monitoring</a>
                 <a href="#technical-skills" data-i18n="navSkills">Technical Skills</a>
                 <a href="#ai-focus" data-i18n="navAi">AI &amp; Security</a>
             </div>
@@ -844,6 +917,45 @@
             </div>
         </section>
 
+        <section class="project-showcase" id="monitoring-demo" aria-labelledby="monitoring-demo-heading">
+            <h2 id="monitoring-demo-heading" data-i18n="monitoringDemoTitle">Monitoring &amp; Alerting Portfolio Demo</h2>
+            <p class="project-showcase-intro" data-i18n="monitoringDemoIntro">A self-built monitoring and alerting stack running in my home environment, assembled with Docker Compose. Prometheus evaluates metrics and alert rules, Alertmanager routes notifications to Alerta, PostgreSQL stores Alerta data, Grafana provides dashboards, and Loki/Promtail collect logs. The portfolio view uses dummy metrics and synthetic alerts so real home infrastructure details are not exposed.</p>
+            <div class="project-demo-grid">
+                <article class="project-demo-card">
+                    <h3 data-i18n="monitoringMetricsTitle">Metrics &amp; dashboards</h3>
+                    <p data-i18n="monitoringMetricsText">Prometheus scrapes a synthetic exporter; Grafana is used to explore and visualise the resulting metrics.</p>
+                    <div class="project-demo-tags"><span>Prometheus</span><span>Grafana</span></div>
+                </article>
+                <article class="project-demo-card">
+                    <h3 data-i18n="monitoringAlertsTitle">Alert lifecycle</h3>
+                    <p data-i18n="monitoringAlertsText">Alertmanager sends firing and resolved events to Alerta. Both open alerts and a resolved alert have been verified end to end.</p>
+                    <div class="project-demo-tags"><span>Alertmanager</span><span>Alerta</span><span>PostgreSQL</span></div>
+                </article>
+                <article class="project-demo-card">
+                    <h3 data-i18n="monitoringLogsTitle">Logs &amp; containers</h3>
+                    <p data-i18n="monitoringLogsText">Loki and Promtail are part of the stack for centralised logs, with services managed using Docker Compose.</p>
+                    <div class="project-demo-tags"><span>Loki</span><span>Promtail</span><span>Docker Compose</span></div>
+                </article>
+                <article class="project-demo-card">
+                    <h3 data-i18n="monitoringTestingTitle">Testable scenarios</h3>
+                    <p data-i18n="monitoringTestingText">Synthetic rules demonstrate disk, CPU, network, database and backup alert scenarios for a portfolio walkthrough.</p>
+                    <div class="project-demo-tags"><span>Alert rules</span><span>Webhooks</span><span>Operations</span></div>
+                </article>
+            </div>
+            <div class="monitoring-demo-access" aria-labelledby="monitoring-demo-access-title">
+                <h3 id="monitoring-demo-access-title" data-i18n="monitoringLinksTitle">Home-hosted monitoring interfaces</h3>
+                <p data-i18n="monitoringLinksIntro">These links point to services in my home environment. Availability depends on my home lab, Cloudflare Tunnel and access policy; authorised access may be required.</p>
+                <div class="monitoring-demo-link-list">
+                    <a href="https://monitoring.patnick.click" target="_blank" rel="noopener noreferrer" data-i18n="monitoringLinkGrafana">Open Grafana ↗</a>
+                    <a href="https://prometheus.patnick.click" target="_blank" rel="noopener noreferrer" data-i18n="monitoringLinkPrometheus">Open Prometheus ↗</a>
+                    <a href="https://alertmanager.patnick.click" target="_blank" rel="noopener noreferrer" data-i18n="monitoringLinkAlertmanager">Open Alertmanager ↗</a>
+                    <a href="https://alerta.patnick.click" target="_blank" rel="noopener noreferrer" data-i18n="monitoringLinkAlerta">Open Alerta ↗</a>
+                </div>
+                <p class="monitoring-demo-notifications" data-i18n="monitoringNotificationsNote">WhatsApp notifications via WAHA and email/SMTP notifications via Postfix are configured in my home environment. Those notification integrations are not replicated in this portfolio demo.</p>
+            </div>
+            <p class="project-showcase-note" data-i18n="monitoringDemoNote">This is a self-built home-lab project. The demo intentionally uses dummy metrics and synthetic alerts for security; it does not expose real device telemetry or claim real infrastructure faults. WhatsApp via WAHA and email/SMTP via Postfix are configured at home but are not replicated here.</p>
+        </section>
+
         <section class="focus-section" id="ai-focus" aria-labelledby="ai-focus-heading">
             <h2 id="ai-focus-heading" data-i18n="aiFocusTitle">AI Development &amp; Security Focus</h2>
             <p class="focus-intro" data-i18n="aiFocusIntro">I'm building on my infrastructure and troubleshooting background through practical AI development projects, with a particular interest in AI security and early-stage product teams.</p>
@@ -866,7 +978,7 @@
                 <article class="focus-card">
                     <h3 data-i18n="projectCardTitle">Current Project Direction</h3>
                     <p data-i18n="projectCardText">A home-network monitoring and AI-agent project exploring how an agent can help diagnose issues, recover from selected failures, and document incidents.</p>
-                    <div class="focus-tags"><span>Monitoring</span><span>Diagnostics</span><span>Self-healing</span><span>Documentation</span></div>
+                    <div class="focus-tags"><span>Monitoring demo</span><span>Alert routing</span><span>Read-only AI agent</span><span>Self-healing planned</span><span>Incident documentation planned</span></div>
                 </article>
             </div>
         </section>
@@ -898,7 +1010,7 @@
                 <article class="focus-card">
                     <h3 data-i18n="infraCardTitle">Infrastructure &amp; Observability</h3>
                     <p data-i18n="infraCardText">Hands-on homelab experience operating services and building monitoring and logging across virtualised and containerised environments.</p>
-                    <div class="focus-tags"><span>Linux</span><span>Docker/Compose</span><span>Proxmox</span><span>VMware/Hyper-V</span><span>Prometheus</span><span>Grafana</span><span>Loki</span><span>SNMP/NetFlow</span></div>
+                    <div class="focus-tags"><span>Linux</span><span>Docker/Compose</span><span>Proxmox</span><span>VMware/Hyper-V</span><span>Prometheus</span><span>Alertmanager</span><span>Alerta</span><span>Grafana</span><span>Loki</span><span>SNMP/NetFlow</span></div>
                 </article>
                 <article class="focus-card">
                     <h3 data-i18n="securitySkillsTitle">Security &amp; Reliable Operations</h3>
@@ -919,7 +1031,7 @@
                 eyebrow: "INFRASTRUCTURE · AUTOMATION · AI",
                 navLabel: "Portfolio navigation", navHeading: "Navigate",
                 navHome: "Home", navAbout: "About Me", navAi: "AI & Security",
-                navSkills: "Technical Skills", navProjects: "Projects",
+                navSkills: "Technical Skills", navProjects: "Projects", navMonitoring: "Monitoring",
                 name: "Alexander Henry Patnick",
                 role: "Systems & Technical Infrastructure Specialist",
                 summary: "Technical leader with 10+ years of infrastructure engineering experience spanning enterprise IT, SaaS ecosystems, and deep systems analysis. Expert at root cause investigations, API debugging, infrastructure topology visualisation, and designing automated workflows that reduce manual ticketing overhead by 33%.",
@@ -936,6 +1048,22 @@
                 bio3: "Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.",
                 projectsTitle: "Open Source Projects",
                 liveDemoLabel: "Open live demo ↗",
+                monitoringDemoTitle: "Monitoring & Alerting Portfolio Demo",
+                monitoringDemoIntro: "A self-built monitoring and alerting stack running in my home environment, assembled with Docker Compose. Prometheus evaluates metrics and alert rules, Alertmanager routes notifications to Alerta, PostgreSQL stores Alerta data, Grafana provides dashboards, and Loki/Promtail collect logs. The portfolio view uses dummy metrics and synthetic alerts so real home infrastructure details are not exposed.",
+                monitoringMetricsTitle: "Metrics & dashboards",
+                monitoringMetricsText: "Prometheus scrapes a synthetic exporter; Grafana is used to explore and visualise the resulting metrics.",
+                monitoringAlertsTitle: "Alert lifecycle",
+                monitoringAlertsText: "Alertmanager sends firing and resolved events to Alerta. Both open alerts and a resolved alert have been verified end to end.",
+                monitoringLogsTitle: "Logs & containers",
+                monitoringLogsText: "Loki and Promtail are part of the stack for centralised logs, with services managed using Docker Compose.",
+                monitoringTestingTitle: "Testable scenarios",
+                monitoringTestingText: "Synthetic rules demonstrate disk, CPU, network, database and backup alert scenarios for a portfolio walkthrough.",
+                monitoringLinksTitle: "Home-hosted monitoring interfaces",
+                monitoringLinksIntro: "These links point to services in my home environment. Availability depends on my home lab, Cloudflare Tunnel and access policy; authorised access may be required.",
+                monitoringLinkGrafana: "Open Grafana ↗", monitoringLinkPrometheus: "Open Prometheus ↗",
+                monitoringLinkAlertmanager: "Open Alertmanager ↗", monitoringLinkAlerta: "Open Alerta ↗",
+                monitoringNotificationsNote: "WhatsApp notifications via WAHA and email/SMTP notifications via Postfix are configured in my home environment. Those notification integrations are not replicated in this portfolio demo.",
+                monitoringDemoNote: "This is a self-built home-lab project. The demo intentionally uses dummy metrics and synthetic alerts for security; it does not expose real device telemetry or claim real infrastructure faults. WhatsApp via WAHA and email/SMTP via Postfix are configured at home but are not replicated here.",
                 technicalSkillsTitle: "Technical Skills & Applied Experience",
                 technicalSkillsIntro: "A mix of professional engineering experience and hands-on personal projects. Project-based AI and machine-learning skills are presented as practical development experience, not as years of commercial AI employment.",
                 pythonCardTitle: "Python & Application Development",
@@ -958,15 +1086,15 @@
                 securityCardText: "Developing security knowledge through SecAI courses and practical labs, supported by experience with access controls, secure remote access, and troubleshooting integrations.",
                 engineeringCardTitle: "Software & Infrastructure",
                 engineeringCardText: "A practical engineering foundation for investigating behaviour across applications, APIs, logs, networks, and Linux-based environments.",
-                projectCardTitle: "Current Project Direction",
-                projectCardText: "A home-network monitoring and AI-agent project exploring how an agent can help diagnose issues, recover from selected failures, and document incidents.",
+                projectCardTitle: "Monitoring Demo & AI Agent",
+                projectCardText: "The monitoring demo now routes synthetic Prometheus alerts through Alertmanager into Alerta and records resolved alerts. A separate read-only homelab AI agent is in development; autonomous diagnosis and self-healing remain planned.",
                 languageButton: "עברית" 
             },
             he: {
                 eyebrow: "תשתיות · אוטומציה · בינה מלאכותית",
                 navLabel: "ניווט באתר", navHeading: "ניווט",
                 navHome: "ראשי", navAbout: "קצת עליי", navAi: "בינה מלאכותית ואבטחה",
-                navSkills: "מיומנויות טכניות", navProjects: "פרויקטים",
+                navSkills: "מיומנויות טכניות", navProjects: "פרויקטים", navMonitoring: "ניטור",
                 name: "אלכסנדר הנרי פטניק",
                 role: "מומחה למערכות ולתשתיות טכנולוגיות",
                 summary: "מוביל טכנולוגי עם יותר מעשר שנות ניסיון בהנדסת תשתיות, בסביבות IT ארגוניות, במערכות SaaS ובניתוח מערכות מעמיק. מתמחה בחקירת גורמי שורש, בניפוי תקלות API, בהמחשת טופולוגיית תשתיות ובתכנון תהליכי עבודה אוטומטיים שהפחיתו את היקף הטיפול הידני בכרטיסי תמיכה ב־33%.",
@@ -983,6 +1111,22 @@
                 bio3: "בהמשך, מעניין אותי במיוחד לחקור פרויקטים מתקדמים יותר בתחום האוטומציה וה־AI ולמצוא דרכים להפוך מערכות לחכמות יותר ולפשט משימות יומיומיות. כשאני לא מתעסק בטכנולוגיה, אפשר למצוא אותי עוקב אחרי שפילד ונסדיי ונבחרת אנגליה בכדורגל, או אחרי יורקשייר ואנגליה בקריקט.",
                 projectsTitle: "פרויקטים בקוד פתוח",
                 liveDemoLabel: "פתיחת הדגמה חיה ↗",
+                monitoringDemoTitle: "פרויקט הדגמה לניטור ולהתראות",
+                monitoringDemoIntro: "מערכת ניטור והתראות שבניתי בעצמי ופועלת בסביבת הבית שלי, באמצעות Docker Compose. Prometheus בודק מדדים וכללי התראה, Alertmanager מנתב התראות אל Alerta, PostgreSQL שומר את הנתונים, Grafana מציג לוחות מחוונים ו־Loki/Promtail אוספים לוגים. בתצוגת התיק נעשה שימוש במדדים ובנתוני התראה מדומים כדי לא לחשוף פרטים אמיתיים על תשתית הבית.",
+                monitoringMetricsTitle: "מדדים ולוחות מחוונים",
+                monitoringMetricsText: "Prometheus אוסף מדדים מ־exporter סינתטי, ו־Grafana משמש לחקירתם ולהצגתם.",
+                monitoringAlertsTitle: "מחזור חיי ההתראה",
+                monitoringAlertsText: "Alertmanager שולח ל־Alerta התראות פעילות והתראות שנפתרו. נבדקה מקצה לקצה הגעה של התראות פתוחות וגם של התראה שנפתרה.",
+                monitoringLogsTitle: "לוגים וקונטיינרים",
+                monitoringLogsText: "Loki ו־Promtail הם חלק מהמערך לאיסוף לוגים מרכזי, והשירותים מנוהלים באמצעות Docker Compose.",
+                monitoringTestingTitle: "תרחישים הניתנים לבדיקה",
+                monitoringTestingText: "כללים סינתטיים מדגימים תרחישי התראה עבור דיסק, מעבד, רשת, מסד נתונים וגיבוי.",
+                monitoringLinksTitle: "ממשקי ניטור המתארחים בסביבת הבית",
+                monitoringLinksIntro: "הקישורים מובילים לשירותים בסביבת הבית שלי. הזמינות תלויה במעבדת הבית, ב־Cloudflare Tunnel ובהגדרות הגישה; ייתכן שתידרש הרשאה.",
+                monitoringLinkGrafana: "פתיחת Grafana ↗", monitoringLinkPrometheus: "פתיחת Prometheus ↗",
+                monitoringLinkAlertmanager: "פתיחת Alertmanager ↗", monitoringLinkAlerta: "פתיחת Alerta ↗",
+                monitoringNotificationsNote: "התראות WhatsApp באמצעות WAHA והתראות דוא״ל/SMTP באמצעות Postfix מוגדרות בסביבת הבית שלי. אינטגרציות ההתראות האלה אינן משוכפלות בהדגמה שבתיק העבודות.",
+                monitoringDemoNote: "זהו פרויקט שבניתי בעצמי במעבדת הבית. מטעמי אבטחה, ההדגמה משתמשת במדדים ובהתראות סינתטיים ומדומים; היא אינה חושפת נתוני טלמטריה אמיתיים ואינה טוענת לקיומן של תקלות אמיתיות. התראות WhatsApp באמצעות WAHA ודוא״ל/SMTP באמצעות Postfix מוגדרות בבית, אך אינן משוכפלות כאן.",
                 technicalSkillsTitle: "מיומנויות טכניות וניסיון מעשי",
                 technicalSkillsIntro: "שילוב של ניסיון הנדסי מקצועי ופרויקטים אישיים מעשיים. מיומנויות AI ולמידת מכונה מוצגות כניסיון פיתוח מעשי בפרויקטים, ולא כשנות ניסיון מסחרי בתחום.",
                 pythonCardTitle: "Python ופיתוח יישומים",
@@ -1005,8 +1149,8 @@
                 securityCardText: "העמקת הידע באבטחה באמצעות קורסי SecAI ומעבדות מעשיות, לצד ניסיון בבקרת גישה, בגישה מרחוק מאובטחת ובפתרון תקלות אינטגרציה.",
                 engineeringCardTitle: "תוכנה ותשתיות",
                 engineeringCardText: "בסיס הנדסי מעשי לחקירת התנהגות של יישומים, ממשקי API, יומני מערכת, רשתות וסביבות מבוססות Linux.",
-                projectCardTitle: "כיוון הפרויקט הנוכחי",
-                projectCardText: "פרויקט לניטור רשת ביתית ולסוכן AI, הבוחן כיצד סוכן יכול לסייע באבחון תקלות, בהתאוששות מכשלים מסוימים ובתיעוד אירועים.",
+                projectCardTitle: "הדגמת ניטור וסוכן AI",
+                projectCardText: "מערך הניטור מדגים שליחת התראות Prometheus סינתטיות דרך Alertmanager אל Alerta ותיעוד של התראות שנפתרו. סוכן AI נפרד עם גישה לקריאה בלבד נמצא בפיתוח; אבחון אוטונומי וריפוי עצמי עדיין מתוכננים.",
                 languageButton: "English" 
             }
         };
