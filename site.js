@@ -6,7 +6,7 @@
                 eyebrow: "INFRASTRUCTURE · AUTOMATION · AI",
                 navLabel: "Portfolio navigation", navHeading: "Menu",
                 navHome: "Home", navAbout: "About Me", navAi: "AI & Security",
-                navSkills: "Technical Skills", navProjects: "Projects", navMonitoring: "Monitoring",
+                navSkills: "Technical Skills", navProjects: "Projects", navMonitoring: "Monitoring", navCertificates: "Certificates", navOverview: "Overview", navSections: "On this page", navSectionsLabel: "On this page",
                 projectsPageEyebrow: "PROJECTS · BUILDING · EXPERIMENTATION",
                 monitoringPageEyebrow: "OBSERVABILITY · ALERTING · HOMELAB",
                 projectsPageTitle: "Projects & Technical Demonstrations",
@@ -123,7 +123,7 @@
                 eyebrow: "תשתיות · אוטומציה · בינה מלאכותית",
                 navLabel: "ניווט באתר", navHeading: "תפריט",
                 navHome: "ראשי", navAbout: "קצת עליי", navAi: "בינה מלאכותית ואבטחה",
-                navSkills: "מיומנויות טכניות", navProjects: "פרויקטים", navMonitoring: "ניטור",
+                navSkills: "מיומנויות טכניות", navProjects: "פרויקטים", navMonitoring: "ניטור", navCertificates: "תעודות", navOverview: "סקירה", navSections: "בעמוד זה", navSectionsLabel: "ניווט בתוך העמוד",
                 projectsPageEyebrow: "פרויקטים · בנייה · התנסות",
                 monitoringPageEyebrow: "תצפיתיות · התראות · מעבדת בית",
                 projectsPageTitle: "פרויקטים והדגמות טכניות",
@@ -266,18 +266,10 @@
         });
         setLanguage("en");
 
-        // Cross-page navigation: observe only anchors that exist on this page.
-        const normalisePath = path => {
-            const value = path.replace(/\/index\.html$/i, "/").replace(/\/+$/, "");
-            return value || "/";
-        };
-        const currentPath = normalisePath(window.location.pathname);
-        const navLinks = Array.from(document.querySelectorAll(".side-nav a[href*='#']"));
+        // Section nav ("On this page"): scroll-spy over same-page anchors.
+        const navLinks = Array.from(document.querySelectorAll(".section-nav a[href^='#']"));
         const navTargets = navLinks.map(link => {
-            const url = new URL(link.href, window.location.href);
-            if (normalisePath(url.pathname) !== currentPath || !url.hash) return null;
-            const id = decodeURIComponent(url.hash.slice(1));
-            const target = document.getElementById(id);
+            const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
             return target ? { link, target } : null;
         }).filter(Boolean);
 
@@ -290,30 +282,37 @@
             });
         }
 
-        navLinks.forEach(link => {
-            link.addEventListener("click", () => {
-                const url = new URL(link.href, window.location.href);
-                if (normalisePath(url.pathname) !== currentPath || !url.hash) return;
-                const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
-                if (target) setActiveNav(target);
+        if (navTargets.length) {
+            const topbar = document.querySelector(".topbar");
+            let navLock = false, lockTimer, ticking = false;
+            const update = () => {
+                ticking = false;
+                if (navLock) return;
+                const offset = (topbar ? topbar.offsetHeight : 56) + 32;
+                let current = navTargets[0].target;
+                for (const { target } of navTargets) {
+                    if (target.getBoundingClientRect().top <= offset) current = target;
+                }
+                if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+                    current = navTargets[navTargets.length - 1].target;
+                }
+                setActiveNav(current);
+            };
+            const unlock = () => { navLock = false; update(); };
+            navTargets.forEach(({ link, target }) => {
+                link.addEventListener("click", () => {
+                    setActiveNav(target);
+                    navLock = true; clearTimeout(lockTimer);
+                    lockTimer = setTimeout(unlock, 1200); // fallback if scrollend is unsupported
+                });
             });
-        });
-
-        if ("IntersectionObserver" in window && navTargets.length) {
-            const sectionObserver = new IntersectionObserver(entries => {
-                const visibleSections = entries
-                    .filter(entry => entry.isIntersecting)
-                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-                if (visibleSections.length) setActiveNav(visibleSections[0].target);
-            }, {
-                rootMargin: "-18% 0px -62% 0px",
-                threshold: [0, 0.1, 0.25, 0.5, 0.75]
-            });
-            navTargets.forEach(({ target }) => sectionObserver.observe(target));
+            window.addEventListener("scrollend", () => { clearTimeout(lockTimer); if (navLock) unlock(); });
+            window.addEventListener("scroll", () => {
+                if (!ticking) { ticking = true; requestAnimationFrame(update); }
+            }, { passive: true });
+            window.addEventListener("resize", update);
+            update();
         }
-        const initialTarget = document.getElementById("top") ||
-            document.querySelector(".container section[id]");
-        setActiveNav(initialTarget);
 
         const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
