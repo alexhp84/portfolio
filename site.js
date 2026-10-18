@@ -253,7 +253,7 @@
                     card.className = 'repo-card';
 
                     const description = repo.description || 'No description provided.';
-                    const language = repo.language || 'Shell';
+                    const language = repo.language || 'Other';
                     const demoUrl = LIVE_DEMOS[String(repo.name || '').toLowerCase()];
                     const liveDemoLabel = (translations[document.documentElement.lang] || translations.en).liveDemoLabel;
 
