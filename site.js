@@ -6,7 +6,7 @@
                 eyebrow: "INFRASTRUCTURE · AUTOMATION · AI",
                 navLabel: "Portfolio navigation", navHeading: "Menu",
                 navHome: "Home", navAbout: "About Me", navAi: "AI & Security",
-                navSkills: "Technical Skills", navProjects: "Projects", navMonitoring: "Monitoring", navCertificates: "Certificates", navOverview: "Overview", navSections: "On this page", navSectionsLabel: "On this page",
+                navSkills: "Technical Skills", navProjects: "Projects", navMonitoring: "Monitoring", navCertificates: "Certificates", navOverview: "Overview", navBook: "Book a Meeting", scheduleInterview: "📅 Schedule an Interview", bookTitle: "Book a Meeting or Schedule an Interview", bookIntro: "Pick a time that suits you for an introductory call or an interview. Bookings go straight into my calendar.", bookOpen: "Open in Calendly ↗", navSections: "On this page", navSectionsLabel: "On this page",
                 projectsPageEyebrow: "PROJECTS · BUILDING · EXPERIMENTATION",
                 monitoringPageEyebrow: "OBSERVABILITY · ALERTING · HOMELAB",
                 projectsPageTitle: "Projects & Technical Demonstrations",
@@ -123,7 +123,7 @@
                 eyebrow: "תשתיות · אוטומציה · בינה מלאכותית",
                 navLabel: "ניווט באתר", navHeading: "תפריט",
                 navHome: "ראשי", navAbout: "קצת עליי", navAi: "בינה מלאכותית ואבטחה",
-                navSkills: "מיומנויות טכניות", navProjects: "פרויקטים", navMonitoring: "ניטור", navCertificates: "תעודות", navOverview: "סקירה", navSections: "בעמוד זה", navSectionsLabel: "ניווט בתוך העמוד",
+                navSkills: "מיומנויות טכניות", navProjects: "פרויקטים", navMonitoring: "ניטור", navCertificates: "תעודות", navOverview: "סקירה", navBook: "קביעת פגישה", scheduleInterview: "📅 קביעת ראיון", bookTitle: "קביעת פגישה או ראיון", bookIntro: "בחרו זמן שנוח לכם לשיחת היכרות או לראיון. הפגישה נקבעת ישירות ביומן שלי.", bookOpen: "פתיחה ב-Calendly ↗", navSections: "בעמוד זה", navSectionsLabel: "ניווט בתוך העמוד",
                 projectsPageEyebrow: "פרויקטים · בנייה · התנסות",
                 monitoringPageEyebrow: "תצפיתיות · התראות · מעבדת בית",
                 projectsPageTitle: "פרויקטים והדגמות טכניות",
@@ -312,6 +312,24 @@
             }, { passive: true });
             window.addEventListener("resize", update);
             update();
+        }
+
+        // Calendly: load the third-party script only when the booking section is near the viewport.
+        const calendlyEl = document.querySelector(".calendly-inline-widget");
+        if (calendlyEl) {
+            const loadCalendly = () => {
+                if (document.getElementById("calendly-script")) return;
+                const s = document.createElement("script");
+                s.id = "calendly-script"; s.async = true;
+                s.src = "https://assets.calendly.com/assets/external/widget.js";
+                document.body.appendChild(s);
+            };
+            if ("IntersectionObserver" in window) {
+                const io = new IntersectionObserver(entries => {
+                    if (entries.some(e => e.isIntersecting)) { loadCalendly(); io.disconnect(); }
+                }, { rootMargin: "600px 0px" });
+                io.observe(calendlyEl);
+            } else { loadCalendly(); }
         }
 
         const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

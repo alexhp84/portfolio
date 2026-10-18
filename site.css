@@ -1133,3 +1133,7 @@ section[id], header[id] { scroll-margin-top: 0; } /* scroll-padding handles the 
 }
 @media (max-width: 480px) { .topbar-links { gap: 16px; } .topbar-links a { font-size: .85rem; } }
 @media (prefers-reduced-motion: reduce) { .topbar-links a, .topbar-links a::after, .section-nav a { transition: none; } }
+
+.book-fallback { margin: 14px 0 0; font-size: .88rem; }
+.book-fallback a { color: var(--nav-accent); }
+#book .calendly-inline-widget { border-radius: 12px; overflow: hidden; }
