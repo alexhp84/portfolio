@@ -40,6 +40,33 @@
 <div class="project-demo-tags"><span>Alert rules</span><span>Webhooks</span><span>Operations</span></div>
 </article>
 </div>
+<section aria-labelledby="monitoring-live-title" class="monitoring-live-panel" id="live-demo-data">
+<div class="monitoring-live-heading">
+<div>
+<h3 data-i18n="monitoringLiveTitle" id="monitoring-live-title">Live demo snapshot</h3>
+<p data-i18n="monitoringLiveIntro">A read-only summary from the home-lab demo. Only synthetic metrics and alerts are returned; raw labels and internal addresses are not exposed.</p>
+</div>
+<span class="monitoring-live-status" id="monitoring-live-status" role="status" aria-live="polite" data-i18n="monitoringLiveLoading">Loading demo data…</span>
+</div>
+<div class="monitoring-live-stats" aria-live="polite">
+<article class="monitoring-live-stat"><span data-i18n="monitoringOpenAlertsLabel">Open alerts</span><strong id="monitoring-open-count">—</strong></article>
+<article class="monitoring-live-stat sev-critical"><span data-i18n="monitoringCriticalLabel">Critical</span><strong id="monitoring-critical-count">—</strong></article>
+<article class="monitoring-live-stat sev-warning"><span data-i18n="monitoringWarningLabel">Warning</span><strong id="monitoring-warning-count">—</strong></article>
+<article class="monitoring-live-stat"><span data-i18n="monitoringResolvedLabel">Resolved</span><strong id="monitoring-resolved-count">—</strong></article>
+</div>
+<div class="monitoring-live-service-status">
+<span><span data-i18n="monitoringPrometheusStatus">Prometheus</span>: <strong id="monitoring-prometheus-status">—</strong></span>
+<span><span data-i18n="monitoringAlertaStatus">Alerta</span>: <strong id="monitoring-alerta-status">—</strong></span>
+</div>
+<div class="monitoring-live-detail-grid">
+<section class="monitoring-live-detail"><h4 data-i18n="monitoringCpuTitle">Synthetic CPU readings</h4><ul id="monitoring-cpu-list"><li data-i18n="monitoringLiveLoading">Loading demo data…</li></ul></section>
+<section class="monitoring-live-detail"><h4 data-i18n="monitoringDiskTitle">Synthetic disk readings</h4><ul id="monitoring-disk-list"><li data-i18n="monitoringLiveLoading">Loading demo data…</li></ul></section>
+<section class="monitoring-live-detail"><h4 data-i18n="monitoringDeviceTitle">Synthetic device status</h4><ul id="monitoring-device-list"><li data-i18n="monitoringLiveLoading">Loading demo data…</li></ul></section>
+<section class="monitoring-live-detail monitoring-live-alerts"><h4 data-i18n="monitoringRecentAlertsTitle">Open demo alerts</h4><ul id="monitoring-alert-list"><li data-i18n="monitoringLiveLoading">Loading demo data…</li></ul></section>
+</div>
+<p class="monitoring-live-updated" id="monitoring-live-updated"></p>
+<p class="monitoring-live-disclosure" data-i18n="monitoringSyntheticDisclosure">This public summary is intentionally limited to synthetic demo metrics and Demo-prefixed alerts. It is not a live view of real home devices.</p>
+</section>
 <div aria-labelledby="monitoring-demo-access-title" class="monitoring-demo-access">
 <h3 data-i18n="monitoringLinksTitle" id="monitoring-demo-access-title">Home-hosted monitoring interfaces</h3>
 <p data-i18n="monitoringLinksIntro">These links point to services in my home environment. Availability depends on my home lab, Cloudflare Tunnel and access policy; authorised access may be required.</p>
@@ -52,4 +79,108 @@
 <p class="monitoring-demo-notifications" data-i18n="monitoringNotificationsNote">WhatsApp notifications via WAHA and email/SMTP notifications via Postfix are configured in my home environment. Those notification integrations are not replicated in this portfolio demo.</p>
 </div>
 <p class="project-showcase-note" data-i18n="monitoringDemoNote">This is a self-built home-lab project. The demo intentionally uses dummy metrics and synthetic alerts for security; it does not expose real device telemetry or claim real infrastructure faults. WhatsApp via WAHA and email/SMTP via Postfix are configured at home but are not replicated here.</p>
-</section><footer class="page-footer"><p>Built and maintained by Alex Patnick · <a href="index.html#top">Back to profile</a></p></footer></div></div><script defer="True" src="site.js"></script><script defer="True" src="chat.js"></script></body></html>
+</section><footer class="page-footer"><p>Built and maintained by Alex Patnick · <a href="index.html#top">Back to profile</a></p></footer></div></div><script defer="True" src="site.js"></script><script defer="True" src="chat.js"></script><script>
+(() => {
+  "use strict";
+  const API_URL = "https://monitoring-data.patnick.click/api/summary";
+  const $ = id => document.getElementById(id);
+  let lastSummary = null;
+  const text = (key, fallback) => {
+    const lang = document.documentElement.lang === "he" ? "he" : "en";
+    const he = {
+      loading: "טוען נתוני הדגמה…", unavailable: "נתוני ההדגמה החיים אינם זמינים כרגע. סקירת הפרויקט הסטטית עדיין זמינה.",
+      partial: "זמין חלקית — לא ניתן להגיע לאחד או יותר ממקורות הנתונים.", ready: "נתוני ההדגמה החיים מחוברים",
+      connected: "מחובר", serviceUnavailable: "לא זמין", noSamples: "לא התקבלו מדידות לדוגמה.",
+      noAlerts: "אין כרגע התראות הדגמה פתוחות.", updated: "עודכן לאחרונה: ", up: "פועל", down: "לא פועל",
+      open: "פתוח", ack: "אושר", closed: "נסגר", critical: "קריטי", warning: "אזהרה", normal: "תקין", other: "מידע"
+    };
+    const en = {
+      loading: "Loading demo data…", unavailable: "Live demo data is temporarily unavailable. The static project overview is still available.",
+      partial: "Partially available — one or more data sources could not be reached.", ready: "Live demo data connected",
+      connected: "Connected", serviceUnavailable: "Unavailable", noSamples: "No sample readings returned.",
+      noAlerts: "No open demo alerts right now.", updated: "Last updated: ", up: "Up", down: "Down",
+      open: "Open", ack: "Acknowledged", closed: "Closed", critical: "Critical", warning: "Warning", normal: "Normal", other: "Info"
+    };
+    return (lang === "he" ? he : en)[key] || fallback || key;
+  };
+  const setText = (id, value) => { const element = $(id); if (element) element.textContent = String(value); };
+  function clearList(id) { const list = $(id); if (list) list.replaceChildren(); return list; }
+  function addEmpty(list, message) { if (!list) return; const li = document.createElement("li"); li.textContent = message; li.className = "monitoring-empty-row"; list.appendChild(li); }
+  function labelValue(device, value, suffix = "") {
+    const li = document.createElement("li");
+    const name = document.createElement("span"); name.className = "monitoring-reading-device"; name.textContent = device || "demo-device";
+    const reading = document.createElement("strong"); reading.textContent = `${value}${suffix}`;
+    li.append(name, reading); return li;
+  }
+  function renderMetricList(id, values, suffix = "") {
+    const list = clearList(id); if (!list) return;
+    if (!Array.isArray(values) || values.length === 0) { addEmpty(list, text("noSamples")); return; }
+    values.slice(0, 8).forEach(row => list.appendChild(labelValue(row.device, row.value, suffix)));
+  }
+  function renderAlerts(items) {
+    const list = clearList("monitoring-alert-list"); if (!list) return;
+    if (!Array.isArray(items) || items.length === 0) { addEmpty(list, text("noAlerts")); return; }
+    items.forEach(alert => {
+      const li = document.createElement("li"); li.className = "monitoring-live-alert-item";
+      const top = document.createElement("div"); top.className = "monitoring-live-alert-top";
+      const name = document.createElement("strong"); name.textContent = alert.event || "Demo alert";
+      const severity = String(alert.severity || "indeterminate").toLowerCase();
+      const badge = document.createElement("span"); badge.className = `monitoring-severity-badge severity-${/^(critical|warning|normal)$/.test(severity) ? severity : "other"}`;
+      badge.textContent = text(severity, severity);
+      top.append(name, badge);
+      const detail = document.createElement("p"); detail.textContent = `${alert.device || "demo-device"} · ${alert.summary || "Synthetic demo alert"}`;
+      const status = document.createElement("small"); status.textContent = text(String(alert.status || "open").toLowerCase(), alert.status || "Open");
+      li.append(top, detail, status); list.appendChild(li);
+    });
+  }
+  function render(data) {
+    if (!data) return;
+    const lang = document.documentElement.lang === "he" ? "he-IL" : "en-GB";
+    const alerts = data.alerts || {};
+    const services = data.services || {};
+    const metrics = data.metrics || {};
+    setText("monitoring-open-count", alerts.open ?? "—");
+    setText("monitoring-critical-count", alerts.critical ?? "—");
+    setText("monitoring-warning-count", alerts.warning ?? "—");
+    setText("monitoring-resolved-count", alerts.resolved ?? "—");
+    setText("monitoring-prometheus-status", services.prometheus === "available" ? text("connected") : text("serviceUnavailable"));
+    setText("monitoring-alerta-status", services.alerta === "available" ? text("connected") : text("serviceUnavailable"));
+    renderMetricList("monitoring-cpu-list", metrics.cpu_percent, "%");
+    renderMetricList("monitoring-disk-list", metrics.disk_percent, "%");
+    const devices = clearList("monitoring-device-list");
+    if (devices) {
+      const rows = Array.isArray(metrics.device_up) ? metrics.device_up : [];
+      if (!rows.length) addEmpty(devices, text("noSamples"));
+      else rows.slice(0, 8).forEach(row => devices.appendChild(labelValue(row.device, Number(row.value) > 0 ? text("up") : text("down"))));
+    }
+    renderAlerts(alerts.items || []);
+    const live = data.status === "live";
+    setText("monitoring-live-status", live ? text("ready") : text("partial"));
+    const updated = data.generated_at ? new Date(data.generated_at) : null;
+    setText("monitoring-live-updated", updated && !Number.isNaN(updated.getTime()) ? text("updated") + new Intl.DateTimeFormat(lang, { dateStyle: "medium", timeStyle: "medium", timeZone: "UTC" }).format(updated) + " UTC" : "");
+    const statusEl = $("monitoring-live-status");
+    if (statusEl) statusEl.classList.toggle("is-partial", !live);
+  }
+  async function refresh() {
+    const statusEl = $("monitoring-live-status");
+    try {
+      const response = await fetch(API_URL, { method: "GET", mode: "cors", cache: "no-store", headers: { "Accept": "application/json" } });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const data = await response.json();
+      if (!data || data.data_mode !== "synthetic" || !data.alerts || !data.metrics) throw new Error("Unexpected summary response");
+      lastSummary = data; render(lastSummary);
+    } catch (_error) {
+      setText("monitoring-live-status", text("unavailable"));
+      setText("monitoring-live-updated", "");
+      if (statusEl) statusEl.classList.add("is-partial");
+      ["monitoring-open-count", "monitoring-critical-count", "monitoring-warning-count", "monitoring-resolved-count"].forEach(id => setText(id, "—"));
+      ["monitoring-prometheus-status", "monitoring-alerta-status"].forEach(id => setText(id, text("serviceUnavailable")));
+      ["monitoring-cpu-list", "monitoring-disk-list", "monitoring-device-list", "monitoring-alert-list"].forEach(id => { const list = clearList(id); addEmpty(list, text("unavailable")); });
+    }
+  }
+  document.addEventListener("portfolio:languagechange", () => { if (lastSummary) render(lastSummary); });
+  refresh();
+  window.setInterval(refresh, 30000);
+})();
+</script>
+</body></html>

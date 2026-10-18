@@ -1094,8 +1094,72 @@ html[dir="rtl"] .side-nav .language-toggle { align-self: flex-end; }
     .side-nav .nav-links a { font-size: .76rem; }
 }
 
+/* Public live summary panel: displays only sanitised synthetic demo data. */
+.monitoring-live-panel {
+    margin: 24px 0 0; padding: clamp(20px, 3vw, 30px);
+    border: 1px solid #e2e0dc; border-radius: 16px;
+    background: rgba(255,255,255,.72);
+}
+.monitoring-live-heading { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:18px; }
+.monitoring-live-heading h3 { margin:0 0 7px; color:#20212b; font-size:1.1rem; }
+.monitoring-live-heading p { margin:0; max-width:75ch; color:#5e5d68; font-size:.88rem; }
+.monitoring-live-status { display:inline-flex; align-items:center; border:1px solid #b8ddc7; background:#effaf3; color:#21613a; border-radius:999px; padding:6px 10px; font-size:.75rem; font-weight:700; }
+.monitoring-live-status.is-partial { border-color:#edc98b; background:#fff7e6; color:#80520a; }
+.monitoring-live-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:18px 0 14px; }
+.monitoring-live-stat { min-width:0; padding:15px; background:#fff; border:1px solid #e5e4e0; border-radius:12px; display:flex; flex-direction:column; gap:6px; }
+.monitoring-live-stat span { color:#636373; font-size:.8rem; }
+.monitoring-live-stat strong { font-size:1.8rem; line-height:1.1; color:#20212b; font-weight:800; }
+.monitoring-live-stat.sev-critical strong { color:#bd3434; }
+.monitoring-live-stat.sev-warning strong { color:#9a6400; }
+.monitoring-live-service-status { display:flex; flex-wrap:wrap; gap:8px 18px; color:#5e5d68; font-size:.82rem; margin:0 0 18px; }
+.monitoring-live-service-status strong { color:#267448; }
+.monitoring-live-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.monitoring-live-detail { min-width:0; padding:16px; border:1px solid #e5e4e0; border-radius:12px; background:rgba(255,255,255,.75); }
+.monitoring-live-detail h4 { margin:0 0 12px; color:#20212b; font-size:.92rem; }
+.monitoring-live-detail ul { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+.monitoring-live-detail li { min-width:0; }
+.monitoring-live-detail li:not(.monitoring-empty-row) { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding-bottom:7px; border-bottom:1px solid #efeeeb; }
+.monitoring-reading-device { min-width:0; overflow-wrap:anywhere; color:#525666; font-size:.83rem; }
+.monitoring-live-detail li strong { flex-shrink:0; color:#20212b; font-size:.82rem; }
+.monitoring-live-alert-item { display:block !important; padding:9px 0 !important; }
+.monitoring-live-alert-top { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:7px; }
+.monitoring-live-alert-top strong { overflow-wrap:anywhere; }
+.monitoring-live-alert-item p { margin:6px 0 4px; color:#5e5d68; font-size:.8rem; line-height:1.5; overflow-wrap:anywhere; }
+.monitoring-live-alert-item small { color:#7a7985; font-size:.72rem; }
+.monitoring-severity-badge { flex:none; padding:3px 7px; border-radius:999px; font-size:.68rem; font-weight:750; text-transform:uppercase; letter-spacing:.03em; }
+.monitoring-severity-badge.severity-critical { background:#fde8e8; color:#a52424; }
+.monitoring-severity-badge.severity-warning { background:#fff0d4; color:#835300; }
+.monitoring-severity-badge.severity-normal { background:#e7f7ec; color:#21613a; }
+.monitoring-severity-badge.severity-other { background:#e9edf5; color:#49546a; }
+.monitoring-empty-row { color:#7a7985; font-size:.82rem; line-height:1.5; }
+.monitoring-live-updated { margin:14px 0 0; color:#777583; font-size:.75rem; }
+.monitoring-live-disclosure { margin:8px 0 0; color:#777583; font-size:.76rem; line-height:1.5; }
+@media (max-width: 600px) {
+    .monitoring-live-panel { padding:18px 14px; }
+    .monitoring-live-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .monitoring-live-stat { padding:12px; }
+    .monitoring-live-stat strong { font-size:1.55rem; }
+    .monitoring-live-detail-grid { grid-template-columns:1fr; }
+}
+@media (prefers-color-scheme: dark) {
+    .monitoring-live-panel { background:rgba(34,40,56,.78); border-color:#3a4358; }
+    .monitoring-live-heading h3, .monitoring-live-stat strong, .monitoring-live-detail h4 { color:#f4f5fa; }
+    .monitoring-live-heading p, .monitoring-live-stat span, .monitoring-live-service-status, .monitoring-reading-device,
+    .monitoring-live-alert-item p, .monitoring-live-alert-item small, .monitoring-empty-row, .monitoring-live-updated, .monitoring-live-disclosure { color:#c1c7d5; }
+    .monitoring-live-stat, .monitoring-live-detail { background:rgba(27,32,45,.85); border-color:#3a4358; }
+    .monitoring-live-detail li:not(.monitoring-empty-row) { border-bottom-color:#3a4358; }
+    .monitoring-live-status { background:#183927; border-color:#316e4a; color:#a8efbf; }
+    .monitoring-live-status.is-partial { background:#493719; border-color:#775a28; color:#ffe0a0; }
+    .monitoring-live-stat.sev-critical strong { color:#ff9d9d; }
+    .monitoring-live-stat.sev-warning strong { color:#ffd27a; }
+    .monitoring-live-service-status strong { color:#a8efbf; }
+    .monitoring-severity-badge.severity-critical { background:#572b35; color:#ffd7dd; }
+    .monitoring-severity-badge.severity-warning { background:#4a3a20; color:#ffe0a0; }
+    .monitoring-severity-badge.severity-normal { background:#1e4632; color:#b9f3cb; }
+    .monitoring-severity-badge.severity-other { background:#30394e; color:#d4ddf0; }
+}
 
-/* Menu transition fixes: animate the active bar, stop bold-on-active reflow, keep anchors clear of the sticky mobile nav */
+/* Preserve the existing active-menu animation and sticky-anchor adjustments. */
 .side-nav .nav-links a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
 .side-nav .nav-links a.active,
 .side-nav .nav-links a[aria-current="location"] { font-weight: inherit; }
