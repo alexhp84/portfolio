@@ -342,7 +342,19 @@
         const LIVE_DEMOS = {
             "loan-site": "https://loan.patnick.click",
             "models-project": "https://models.patnick.click",
-            "lotterypicker---israel": "https://lottery.patnick.click"
+            "lotterypicker---israel": "https://lottery.patnick.click",
+            "eurovision": "https://eurovision.patnick.click"
+        };
+
+        // Friendly portfolio labels are separate from the original GitHub repository slugs.
+        const PROJECT_DISPLAY = {
+            "loan-site": { name: "Loan Approval Demo" },
+            "models-project": { name: "Segment Studio" },
+            "lotterypicker---israel": { name: "Lottery Picker (Israel)" },
+            "eurovision": {
+                name: "Eurovision Explorer",
+                description: "A Flask and SQLite web app for exploring Eurovision winners and song details, with searchable records and country and year filters."
+            }
         };
 
         // Desktop games can't run in the browser: offer downloads (always the latest release) and an optional demo video.
@@ -399,12 +411,14 @@
                     const card = document.createElement('div');
                     card.className = 'repo-card';
 
-                    const description = repo.description || 'No description provided.';
+                    const repoKey = String(repo.name || '').toLowerCase();
+                    const project = PROJECT_DISPLAY[repoKey] || {};
+                    const displayName = project.name || repo.name;
+                    const description = project.description || repo.description || 'No description provided.';
                     const language = repo.language || 'Other';
-                    const demoUrl = LIVE_DEMOS[String(repo.name || '').toLowerCase()];
+                    const demoUrl = LIVE_DEMOS[repoKey];
                     const copy = translations[document.documentElement.lang] || translations.en;
                     const liveDemoLabel = copy.liveDemoLabel;
-                    const repoKey = String(repo.name || '').toLowerCase();
                     const downloads = GAME_DOWNLOADS[repoKey];
                     const videoUrl = DEMO_VIDEOS[repoKey];
                     const actions = [];
@@ -414,7 +428,7 @@
 
                     card.innerHTML = `
                         <div>
-                            <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(repo.name)}</a>
+                            <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(displayName)}</a>
                             <p class="repo-desc">${esc(description)}</p>
                             ${actions.length ? `<div class="repo-actions">${actions.join('')}</div>` : ''}
                         </div>
