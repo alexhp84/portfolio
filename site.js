@@ -52,16 +52,16 @@
                 monitoringDashboardNetworkTitle: "Network & VLANs",
                 monitoringDashboardLogsTitle: "Logs & incidents",
                 monitoringOpenDashboard: "Open dashboard in new tab ↗",
-                monitoringGrafanaEmbedNote: "If an embedded dashboard is blocked by browser security headers, use its “Open dashboard in new tab” link. Grafana may need iframe embedding enabled in its server configuration.",
+                monitoringGrafanaEmbedNote: "If a dashboard doesn't load here, use its “Open dashboard in new tab” link.",
                 monitoringAlertaEmbedTitle: "Alerta incidents",
                 monitoringAlertaEmbedIntro: "Live alert and incident interface. Alertmanager is not embedded on this page.",
                 monitoringOpenAlertaFull: "Open Alerta ↗",
-                monitoringAlertaEmbedNote: "If Alerta refuses to load inside the frame, open it in a new tab. The service must permit framing from this portfolio site.",
-                monitoringGrafanaAccessTitle: "Grafana demo login",
-                monitoringGrafanaAccessIntro: "Use only for the portfolio demonstration. The public dashboard embeds above should not require these credentials.",
+                monitoringAlertaEmbedNote: "If Alerta doesn't load here, open it in a new tab.",
+                monitoringGrafanaAccessTitle: "Explore Grafana yourself",
+                monitoringGrafanaAccessIntro: "Want to look around yourself? Log in with the demo account to explore the dashboards, change time ranges and run your own queries. It only contains synthetic data.",
                 monitoringGrafanaUsername: "Username",
                 monitoringGrafanaPassword: "Password",
-                monitoringGrafanaCredentialWarning: "These credentials are public on this page and in its source code. Use them only for a restricted demo account and never reuse this password elsewhere.",
+                monitoringGrafanaCredentialWarning: "Shared demo account, public by design. Do not reuse this password anywhere else.",
                 monitoringLinkGrafana: "Open Grafana ↗", monitoringLinkPrometheus: "Open Prometheus ↗",
                 monitoringLinkAlertmanager: "Open Alertmanager ↗", monitoringLinkAlerta: "Open Alerta ↗",
                 monitoringNotificationsNote: "WhatsApp notifications via WAHA and email/SMTP notifications via Postfix are configured in my home environment. Those notification integrations are not replicated in this portfolio demo.",
@@ -119,6 +119,7 @@
                 engineeringCardText: "A practical engineering foundation for investigating behaviour across applications, APIs, logs, networks, and Linux-based environments.",
                 projectCardTitle: "Monitoring Demo & AI Agent",
                 projectCardText: "The monitoring demo now routes synthetic Prometheus alerts through Alertmanager into Alerta and records resolved alerts. A separate read-only homelab AI agent is in development; autonomous diagnosis and self-healing remain planned.",
+                certsEyebrow: "TRAINING · COURSES · CREDENTIALS", certsTitle: "Certificates", certsIntro: "Training, courses, and credentials. Open one to view or download the original file.", certsSearch: "Search certificates", certsFilterLabel: "Filter by file type", certsLoading: "Loading certificates...", certsEmpty: "No certificates found in this folder yet.", certsNoMatch: "No certificates match your search.", certsCount: "{shown} of {total} certificates", certsPreview: "Preview", certsOpenPdf: "Open PDF", certsClose: "Close", certsAll: "All", certsError: "Could not load certificates. Please try again later.", certsPreviewLabel: "Certificate preview", monitoringGrafanaLogin: "Open Grafana login ↗",
                 languageButton: "עברית" 
             },
             he: {
@@ -171,16 +172,16 @@
                 monitoringDashboardNetworkTitle: "רשתות ו־VLANs",
                 monitoringDashboardLogsTitle: "לוגים ותקריות",
                 monitoringOpenDashboard: "פתיחת לוח מחוונים בכרטיסייה חדשה ↗",
-                monitoringGrafanaEmbedNote: "אם כותרות אבטחה בדפדפן חוסמות הטמעה, השתמשו בקישור לפתיחת לוח המחוונים בכרטיסייה חדשה. ייתכן שיהיה צורך לאפשר הטמעה ב־iframe בהגדרות שרת Grafana.",
+                monitoringGrafanaEmbedNote: "אם לוח מחוונים לא נטען כאן, השתמשו בקישור לפתיחתו בכרטיסייה חדשה.",
                 monitoringAlertaEmbedTitle: "תקריות Alerta",
                 monitoringAlertaEmbedIntro: "ממשק חי להתראות ולתקריות. Alertmanager אינו מוטמע בעמוד זה.",
                 monitoringOpenAlertaFull: "פתיחת Alerta ↗",
-                monitoringAlertaEmbedNote: "אם Alerta לא נטען בתוך המסגרת, פתחו אותו בכרטיסייה חדשה. השירות חייב לאפשר הטמעה מאתר תיק העבודות.",
-                monitoringGrafanaAccessTitle: "פרטי כניסה להדגמת Grafana",
-                monitoringGrafanaAccessIntro: "לשימוש בהדגמת תיק העבודות בלבד. לוחות המחוונים הציבוריים המוטמעים למעלה לא אמורים לדרוש פרטים אלה.",
+                monitoringAlertaEmbedNote: "אם Alerta לא נטען כאן, פתחו אותו בכרטיסייה חדשה.",
+                monitoringGrafanaAccessTitle: "חקרו את Grafana בעצמכם",
+                monitoringGrafanaAccessIntro: "רוצים להתנסות בעצמכם? התחברו עם חשבון ההדגמה כדי לחקור את לוחות המחוונים, לשנות טווחי זמן ולהריץ שאילתות משלכם. החשבון מכיל נתונים סינתטיים בלבד.",
                 monitoringGrafanaUsername: "שם משתמש",
                 monitoringGrafanaPassword: "סיסמה",
-                monitoringGrafanaCredentialWarning: "פרטים אלה גלויים לציבור בעמוד ובקוד המקור שלו. השתמשו בהם רק עבור חשבון הדגמה מוגבל ואל תשתמשו בסיסמה זו במקום אחר.",
+                monitoringGrafanaCredentialWarning: "חשבון הדגמה משותף וציבורי במכוון. אל תשתמשו בסיסמה זו במקום אחר.",
                 monitoringLinkGrafana: "פתיחת Grafana ↗", monitoringLinkPrometheus: "פתיחת Prometheus ↗",
                 monitoringLinkAlertmanager: "פתיחת Alertmanager ↗", monitoringLinkAlerta: "פתיחת Alerta ↗",
                 monitoringNotificationsNote: "התראות WhatsApp באמצעות WAHA והתראות דוא״ל/SMTP באמצעות Postfix מוגדרות בסביבת הבית שלי. אינטגרציות ההתראות האלה אינן משוכפלות בהדגמה שבתיק העבודות.",
@@ -238,6 +239,7 @@
                 engineeringCardText: "בסיס הנדסי מעשי לחקירת התנהגות של יישומים, ממשקי API, יומני מערכת, רשתות וסביבות מבוססות Linux.",
                 projectCardTitle: "הדגמת ניטור וסוכן AI",
                 projectCardText: "מערך הניטור מדגים שליחת התראות Prometheus סינתטיות דרך Alertmanager אל Alerta ותיעוד של התראות שנפתרו. סוכן AI נפרד עם גישה לקריאה בלבד נמצא בפיתוח; אבחון אוטונומי וריפוי עצמי עדיין מתוכננים.",
+                certsEyebrow: "הכשרות · קורסים · תעודות", certsTitle: "תעודות", certsIntro: "הכשרות, קורסים ותעודות. פתחו אחת מהן כדי לצפות בקובץ המקורי או להוריד אותו.", certsSearch: "חיפוש תעודות", certsFilterLabel: "סינון לפי סוג קובץ", certsLoading: "טוען תעודות...", certsEmpty: "עדיין לא נמצאו תעודות בתיקייה זו.", certsNoMatch: "אין תעודות התואמות לחיפוש.", certsCount: "{shown} מתוך {total} תעודות", certsPreview: "תצוגה מקדימה", certsOpenPdf: "פתיחת PDF", certsClose: "סגירה", certsAll: "הכול", certsError: "לא ניתן לטעון את התעודות. נסו שוב מאוחר יותר.", certsPreviewLabel: "תצוגה מקדימה של תעודה", monitoringGrafanaLogin: "פתיחת התחברות ל-Grafana ↗",
                 languageButton: "English" 
             }
         };
@@ -250,10 +252,17 @@
                 const key = element.dataset.i18n;
                 if (copy[key]) element.textContent = copy[key];
             });
+            document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+                const key = element.dataset.i18nPlaceholder;
+                if (copy[key]) element.placeholder = copy[key];
+            });
             const toggle = document.getElementById("language-toggle");
-            toggle.textContent = copy.languageButton;
-            toggle.setAttribute("aria-label", language === "he" ? "Switch to English" : "Switch to Hebrew");
-            toggle.dataset.currentLanguage = language;
+            if (toggle) {
+                toggle.textContent = copy.languageButton;
+                toggle.setAttribute("aria-label", language === "he" ? "Switch to English" : "Switch to Hebrew");
+                toggle.dataset.currentLanguage = language;
+            }
+            try { localStorage.setItem("portfolioLang", language); } catch {}
             document.querySelectorAll("[data-i18n-aria]").forEach(element => {
                 const key = element.dataset.i18nAria;
                 if (copy[key]) element.setAttribute("aria-label", copy[key]);
@@ -264,11 +273,13 @@
             document.dispatchEvent(new CustomEvent("portfolio:languagechange", { detail: { language } }));
         }
 
-        document.getElementById("language-toggle").addEventListener("click", () => {
-            const toggle = document.getElementById("language-toggle");
-            setLanguage((toggle.dataset.currentLanguage || "en") === "en" ? "he" : "en");
+        const langToggle = document.getElementById("language-toggle");
+        if (langToggle) langToggle.addEventListener("click", () => {
+            setLanguage((langToggle.dataset.currentLanguage || "en") === "en" ? "he" : "en");
         });
-        setLanguage("en");
+        let savedLang = "en";
+        try { savedLang = localStorage.getItem("portfolioLang") === "he" ? "he" : "en"; } catch {}
+        setLanguage(savedLang);
 
         // Section nav ("On this page"): scroll-spy over same-page anchors.
         const navLinks = Array.from(document.querySelectorAll(".section-nav a[href^='#']"));
@@ -403,7 +414,7 @@
                 const myPublicRepos = repos.filter(repo => !repo.fork && repo.name !== 'portfolio');
 
                 if (myPublicRepos.length === 0) {
-                    container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">No public repositories found.</p>';
+                    container.innerHTML = '<p class="repo-msg">No public repositories found.</p>';
                     return;
                 }
 
@@ -448,7 +459,7 @@
                 });
             } catch (error) {
                 console.error(error);
-                container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">Could not load GitHub repositories. Please try again later.</p>';
+                container.innerHTML = '<p class="repo-msg">Could not load GitHub repositories. Please try again later.</p>';
             }
         }
         fetchGitHubRepos();
