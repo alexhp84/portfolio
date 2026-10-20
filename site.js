@@ -348,12 +348,34 @@
 
         // Friendly portfolio labels are separate from the original GitHub repository slugs.
         const PROJECT_DISPLAY = {
-            "loan-site": { name: "Loan Approval Demo" },
-            "models-project": { name: "Segment Studio" },
-            "lotterypicker---israel": { name: "Lottery Picker (Israel)" },
+            "models-project": {
+                name: "Segment Studio",
+                technology: "Python · Streamlit · scikit-learn",
+                priority: 1
+            },
+            "loan-site": {
+                name: "Loan Approval Demo",
+                technology: "Python · Flask · scikit-learn",
+                priority: 2
+            },
             "eurovision": {
                 name: "Eurovision Explorer",
-                description: "A Flask and SQLite web app for exploring Eurovision winners and song details, with searchable records and country and year filters."
+                description: "A Flask and SQLite web app for exploring Eurovision winners and song details, with searchable records and country and year filters.",
+                technology: "Python · Flask · SQLite",
+                priority: 3
+            },
+            "library-database-in-python": {
+                name: "Library Database in Python",
+                technology: "Python · SQL · SQLite"
+            },
+            "tic-tac-toe---ui": {
+                name: "Hitchhiker's Tic-Tac-Toe",
+                description: "A Hitchhiker's Guide to the Galaxy-themed Pygame tic-tac-toe game with Marvin AI, persistent session scores, and cross-platform builds.",
+                technology: "Python · Pygame"
+            },
+            "lotterypicker---israel": {
+                name: "Lottery Picker (Israel)",
+                technology: "Python"
             }
         };
 
@@ -401,6 +423,11 @@
                 container.innerHTML = '';
 
                 const myPublicRepos = repos.filter(repo => !repo.fork && repo.name !== 'portfolio');
+                myPublicRepos.sort((a, b) => {
+                    const pa = PROJECT_DISPLAY[String(a.name || '').toLowerCase()]?.priority ?? 100;
+                    const pb = PROJECT_DISPLAY[String(b.name || '').toLowerCase()]?.priority ?? 100;
+                    return pa - pb || String(a.name || '').localeCompare(String(b.name || ''));
+                });
 
                 if (myPublicRepos.length === 0) {
                     container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">No public repositories found.</p>';
@@ -415,7 +442,7 @@
                     const project = PROJECT_DISPLAY[repoKey] || {};
                     const displayName = project.name || repo.name;
                     const description = project.description || repo.description || 'No description provided.';
-                    const language = repo.language || 'Other';
+                    const language = project.technology || repo.language || 'Other';
                     const demoUrl = LIVE_DEMOS[repoKey];
                     const copy = translations[document.documentElement.lang] || translations.en;
                     const liveDemoLabel = copy.liveDemoLabel;
@@ -427,14 +454,16 @@
                     if (videoUrl) actions.push(`<button type="button" class="repo-action" hidden data-video="${esc(videoUrl)}" data-title="${esc(repo.name)}" data-i18n="watchDemoLabel">${esc(copy.watchDemoLabel)}</button>`);
 
                     card.innerHTML = `
-                        <div>
+                        <div class="repo-card-content">
                             <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(displayName)}</a>
                             <p class="repo-desc">${esc(description)}</p>
-                            ${actions.length ? `<div class="repo-actions">${actions.join('')}</div>` : ''}
                         </div>
-                        <div class="repo-meta">
+                        <div class="repo-card-footer">
+                            ${actions.length ? `<div class="repo-actions">${actions.join('')}</div>` : ''}
+                            <div class="repo-meta">
                             <span class="meta-item"><span class="repo-lang-dot"></span>${esc(language)}</span>
                             <span class="meta-item">⭐ ${repo.stargazers_count}</span>
+                            </div>
                         </div>`;
                     container.appendChild(card);
                     const videoBtn = card.querySelector("[data-video]");
