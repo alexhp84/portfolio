@@ -87,11 +87,11 @@
     text = normalizeAnswer(text);
     let html = escapeHtml(text);
     html = html.replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g, (_m, label, rawUrl) => {
-      const url = safeUrl(rawUrl.replace(/&amp;/g, "&")); return url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${label}</a>` : `${label} (${escapeHtml(rawUrl)})`;
+      const url = safeUrl(rawUrl); return url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${label}</a>` : `${label} (${escapeHtml(rawUrl)})`;
     });
     html = html.replace(/(^|[\s>])(https?:\/\/[^\s<]+)/g, (_m, prefix, rawUrl) => {
-      const trailing = rawUrl.match(/[.,!?;:]+$/)?.[0] || ""; const candidate = trailing ? rawUrl.slice(0, -trailing.length) : rawUrl; const plain = candidate.replace(/&amp;/g, "&"); const url = safeUrl(plain);
-      return url ? `${prefix}<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(plain)}</a>${trailing}` : `${prefix}${rawUrl}`;
+      const trailing = rawUrl.match(/[.,!?;:]+$/)?.[0] || ""; const candidate = trailing ? rawUrl.slice(0, -trailing.length) : rawUrl; const url = safeUrl(candidate);
+      return url ? `${prefix}<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(candidate)}</a>${trailing}` : `${prefix}${rawUrl}`;
     });
     return html.split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g, "<br>")}</p>`).join("");
   }
@@ -123,8 +123,7 @@
     input.value = ""; sendButton.disabled = true; input.disabled = true;
     const pending = addBotMessage("Thinking…", "thinking"); pending.classList.add("pc-thinking");
     try {
-      const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 60000);
-      const response = await fetch(CHAT_API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question, history: conversation.slice(0, -1) }), signal: ctrl.signal }).finally(() => clearTimeout(timer));
+      const response = await fetch(CHAT_API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question, history: conversation.slice(0, -1) }) });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
       const answer = normalizeAnswer(data.answer || "I couldn't find an answer.");
@@ -135,7 +134,7 @@
       addSources(pending, (data.sources || []).filter(name => !/\.md$/i.test(name)));
     } catch (error) {
       if (conversation.length && conversation[conversation.length - 1].role === "user") conversation.pop();
-      pending.textContent = error.name === "AbortError" ? "Sorry, the assistant took too long to respond. Please try again." : `Sorry, I couldn't reach the assistant. ${error.message}`; pending.classList.remove("pc-thinking");
+      pending.textContent = `Sorry, I couldn't reach the assistant. ${error.message}`; pending.classList.remove("pc-thinking");
       const avatar = pending.closest(".pc-bot-row")?.querySelector(".pc-avatar"); if (avatar) { avatar.classList.remove("pc-mood-thinking"); avatar.classList.add("pc-mood-confused"); }
     } finally {
       sendButton.disabled = false; input.disabled = false; if (!panel.hidden && !closing) input.focus(); messages.scrollTop = messages.scrollHeight;
