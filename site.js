@@ -31,6 +31,7 @@
                 bio3: "Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.",
                 projectsTitle: "Open Source Projects",
                 liveDemoLabel: "Open live demo ↗",
+                viewDiagramLabel: "🖼 View diagram",
                 downloadGameLabel: "⬇ Download Game",
                 watchDemoLabel: "▶ Watch demo",
                 monitoringDemoTitle: "Monitoring & Alerting Portfolio Demo",
@@ -150,6 +151,7 @@
                 bio3: "בהמשך, מעניין אותי במיוחד לחקור פרויקטים מתקדמים יותר בתחום האוטומציה וה־AI ולמצוא דרכים להפוך מערכות לחכמות יותר ולפשט משימות יומיומיות. כשאני לא מתעסק בטכנולוגיה, אפשר למצוא אותי עוקב אחרי שפילד ונסדיי ונבחרת אנגליה בכדורגל, או אחרי יורקשייר ואנגליה בקריקט.",
                 projectsTitle: "פרויקטים בקוד פתוח",
                 liveDemoLabel: "פתיחת הדגמה חיה ↗",
+                viewDiagramLabel: "🖼 צפייה בתרשים",
                 downloadGameLabel: "⬇ הורדת המשחק",
                 watchDemoLabel: "▶ צפייה בהדגמה",
                 monitoringDemoTitle: "פרויקט הדגמה לניטור ולהתראות",
@@ -342,41 +344,7 @@
         const LIVE_DEMOS = {
             "loan-site": "https://loan.patnick.click",
             "models-project": "https://models.patnick.click",
-            "lotterypicker---israel": "https://lottery.patnick.click",
-            "eurovision": "https://eurovision.patnick.click"
-        };
-
-        // Friendly portfolio labels are separate from the original GitHub repository slugs.
-        const PROJECT_DISPLAY = {
-            "models-project": {
-                name: "Segment Studio",
-                technology: "Python · Streamlit · scikit-learn",
-                priority: 1
-            },
-            "loan-site": {
-                name: "Loan Approval Demo",
-                technology: "Python · Flask · scikit-learn",
-                priority: 2
-            },
-            "eurovision": {
-                name: "Eurovision Explorer",
-                description: "A Flask and SQLite web app for exploring Eurovision winners and song details, with searchable records and country and year filters.",
-                technology: "Python · Flask · SQLite",
-                priority: 3
-            },
-            "library-database-in-python": {
-                name: "Library Database in Python",
-                technology: "Python · SQL · SQLite"
-            },
-            "tic-tac-toe---ui": {
-                name: "Hitchhiker's Tic-Tac-Toe",
-                description: "A Hitchhiker's Guide to the Galaxy-themed Pygame tic-tac-toe game with Marvin AI, persistent session scores, and cross-platform builds.",
-                technology: "Python · Pygame"
-            },
-            "lotterypicker---israel": {
-                name: "Lottery Picker (Israel)",
-                technology: "Python"
-            }
+            "lotterypicker---israel": "https://lottery.patnick.click"
         };
 
         // Desktop games can't run in the browser: offer downloads (always the latest release) and an optional demo video.
@@ -388,32 +356,42 @@
                 ["Linux", RELEASES + "HitchhikersTTT"]
             ]
         };
-        const DEMO_VIDEOS = { "tic-tac-toe---ui": "media/hitchhikers-ttt-demo.mp4" }; // button appears only if the file exists
+        // Buttons appear only if the file exists in /media.
+        const DEMO_VIDEOS = {
+            "tic-tac-toe---ui": "media/hitchhikers-ttt-demo.mp4",
+            "library-database-in-python-": "media/library-database-demo.mp4"
+        };
+        const DEMO_IMAGES = { "db-design": "media/db-design-diagram.png" };
 
-        function openDemoVideo(src, title) {
+        function openDemoMedia(src, title, kind) {
             let dlg = document.getElementById("demo-dialog");
             if (!dlg) {
                 dlg = document.createElement("dialog");
                 dlg.id = "demo-dialog"; dlg.className = "demo-dialog";
-                dlg.innerHTML = '<button type="button" class="demo-dialog-close" aria-label="Close">×</button><video controls playsinline preload="metadata"></video>';
+                dlg.innerHTML = '<button type="button" class="demo-dialog-close" aria-label="Close">×</button><video controls playsinline preload="metadata" hidden></video><img alt="" hidden>';
                 document.body.appendChild(dlg);
-                const video = dlg.querySelector("video");
                 dlg.querySelector(".demo-dialog-close").addEventListener("click", () => dlg.close());
                 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
-                dlg.addEventListener("close", () => video.pause());
+                dlg.addEventListener("close", () => dlg.querySelector("video").pause());
             }
             const video = dlg.querySelector("video");
-            video.src = src; video.setAttribute("aria-label", title || "Demo video");
+            const img = dlg.querySelector("img");
+            video.hidden = kind !== "video";
+            img.hidden = kind !== "image";
+            if (kind === "video") { video.src = src; video.setAttribute("aria-label", title || "Demo video"); }
+            else { img.src = src; img.alt = title || "Diagram"; }
             dlg.showModal();
-            video.play().catch(() => {});
+            if (kind === "video") video.play().catch(() => {});
         }
 
         async function fetchGitHubRepos() {
             const container = document.getElementById('repos-container');
             if (!container) return; // The repository grid exists only on projects.html.
             container.addEventListener("click", e => {
-                const btn = e.target.closest("[data-video]");
-                if (btn) openDemoVideo(btn.dataset.video, btn.dataset.title);
+                const btn = e.target.closest("[data-video],[data-image]");
+                if (!btn) return;
+                if (btn.dataset.video) openDemoMedia(btn.dataset.video, btn.dataset.title, "video");
+                else openDemoMedia(btn.dataset.image, btn.dataset.title, "image");
             });
             try {
                 const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
@@ -423,11 +401,6 @@
                 container.innerHTML = '';
 
                 const myPublicRepos = repos.filter(repo => !repo.fork && repo.name !== 'portfolio');
-                myPublicRepos.sort((a, b) => {
-                    const pa = PROJECT_DISPLAY[String(a.name || '').toLowerCase()]?.priority ?? 100;
-                    const pb = PROJECT_DISPLAY[String(b.name || '').toLowerCase()]?.priority ?? 100;
-                    return pa - pb || String(a.name || '').localeCompare(String(b.name || ''));
-                });
 
                 if (myPublicRepos.length === 0) {
                     container.innerHTML = '<p style="color: #727e91; font-family: var(--font-mono);">No public repositories found.</p>';
@@ -438,40 +411,37 @@
                     const card = document.createElement('div');
                     card.className = 'repo-card';
 
-                    const repoKey = String(repo.name || '').toLowerCase();
-                    const project = PROJECT_DISPLAY[repoKey] || {};
-                    const displayName = project.name || repo.name;
-                    const description = project.description || repo.description || 'No description provided.';
-                    const language = project.technology || repo.language || 'Other';
-                    const demoUrl = LIVE_DEMOS[repoKey];
+                    const description = repo.description || 'No description provided.';
+                    const language = repo.language || 'Other';
+                    const demoUrl = LIVE_DEMOS[String(repo.name || '').toLowerCase()];
                     const copy = translations[document.documentElement.lang] || translations.en;
                     const liveDemoLabel = copy.liveDemoLabel;
+                    const repoKey = String(repo.name || '').toLowerCase();
                     const downloads = GAME_DOWNLOADS[repoKey];
                     const videoUrl = DEMO_VIDEOS[repoKey];
+                    const imageUrl = DEMO_IMAGES[repoKey];
                     const actions = [];
                     if (demoUrl) actions.push(`<a class="repo-action repo-action-live" href="${esc(demoUrl)}" target="_blank" rel="noopener">${esc(liveDemoLabel)}</a>`);
                     if (downloads) actions.push(`<details class="repo-download"><summary class="repo-action repo-action-live" data-i18n="downloadGameLabel">${esc(copy.downloadGameLabel)}</summary><div class="repo-download-menu">${downloads.map(([label, url]) => `<a href="${esc(url)}" rel="noopener">${esc(label)}</a>`).join('')}</div></details>`);
+                    if (imageUrl) actions.push(`<button type="button" class="repo-action" hidden data-image="${esc(imageUrl)}" data-title="${esc(repo.name)}" data-i18n="viewDiagramLabel">${esc(copy.viewDiagramLabel)}</button>`);
                     if (videoUrl) actions.push(`<button type="button" class="repo-action" hidden data-video="${esc(videoUrl)}" data-title="${esc(repo.name)}" data-i18n="watchDemoLabel">${esc(copy.watchDemoLabel)}</button>`);
 
                     card.innerHTML = `
-                        <div class="repo-card-content">
-                            <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(displayName)}</a>
+                        <div>
+                            <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(repo.name)}</a>
                             <p class="repo-desc">${esc(description)}</p>
-                        </div>
-                        <div class="repo-card-footer">
                             ${actions.length ? `<div class="repo-actions">${actions.join('')}</div>` : ''}
-                            <div class="repo-meta">
+                        </div>
+                        <div class="repo-meta">
                             <span class="meta-item"><span class="repo-lang-dot"></span>${esc(language)}</span>
                             <span class="meta-item">⭐ ${repo.stargazers_count}</span>
-                            </div>
                         </div>`;
                     container.appendChild(card);
-                    const videoBtn = card.querySelector("[data-video]");
-                    if (videoBtn) {
-                        fetch(videoBtn.dataset.video, { method: "HEAD" })
-                            .then(r => { if (r.ok) videoBtn.hidden = false; })
+                    card.querySelectorAll("[data-video],[data-image]").forEach(btn => {
+                        fetch(btn.dataset.video || btn.dataset.image, { method: "HEAD" })
+                            .then(r => { if (r.ok) btn.hidden = false; })
                             .catch(() => {});
-                    }
+                    });
                 });
             } catch (error) {
                 console.error(error);
