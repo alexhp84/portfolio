@@ -31,6 +31,8 @@
                 bio3: "Looking ahead, I'm particularly interested in exploring more advanced automation and AI projects, finding new ways to make systems smarter and everyday tasks simpler. When I'm not tinkering with technology, you'll often find me following Sheffield Wednesday and England in football, or Yorkshire and England in cricket.",
                 projectsTitle: "Open Source Projects",
                 liveDemoLabel: "Open live demo ↗",
+                downloadGameLabel: "⬇ Download Game",
+                watchDemoLabel: "▶ Watch demo",
                 monitoringDemoTitle: "Monitoring & Alerting Portfolio Demo",
                 monitoringDemoIntro: "A self-built monitoring and alerting stack running in my home environment, assembled with Docker Compose. Prometheus evaluates metrics and alert rules, Alertmanager routes notifications to Alerta, PostgreSQL stores Alerta data, Grafana provides dashboards, and Loki/Promtail collect logs. The portfolio view uses dummy metrics and synthetic alerts so real home infrastructure details are not exposed.",
                 monitoringMetricsTitle: "Metrics & dashboards",
@@ -148,6 +150,8 @@
                 bio3: "בהמשך, מעניין אותי במיוחד לחקור פרויקטים מתקדמים יותר בתחום האוטומציה וה־AI ולמצוא דרכים להפוך מערכות לחכמות יותר ולפשט משימות יומיומיות. כשאני לא מתעסק בטכנולוגיה, אפשר למצוא אותי עוקב אחרי שפילד ונסדיי ונבחרת אנגליה בכדורגל, או אחרי יורקשייר ואנגליה בקריקט.",
                 projectsTitle: "פרויקטים בקוד פתוח",
                 liveDemoLabel: "פתיחת הדגמה חיה ↗",
+                downloadGameLabel: "⬇ הורדת המשחק",
+                watchDemoLabel: "▶ צפייה בהדגמה",
                 monitoringDemoTitle: "פרויקט הדגמה לניטור ולהתראות",
                 monitoringDemoIntro: "מערכת ניטור והתראות שבניתי בעצמי ופועלת בסביבת הבית שלי, באמצעות Docker Compose. Prometheus בודק מדדים וכללי התראה, Alertmanager מנתב התראות אל Alerta, PostgreSQL שומר את הנתונים, Grafana מציג לוחות מחוונים ו־Loki/Promtail אוספים לוגים. בתצוגת התיק נעשה שימוש במדדים ובנתוני התראה מדומים כדי לא לחשוף פרטים אמיתיים על תשתית הבית.",
                 monitoringMetricsTitle: "מדדים ולוחות מחוונים",
@@ -341,9 +345,42 @@
             "lotterypicker---israel": "https://lottery.patnick.click"
         };
 
+        // Desktop games can't run in the browser: offer downloads (always the latest release) and an optional demo video.
+        const RELEASES = "https://github.com/alexhp84/tic-tac-toe---ui/releases/latest/download/";
+        const GAME_DOWNLOADS = {
+            "tic-tac-toe---ui": [
+                ["Windows (.exe)", RELEASES + "HitchhikersTTT.exe"],
+                ["macOS (.zip)", RELEASES + "HitchhikersTTT-macOS.zip"],
+                ["Linux", RELEASES + "HitchhikersTTT"]
+            ]
+        };
+        const DEMO_VIDEOS = { "tic-tac-toe---ui": "media/hitchhikers-ttt-demo.mp4" }; // button appears only if the file exists
+
+        function openDemoVideo(src, title) {
+            let dlg = document.getElementById("demo-dialog");
+            if (!dlg) {
+                dlg = document.createElement("dialog");
+                dlg.id = "demo-dialog"; dlg.className = "demo-dialog";
+                dlg.innerHTML = '<button type="button" class="demo-dialog-close" aria-label="Close">×</button><video controls playsinline preload="metadata"></video>';
+                document.body.appendChild(dlg);
+                const video = dlg.querySelector("video");
+                dlg.querySelector(".demo-dialog-close").addEventListener("click", () => dlg.close());
+                dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+                dlg.addEventListener("close", () => video.pause());
+            }
+            const video = dlg.querySelector("video");
+            video.src = src; video.setAttribute("aria-label", title || "Demo video");
+            dlg.showModal();
+            video.play().catch(() => {});
+        }
+
         async function fetchGitHubRepos() {
             const container = document.getElementById('repos-container');
             if (!container) return; // The repository grid exists only on projects.html.
+            container.addEventListener("click", e => {
+                const btn = e.target.closest("[data-video]");
+                if (btn) openDemoVideo(btn.dataset.video, btn.dataset.title);
+            });
             try {
                 const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
                 if (!response.ok) throw new Error('GitHub API request failed');
@@ -365,19 +402,33 @@
                     const description = repo.description || 'No description provided.';
                     const language = repo.language || 'Other';
                     const demoUrl = LIVE_DEMOS[String(repo.name || '').toLowerCase()];
-                    const liveDemoLabel = (translations[document.documentElement.lang] || translations.en).liveDemoLabel;
+                    const copy = translations[document.documentElement.lang] || translations.en;
+                    const liveDemoLabel = copy.liveDemoLabel;
+                    const repoKey = String(repo.name || '').toLowerCase();
+                    const downloads = GAME_DOWNLOADS[repoKey];
+                    const videoUrl = DEMO_VIDEOS[repoKey];
+                    const actions = [];
+                    if (demoUrl) actions.push(`<a class="repo-action repo-action-live" href="${esc(demoUrl)}" target="_blank" rel="noopener">${esc(liveDemoLabel)}</a>`);
+                    if (downloads) actions.push(`<details class="repo-download"><summary class="repo-action repo-action-live" data-i18n="downloadGameLabel">${esc(copy.downloadGameLabel)}</summary><div class="repo-download-menu">${downloads.map(([label, url]) => `<a href="${esc(url)}" rel="noopener">${esc(label)}</a>`).join('')}</div></details>`);
+                    if (videoUrl) actions.push(`<button type="button" class="repo-action" hidden data-video="${esc(videoUrl)}" data-title="${esc(repo.name)}" data-i18n="watchDemoLabel">${esc(copy.watchDemoLabel)}</button>`);
 
                     card.innerHTML = `
                         <div>
                             <a class="repo-name" href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(repo.name)}</a>
                             <p class="repo-desc">${esc(description)}</p>
-                            ${demoUrl ? `<div class="repo-actions"><a class="repo-action repo-action-live" href="${esc(demoUrl)}" target="_blank" rel="noopener">${esc(liveDemoLabel)}</a></div>` : ''}
+                            ${actions.length ? `<div class="repo-actions">${actions.join('')}</div>` : ''}
                         </div>
                         <div class="repo-meta">
                             <span class="meta-item"><span class="repo-lang-dot"></span>${esc(language)}</span>
                             <span class="meta-item">⭐ ${repo.stargazers_count}</span>
                         </div>`;
                     container.appendChild(card);
+                    const videoBtn = card.querySelector("[data-video]");
+                    if (videoBtn) {
+                        fetch(videoBtn.dataset.video, { method: "HEAD" })
+                            .then(r => { if (r.ok) videoBtn.hidden = false; })
+                            .catch(() => {});
+                    }
                 });
             } catch (error) {
                 console.error(error);
