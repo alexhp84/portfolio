@@ -1185,17 +1185,3 @@ section[id], header[id] { scroll-margin-top: 0; } /* scroll-padding handles the 
 @media (prefers-color-scheme: dark) {
     #projects .repo-action:not(.repo-action-live) { background: rgba(255,255,255,.06); color: #e4eaf4; border-color: #526078; }
 }
-
-
-/* Small project-card refinements only; shared top navigation and left sidebar remain unchanged. */
-#projects .repo-grid { align-items: stretch; }
-#projects .repo-card { min-width: 0; min-height: 250px; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px; }
-#projects .repo-card-content { flex: 1 1 auto; min-width: 0; }
-#projects .repo-name { display: block; overflow-wrap: anywhere; word-break: normal; }
-#projects .repo-desc { margin: 12px 0 0; }
-#projects .repo-card-footer { display: flex; flex-direction: column; gap: 16px; margin-top: auto; }
-#projects .repo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 0; }
-#projects .repo-action { min-height: 36px; padding: 8px 12px; border-radius: 999px; font-size: .8rem; line-height: 1.25; }
-#projects .repo-action-live { background: rgba(121,199,255,.12); border-color: rgba(121,199,255,.55); color: #bfe6ff; }
-#projects .repo-action:not(.repo-action-live) { background: rgba(255,255,255,.06); border-color: #526078; color: #e4eaf4; }
-#projects .repo-action:focus-visible { outline: 2px solid #9bd8ff; outline-offset: 3px; }

@@ -349,10 +349,8 @@
 
         // Friendly portfolio labels override raw GitHub slugs without changing repository links.
         const PROJECT_DISPLAY = {
-            "library-database-in-python": { name: "Library Database in Python", description: "A Python library-management application demonstrating modular application logic and SQL database integration." },
-            "library-database-in-python-": { name: "Library Database in Python", description: "A Python library-management application demonstrating modular application logic and SQL database integration." },
+            "library-database-in-python-": { name: "Library Database in Python", description: "A small Python and SQLite command-line app with authors and books tables, a join query and an add-book flow, demonstrating modular application logic and parameterised SQL." },
             "tic-tac-toe---ui": { name: "Hitchhiker's Tic-Tac-Toe", description: "A Hitchhiker's Guide to the Galaxy-themed Pygame game with Marvin AI, persistent session scores, and cross-platform builds." },
-            "tic-tac-toe-ui": { name: "Hitchhiker's Tic-Tac-Toe", description: "A Hitchhiker's Guide to the Galaxy-themed Pygame game with Marvin AI, persistent session scores, and cross-platform builds." },
             "eurovision": { name: "Eurovision Explorer", description: "A Flask and SQLite web app for exploring Eurovision winners and song details, with searchable records and country and year filters." },
             "lotterypicker---israel": { name: "Lottery Picker (Israel)" },
             "models-project": { name: "Segment Studio" },
